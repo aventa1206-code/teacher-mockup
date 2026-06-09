@@ -1,0 +1,2596 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>참빛북클럽 · 교사 자료실</title>
+<meta name="description" content="참빛교육 학원 관리자(원장님) 메인 대시보드">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<!-- Pretendard: Google Fonts 미제공 → jsDelivr 정식 CDN 사용 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    /* 브랜드 — 참빛 레드 (랜딩 페이지와 동일) */
+    --primary: #D33633;
+    --primary-dark: #B0282A;
+    --primary-soft: #FBECEC;
+    /* Neutrals — 본문 텍스트는 gray-600 이상(WCAG AA 충족), gray-400은 장식 전용 */
+    --gray-900: #1F2937;
+    --gray-700: #4B5563;
+    --gray-600: #6B7280;   /* 본문/보조 텍스트 (흰 배경 대비 4.8:1) */
+    --gray-400: #9CA3AF;   /* 장식·아이콘 전용 (텍스트 사용 금지) */
+    --gray-300: #E5E7EB;
+    --gray-200: #F3F4F6;
+    --gray-100: #F9FAFB;
+    --white: #FFFFFF;
+    --bg: #F8FAFC;
+    /* Status — 에러·위험은 모노톤 테마에서도 별도 색 유지 */
+    --danger: #D92D20;
+    --danger-soft: #FDECEA;
+    /* 레벨 컬러 — 7단계 수준별 시맨틱 팔레트 (메시지 모달 뱃지 등 학생 식별용) */
+    --level-k:  #E1502C;
+    --level-g1: #F2871F;
+    --level-g2: #F7BD7E;
+    --level-g3: #33B0A6;
+    --level-g4: #2AA7C8;
+    --level-g5: #2D6CB3;
+    --level-g6: #26406E;
+    /* 주요 메뉴 카드 컬러 — 프리미엄 SaaS 비비드 (방향 1) */
+    --card-library-bg:   #FFF1F2;  /* 옅은 로즈 배경 */
+    --card-library-d:    #E11D48;  /* 로즈 아이콘 */
+    --card-lms-bg:       #EEF2FF;  /* 옅은 인디고 배경 */
+    --card-lms-d:        #4F46E5;  /* 인디고 아이콘 */
+    --card-resources-bg: #EAF6EB;  /* 옅은 그린 배경 (학생 페이지 통일) */
+    --card-resources-d:  #4CA34F;  /* 그린 아이콘 (학생 prog-green-d) */
+    --card-workbook-bg:  #FFF7ED;  /* 옅은 오렌지 배경 (학생 페이지 통일) */
+    --card-workbook-d:   #ED6114;  /* 오렌지 아이콘 (학생 orange-600) */
+    /* 공통 액센트 — 학생 페이지 컬러와 통일 (브랜드 연결성 강화) */
+    --orange-400: #F99120;
+    --orange-600: #ED6114;
+    --orange-soft: #FFF1E5;
+    --prog-green: #5BB85B;
+    --prog-green-d: #4CA34F;
+    --green-soft: #E8F6E9;
+    --read-green: #3FA796;
+    --mr-purple: #6C5CE7;
+    --mr-purple-soft: #ECEAFB;
+    --info-blue: #4F46E5;
+    --info-blue-soft: #EEF2FF;
+    /* Typography scale — 학생/교사 통일 */
+    --fs-display: 32px;
+    --fs-h2: 22px;
+    --fs-h3: 18px;
+    --fs-body: 15px;
+    --fs-body-sm: 14px;
+    --fs-caption: 12px;
+    /* Radius 토큰 (가이드 8~16px) */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+    /* Elevation 토큰 */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
+    --shadow-card: 0 4px 16px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 12px -2px rgba(0,0,0,0.08);
+    --shadow-lg: 0 16px 32px -12px rgba(0,0,0,0.16);
+    /* Layout */
+    --sidebar-w: 240px;
+    --header-h: 80px;
+    --header-h-m: 64px;
+  }
+
+  body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--gray-900);
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+  }
+
+  /* ========== 접근성 유틸 ========== */
+  [hidden] { display: none !important; }
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0;
+    margin: -1px; overflow: hidden; clip: rect(0 0 0 0);
+    white-space: nowrap; border: 0;
+  }
+  /* Skip to content (Tab 첫 진입 시에만 노출) */
+  .skip-link {
+    position: absolute; top: -40px; left: 12px;
+    background: var(--primary); color: #fff;
+    padding: 10px 18px; border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 700; text-decoration: none;
+    z-index: 200;
+    transition: top 0.18s ease;
+  }
+  .skip-link:focus { top: 12px; outline: 2px solid #fff; outline-offset: 2px; }
+  /* 키보드 포커스 링 (마우스 클릭 시엔 표시 안 함) */
+  a:focus-visible, button:focus-visible, input:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* ========== Top Header ========== */
+  header.top-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-300);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  }
+  .header-inner {
+    padding: 0 28px;
+    height: var(--header-h);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .logo {
+    font-weight: 800; font-size: 22px; color: var(--gray-900);
+    letter-spacing: -0.03em; white-space: nowrap; flex-shrink: 0;
+    width: calc(var(--sidebar-w) - 28px);
+    display: flex; align-items: center;
+  }
+  .header-right { display: flex; align-items: center; gap: 28px; margin-left: auto; }
+  .header-icons { display: flex; gap: 8px; align-items: center; }
+  .icon-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--gray-100); border: none; cursor: pointer;
+    display: grid; place-items: center;
+    transition: background 0.2s; position: relative;
+  }
+  .icon-btn:hover { background: var(--gray-300); }
+  .icon-btn svg { width: 20px; height: 20px; stroke: var(--gray-700); }
+
+  /* 햄버거 (태블릿/모바일 전용) */
+  .hamburger {
+    display: none;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--gray-100); border: none; cursor: pointer;
+    align-items: center; justify-content: center;
+  }
+  .hamburger svg { width: 20px; height: 20px; stroke: var(--gray-700); }
+
+  /* 검색 펼침 */
+  .search-wrap { display: flex; align-items: center; position: relative; }
+  .search-input-box {
+    width: 0; overflow: hidden;
+    transition: width 0.3s ease, margin 0.3s ease;
+  }
+  .search-input-box.open { width: 200px; margin-right: 8px; }
+  .search-input-box input {
+    width: 100%; border: none; outline: none;
+    border-bottom: 1.5px solid var(--primary);
+    padding: 6px 4px; font-size: 14px;
+    font-family: inherit; background: transparent;
+    color: var(--gray-900);
+  }
+  .search-input-box input::placeholder { color: var(--gray-600); }
+
+  /* ========== Sidebar ========== */
+  aside.sidebar {
+    position: fixed; top: var(--header-h); left: 0; bottom: 0;
+    width: var(--sidebar-w);
+    background: var(--white);
+    border-right: 1px solid var(--gray-300);
+    overflow-y: auto;
+    padding: 20px 0 0;
+    z-index: 50;
+    display: flex; flex-direction: column;
+  }
+  aside.sidebar > nav { flex: 0 0 auto; }
+  /* 로그아웃은 메뉴 그룹 바로 아래에 자연스럽게 위치 (sticky 제거) */
+  .sidebar-bottom {
+    margin-top: 0;
+    flex-shrink: 0;
+    position: static;
+    background: var(--white);
+  }
+  .side-menu { list-style: none; padding: 8px 14px; }
+  .side-group-label {
+    font-size: 12px; font-weight: 700; color: var(--gray-600);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 8px 16px 6px;
+  }
+  .side-divider { height: 1px; background: var(--gray-200); margin: 8px 16px; }
+
+  /* 사이드바 항목 — a / button 공통 스타일 */
+  .side-menu li a,
+  .side-menu li .nav-link {
+    display: flex; align-items: center; gap: 14px;
+    width: 100%;
+    padding: 13px 16px; border-radius: var(--radius-sm);
+    text-decoration: none; color: var(--gray-700);
+    font-size: 15px; font-weight: 600; font-family: inherit;
+    letter-spacing: -0.02em; white-space: nowrap;
+    background: none; border: none; cursor: pointer; text-align: left;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  }
+  .side-menu li a:hover,
+  .side-menu li .nav-link:hover {
+    background: var(--gray-100); color: var(--primary);
+    transform: translateX(2px);
+  }
+  .side-menu li a:hover svg,
+  .side-menu li .nav-link:hover svg { stroke: var(--primary); }
+  .side-menu li a.active {
+    background: var(--gray-200);
+    color: var(--gray-900); font-weight: 700;
+  }
+  .side-menu li a.active svg { stroke: var(--gray-900); fill: var(--gray-900); }
+  .side-menu li a svg,
+  .side-menu li .nav-link svg {
+    width: 22px; height: 22px; flex-shrink: 0; stroke-width: 1.8;
+  }
+
+  /* 사이드바 메뉴 뱃지 */
+  .menu-badge {
+    margin-left: auto;
+    min-width: 18px; height: 18px; padding: 0 5px;
+    background: var(--primary); color: white;
+    font-size: 12px; font-weight: 700;
+    line-height: 18px; text-align: center;
+    border-radius: 9px;
+    font-family: 'Pretendard', sans-serif;
+  }
+
+  /* ========== 헤더 프로필 드롭다운 ========== */
+  .hd-menu { position: relative; }
+
+  /* 프로필 버튼 */
+  .profile-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 5px 10px 5px 5px; border-radius: var(--radius-pill);
+    background: var(--gray-100); border: none; cursor: pointer;
+    font-family: inherit; transition: background 0.2s;
+  }
+  .profile-btn:hover { background: var(--gray-300); }
+  .profile-btn-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    object-fit: cover; background: #ffd6df; flex-shrink: 0;
+  }
+  .profile-btn-name { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+  .profile-btn .chev { width: 14px; height: 14px; stroke: var(--gray-600); }
+
+  /* 드롭다운 공통 */
+  .hd-dropdown {
+    position: absolute; top: calc(100% + 10px); right: 0;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    z-index: 120;
+  }
+  .profile-dropdown { width: 248px; max-width: calc(100vw - 24px); padding: 6px; }
+
+  /* 프로필 드롭다운 */
+  .profile-userrow {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 10px 12px;
+  }
+  .profile-userrow img {
+    width: 40px; height: 40px; border-radius: 50%;
+    object-fit: cover; background: #ffd6df; flex-shrink: 0;
+  }
+  .profile-userrow .pu-info { min-width: 0; }
+  .profile-userrow strong {
+    display: block; font-size: 14px; font-weight: 700; color: var(--gray-900);
+  }
+  .profile-userrow span {
+    display: block; font-size: 12px; color: var(--gray-600);
+    font-family: 'Pretendard', sans-serif;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .hd-dropdown-sep { height: 1px; background: var(--gray-200); margin: 4px 0; }
+  .hd-menu-item {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    background: none; border: none; cursor: pointer;
+    font-family: inherit; font-size: 13px; font-weight: 600;
+    color: var(--gray-700); text-decoration: none; text-align: left;
+    transition: background 0.15s, color 0.15s;
+  }
+  .hd-menu-item:hover { background: var(--gray-100); color: var(--primary); }
+  .hd-menu-item svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .hd-menu-item-danger { color: var(--danger); }
+  .hd-menu-item-danger:hover { background: var(--danger-soft); }
+
+  /* 사이드바 SNS */
+  /* 사이드바 하단 로그아웃 — sticky */
+  .sidebar-logout {
+    margin: 0 14px;
+    padding-top: 10px;
+    border-top: 1px solid var(--gray-200);
+  }
+  .sidebar-logout button {
+    display: flex; align-items: center; gap: 14px;
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: var(--radius-sm);
+    background: none; border: none; cursor: pointer;
+    font-family: inherit; font-size: 15px; font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--danger); text-align: left;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .sidebar-logout button svg {
+    width: 22px; height: 22px; flex-shrink: 0; stroke-width: 1.8;
+    stroke: var(--danger);
+  }
+  .sidebar-logout button:hover {
+    background: var(--danger-soft);
+  }
+  .sidebar-logout button:focus-visible {
+    outline: 2px solid var(--danger);
+    outline-offset: 2px;
+  }
+
+  /* (구) 사이드바 SNS 영역 → 푸터로 이전, 룰 보존하되 미사용 */
+  .sidebar-social {
+    display: none; gap: 8px; padding: 12px 14px 16px;
+    border-top: 1px solid var(--gray-200);
+    margin-top: 10px;
+  }
+  .sidebar-social .sns-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--gray-100); color: var(--gray-600);
+    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  }
+  .sidebar-social .sns-btn:hover {
+    background: var(--gray-900); color: #fff;
+    transform: translateY(-2px);
+  }
+  .sidebar-social .sns-btn svg { width: 18px; height: 18px; }
+
+  /* 모바일 사이드바 오버레이 */
+  .sidebar-overlay {
+    display: none;
+    position: fixed; inset: var(--header-h) 0 0 0;
+    background: rgba(0,0,0,0.4); z-index: 40;
+  }
+  .sidebar-overlay.show { display: block; }
+
+  /* ========== Main ========== */
+  main.main-content {
+    margin-left: var(--sidebar-w);
+    margin-top: var(--header-h);
+    padding: 56px 0 80px;
+    display: flex; justify-content: center;
+  }
+  .content-inner {
+    width: 100%; max-width: 1400px;
+    padding: 0 48px; box-sizing: border-box;
+  }
+
+  /* 인사 */
+  .greeting {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 36px;
+    padding-bottom: 24px; border-bottom: 1px solid var(--gray-200);
+  }
+  .greeting-left h1 {
+    font-size: var(--fs-display); font-weight: 800; color: var(--gray-900);
+    letter-spacing: -0.03em; line-height: 1.25;
+  }
+  .greeting-left p {
+    font-size: var(--fs-body); font-weight: 500; color: var(--gray-600);
+    margin-top: 10px;
+  }
+  .greeting-right { text-align: right; }
+  .greeting-date {
+    font-size: 12px; font-weight: 700; color: var(--gray-600);
+    letter-spacing: 0.02em;
+  }
+  .greeting-day {
+    font-size: 24px; font-weight: 800; font-family: 'Pretendard', sans-serif;
+    letter-spacing: -0.02em; color: var(--gray-900); margin-top: 4px;
+  }
+
+  /* 섹션 헤더 */
+  .section-h {
+    display: flex; align-items: center; gap: 16px;
+    margin: 0 0 16px;
+  }
+  .section-h h2 {
+    font-size: var(--fs-h2); font-weight: 800; color: var(--gray-900);
+    letter-spacing: -0.03em;
+  }
+
+  /* 주요 메뉴 — 액션 카드 4 (자주 쓰는 바로가기) */
+  .action-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 12px; margin-bottom: 48px;
+  }
+  .action-card {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg); padding: 28px;
+    text-decoration: none; color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    display: flex; flex-direction: column; gap: 32px;
+    min-height: 180px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+  }
+  .action-card::after {
+    content: '→'; position: absolute;
+    bottom: 22px; right: 22px;
+    color: var(--gray-400);
+    font-size: 16px; font-weight: 700;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  .action-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--gray-300);
+    box-shadow: var(--shadow-md);
+  }
+  .action-card:hover::after { color: var(--primary); transform: translateX(4px); }
+  .action-card .ac-top { display: flex; align-items: center; gap: 10px; }
+  .action-card .ac-icon {
+    width: 44px; height: 44px; border-radius: var(--radius-md);
+    background: var(--gray-100); color: var(--gray-700);
+    display: grid; place-items: center;
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  }
+  .action-card:hover .ac-icon { transform: scale(1.08); background: var(--primary-soft); color: var(--primary); }
+  .action-card:hover .ac-body h3 { color: var(--primary); }
+  .action-card .ac-body h3 { transition: color 0.2s ease; }
+  .action-card .ac-icon svg { width: 22px; height: 22px; }
+  /* 주요 메뉴 카드 — 파스텔 4색 (브랜드 카드 컬러, 평상시 only) */
+  .action-card.card-library .ac-icon   { background: var(--card-library-bg);   color: var(--card-library-d); }
+  .action-card.card-lms .ac-icon       { background: var(--card-lms-bg);       color: var(--card-lms-d); }
+  .action-card.card-resources .ac-icon { background: var(--card-resources-bg); color: var(--card-resources-d); }
+  .action-card.card-workbook .ac-icon  { background: var(--card-workbook-bg);  color: var(--card-workbook-d); }
+  .ac-body { margin-top: auto; }
+  .ac-body h3 {
+    font-size: var(--fs-h3); font-weight: 700; color: var(--gray-900);
+    letter-spacing: -0.02em; margin-bottom: 6px; line-height: 1.3;
+  }
+  .ac-body p { font-size: var(--fs-body-sm); color: var(--gray-600); font-weight: 500; }
+
+  /* 영상 배너 (데스크탑 / 모바일 분기) */
+  .video-banner {
+    display: block; width: 100%;
+    border-radius: var(--radius-lg); overflow: hidden;
+    background-color: #FFF1B9;
+    background-image: url('https://new.bookclubs.co.kr/brandnew/images/main/banner_20.jpg');
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    margin-bottom: 32px;
+    aspect-ratio: 16 / 4;
+    border: 1px solid var(--gray-300);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+  }
+  .video-banner:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+  /* 새소식 / 자료실 + 캠페인 배너 */
+  .info-row {
+    display: grid; grid-template-columns: 1.7fr 1fr;
+    gap: 18px; margin-bottom: 56px;
+    align-items: stretch;
+  }
+  .info-row .campaign-card { height: 100%; }
+
+  /* 탭 카드 */
+  .tab-card {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 4px 10px 14px;
+    display: flex; flex-direction: column;
+    transition: box-shadow 0.2s ease;
+  }
+  .tab-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 10px 4px;
+    border-bottom: 1px solid var(--gray-200);
+    margin-bottom: 8px;
+  }
+  .tab-list { display: flex; gap: 0; }
+  .tab-btn {
+    background: none; border: none; cursor: pointer;
+    padding: 14px 0 16px; margin-right: 24px;
+    font-family: inherit; font-size: 16px; font-weight: 800;
+    color: var(--gray-600);
+    letter-spacing: -0.02em; position: relative;
+    transition: color 0.18s ease;
+  }
+  .tab-btn:hover { color: var(--gray-900); }
+  .tab-btn.active { color: var(--gray-900); }
+  .tab-btn.active::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -1px;
+    height: 3px; background: var(--gray-900); border-radius: 2px;
+  }
+  .tab-more {
+    font-size: 12px; color: var(--gray-600); text-decoration: none;
+    font-weight: 600;
+  }
+  .tab-more:hover { color: var(--primary); }
+
+  /* 리스트 */
+  .list-stack { display: flex; flex-direction: column; gap: 0; }
+  .list-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    text-decoration: none; color: inherit;
+    transition: background 0.18s ease;
+  }
+  .list-item:hover { background: var(--gray-100); }
+  .file-icon {
+    flex-shrink: 0;
+    display: grid; place-items: center;
+    width: 20px; height: 20px;
+    color: var(--gray-400);
+  }
+  .file-icon svg { width: 16px; height: 16px; }
+  .list-title {
+    flex: 1; font-size: var(--fs-body); color: var(--gray-900);
+    font-weight: 500; letter-spacing: -0.01em; line-height: 1.45;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  /* hover 시 weight 변동 제거 → 텍스트 폭 변동 없음, 정렬 안정 */
+  .list-item:hover .list-title { color: var(--primary); }
+  /* 날짜 메타 — 모든 list-item에서 픽셀 단위 우측 정렬 */
+  .list-date {
+    flex-shrink: 0;
+    width: 48px; text-align: right;
+    font-size: 12px; color: var(--gray-600);
+    font-family: 'Pretendard', sans-serif; font-weight: 500;
+    /* Pretendard 숫자 → 등폭(tabular)으로 강제, 행마다 픽셀 단위 정렬 보장 */
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+    margin-left: auto;
+  }
+  /* (NEW 뱃지 미사용 — 룰 제거됨) */
+  .list-arrow {
+    color: var(--gray-400); font-size: 18px; font-weight: 700;
+    transition: transform 0.18s ease, color 0.18s ease; flex-shrink: 0;
+    /* 고정폭 + 중앙정렬 → 행마다 화살표 X 위치 동일 보장 */
+    width: 14px; text-align: center;
+    margin-left: 10px;
+    line-height: 1;
+  }
+  .list-item:hover .list-arrow { color: var(--primary); transform: translateX(3px); }
+
+  /* 모바일에서 날짜 축소 */
+  @media (max-width: 480px) {
+    .list-date { font-size: 12px; }
+  }
+
+  /* ===== 위젯 상태: 로딩(스켈레톤) / 빈 화면 / 에러 ===== */
+  .widget-skeleton { padding: 4px 0; }
+  .skeleton-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 14px;
+  }
+  .sk {
+    background: var(--gray-200); border-radius: 6px;
+    position: relative; overflow: hidden;
+  }
+  .sk::after {
+    content: ''; position: absolute; inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.65), transparent);
+    animation: shimmer 1.3s infinite;
+  }
+  @keyframes shimmer { 100% { transform: translateX(100%); } }
+  .sk-tag { width: 38px; height: 18px; flex-shrink: 0; }
+  .sk-line { flex: 1; height: 14px; }
+
+  .widget-state {
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; gap: 4px;
+    padding: 44px 20px;
+  }
+  .ws-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--gray-100); color: var(--gray-400);
+    margin-bottom: 8px;
+  }
+  .ws-icon svg { width: 30px; height: 30px; }
+  .ws-icon.ws-icon-error { background: var(--danger-soft); color: var(--danger); }
+  .ws-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+  .ws-desc { font-size: 13px; color: var(--gray-600); line-height: 1.5; }
+  .ws-btn {
+    margin-top: 14px;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 18px; border-radius: var(--radius-sm);
+    background: var(--primary); color: #fff;
+    font-size: 13px; font-weight: 700; font-family: inherit;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background 0.18s ease;
+  }
+  .ws-btn:hover { background: var(--primary-dark); }
+  .ws-btn.ws-btn-ghost {
+    background: var(--white); color: var(--gray-900);
+    border: 1px solid var(--gray-300);
+  }
+  .ws-btn.ws-btn-ghost:hover { background: var(--gray-100); }
+
+  /* 시즌 캠페인 배너 */
+  .campaign-card {
+    display: block; width: 100%;
+    border-radius: var(--radius-lg); overflow: hidden;
+    background-image: url('https://cdn.bookclubs.co.kr/popup/banner_Learning.png');
+    background-size: cover; background-position: center;
+    background-color: #FFF1B9; background-repeat: no-repeat;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow-card);
+  }
+  .campaign-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+
+  /* ========== 학원 운영 도우미 (info-row 우측 위젯) ========== */
+  .helper-mini {
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 4px 10px 14px;
+    display: flex; flex-direction: column;
+    height: 100%;
+    transition: box-shadow 0.2s ease;
+  }
+  .helper-mini-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 10px 10px;
+    border-bottom: 1px solid var(--gray-200);
+    margin-bottom: 6px;
+  }
+  .helper-mini-head h3 {
+    font-size: 16px; font-weight: 800; color: var(--gray-900);
+    letter-spacing: -0.02em;
+  }
+  .helper-mini-more {
+    font-size: 12px; color: var(--gray-600); font-weight: 600;
+    text-decoration: none;
+  }
+  .helper-mini-more:hover { color: var(--primary); }
+  .helper-mini-list {
+    display: flex; flex-direction: column; gap: 0; flex: 1;
+  }
+  .helper-mini-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    text-decoration: none; color: inherit;
+    transition: background 0.18s ease;
+  }
+  .helper-mini-item:hover { background: var(--gray-100); }
+  .helper-mini-ic {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    display: grid; place-items: center;
+    overflow: hidden;
+    transition: transform 0.18s ease;
+  }
+  .helper-mini-item:hover .helper-mini-ic { transform: scale(1.08); }
+  .helper-mini-ic img { width: 100%; height: 100%; display: block; }
+  .helper-mini-ic.is-guide { background: var(--primary-soft); border-radius: 10px; }
+  .helper-mini-ic.is-guide svg { width: 22px; height: 22px; color: var(--primary); }
+  .helper-mini-info {
+    flex: 1; min-width: 0;
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .helper-mini-title {
+    font-size: 14px; font-weight: 700; color: var(--gray-900);
+    letter-spacing: -0.01em;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .helper-mini-fmt {
+    font-size: 12px; color: var(--gray-600); font-weight: 600;
+    font-family: 'Pretendard', sans-serif; letter-spacing: 0.04em;
+  }
+  .helper-mini-dl {
+    flex-shrink: 0;
+    width: 32px; height: 32px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--gray-100); color: var(--gray-700);
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .helper-mini-item:hover .helper-mini-dl { background: var(--primary-soft); color: var(--primary); }
+  .helper-mini-dl svg { width: 16px; height: 16px; }
+
+  /* 학원 운영 도우미 — 탭 패널 (좌측 카드와 동일한 .tab-btn 밑줄 탭 사용) */
+  .helper-mini-panel[hidden] { display: none; }
+  .helper-mini-panel { flex: 1; display: flex; flex-direction: column; }
+  .helper-mini-empty {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 8px; padding: 32px 12px; text-align: center;
+  }
+  .helper-mini-empty svg { width: 30px; height: 30px; color: var(--gray-400); }
+  .helper-mini-empty p { font-size: 13px; font-weight: 600; color: var(--gray-600); line-height: 1.5; }
+
+  /* ========== 모달 공통 ========== */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+    z-index: 1000; display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: white; border-radius: var(--radius-lg);
+    width: 100%; max-width: 480px;
+    max-height: 80vh; display: flex; flex-direction: column;
+    overflow: hidden; box-shadow: var(--shadow-lg);
+  }
+  .modal-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px; border-bottom: 1px solid var(--gray-300);
+  }
+  .modal-head h3 { font-size: 17px; font-weight: 800; color: var(--gray-900); }
+  .modal-close {
+    width: 32px; height: 32px; border-radius: 50%; border: none;
+    background: var(--gray-100); cursor: pointer; display: grid; place-items: center;
+  }
+  .modal-close:hover { background: var(--gray-300); }
+  .modal-close svg { width: 16px; height: 16px; stroke: var(--gray-700); }
+  .modal-body { flex: 1; overflow-y: auto; }
+
+  /* 메시지 모달 */
+  .msg-item {
+    display: flex; align-items: center; gap: 14px;
+    width: 100%;
+    padding: 14px 24px; cursor: pointer;
+    border: none; border-bottom: 1px solid var(--gray-200);
+    background: none; font-family: inherit; text-align: left;
+    text-decoration: none; color: inherit;
+  }
+  .msg-item:last-child { border-bottom: none; }
+  .msg-item:hover { background: var(--gray-100); }
+  .msg-avatar {
+    width: 48px; height: 48px; border-radius: 50%; object-fit: cover;
+    flex-shrink: 0; background: var(--gray-200);
+  }
+  .msg-content { flex: 1; min-width: 0; }
+  .msg-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+  .msg-name { font-size: 14px; font-weight: 700; color: var(--gray-900); }
+  .msg-time { font-size: 12px; color: var(--gray-600); font-family: 'Pretendard', sans-serif; }
+  .msg-bottom { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .msg-preview { font-size: 13px; color: var(--gray-600); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .unread-badge {
+    min-width: 20px; height: 20px; padding: 0 6px;
+    background: var(--primary); color: white;
+    border-radius: 10px; font-size: 12px; font-weight: 700;
+    line-height: 20px; text-align: center; flex-shrink: 0;
+  }
+  /* 레벨 뱃지 — 7단계 시맨틱 팔레트 (배경 옅게, 글씨 뚜렷하게) */
+  .msg-name-row { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+  .level-badge {
+    display: inline-block; flex-shrink: 0;
+    font-size: 12px; font-weight: 700;
+    padding: 2px 7px; border-radius: 5px;
+    font-family: 'Pretendard', sans-serif; line-height: 1.5;
+  }
+  .level-badge.lv-k  { background: color-mix(in srgb, var(--level-k)  16%, #fff); color: var(--level-k); }
+  .level-badge.lv-g1 { background: color-mix(in srgb, var(--level-g1) 18%, #fff); color: #B5610A; }
+  .level-badge.lv-g2 { background: color-mix(in srgb, var(--level-g2) 32%, #fff); color: #9A6212; }
+  .level-badge.lv-g3 { background: color-mix(in srgb, var(--level-g3) 16%, #fff); color: #1F7E76; }
+  .level-badge.lv-g4 { background: color-mix(in srgb, var(--level-g4) 16%, #fff); color: #1C7E97; }
+  .level-badge.lv-g5 { background: color-mix(in srgb, var(--level-g5) 14%, #fff); color: var(--level-g5); }
+  .level-badge.lv-g6 { background: color-mix(in srgb, var(--level-g6) 12%, #fff); color: var(--level-g6); }
+
+  /* 프로필 모달 */
+  .profile-modal .modal-box { max-width: 520px; }
+  .profile-tabs {
+    display: flex; border-bottom: 1px solid var(--gray-300); padding: 0 24px;
+  }
+  .profile-tab {
+    flex: 1; padding: 14px 0; background: none; border: none; cursor: pointer;
+    font-size: 14px; font-weight: 600; color: var(--gray-600);
+    border-bottom: 2px solid transparent; transition: all 0.2s;
+    font-family: inherit; text-align: center;
+  }
+  .profile-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+  .profile-pane { padding: 28px 24px; }
+  .avatar-current {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    margin-bottom: 20px;
+  }
+  .avatar-current img {
+    width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
+    background: #ffd6df; border: 3px solid white; box-shadow: var(--shadow-md);
+  }
+  .avatar-current strong { font-size: 16px; font-weight: 700; margin-top: 8px; color: var(--gray-900); }
+  .avatar-current p { font-size: 12px; color: var(--gray-600); }
+  .avatar-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    max-height: 260px; overflow-y: auto; padding: 4px;
+  }
+  .avatar-grid img {
+    width: 100%; aspect-ratio: 1; border-radius: 50%; object-fit: cover;
+    cursor: pointer; transition: transform 0.2s;
+    background: var(--gray-100); border: 3px solid transparent;
+  }
+  .avatar-grid img:hover { transform: scale(1.05); }
+  .avatar-grid img.selected {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-soft);
+  }
+  .form-field { margin-bottom: 16px; }
+  .form-field label {
+    display: block; font-size: 12px; color: var(--gray-600);
+    margin-bottom: 6px; font-weight: 600;
+  }
+  .form-field input {
+    width: 100%; padding: 12px 14px; font-size: 14px;
+    border: 1px solid var(--gray-300); border-radius: var(--radius-sm);
+    font-family: inherit; outline: none;
+    background: var(--gray-100);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .form-field input:focus { border-color: var(--primary); background: white; }
+  .modal-foot {
+    display: flex; justify-content: flex-end; gap: 8px;
+    padding: 16px 24px; border-top: 1px solid var(--gray-300);
+  }
+  .btn-secondary, .btn-primary, .btn-danger {
+    padding: 10px 22px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600;
+    cursor: pointer; border: none; font-family: inherit;
+  }
+  .btn-secondary { background: transparent; color: var(--gray-700); }
+  .btn-secondary:hover { background: var(--gray-100); }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-danger { background: var(--danger); color: white; }
+  .btn-danger:hover { background: #B0241B; }
+
+  /* 로그아웃 확인 모달 — 작은 사이즈 + 강조 텍스트 */
+  .confirm-modal .modal-box { max-width: 380px; }
+  .confirm-body { padding: 22px 24px 6px; }
+  .confirm-body p { font-size: 14px; color: var(--gray-700); line-height: 1.55; }
+
+  /* 카카오 톡상담 플로팅 */
+  .kakao-float {
+    position: fixed; right: 24px; bottom: 24px; z-index: 90;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 20px 10px 12px;
+    background: #FEE500; color: #3C1E1E;
+    border-radius: var(--radius-pill); text-decoration: none;
+    font-size: 14px; font-weight: 700; line-height: 1;
+    box-shadow: 0 8px 22px -6px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none; white-space: nowrap;
+  }
+  .kakao-float:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -6px rgba(0,0,0,0.25); }
+  .kakao-float .k-icon {
+    width: 22px; height: 22px;
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .kakao-float .k-icon svg { width: 22px; height: 22px; fill: #3C1E1E; display: block; }
+
+  /* Footer */
+  .site-footer {
+    background: var(--white);
+    border-top: 1px solid var(--gray-200);
+    padding: 24px 0 28px;
+    margin-left: var(--sidebar-w);
+  }
+  .footer-inner { max-width: 1400px; margin: 0 auto; padding: 0 48px; }
+  .footer-top {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 12px; flex-wrap: wrap; gap: 10px 16px;
+  }
+  .footer-left { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; min-width: 0; }
+  .footer-brand img { height: 28px; width: auto; display: block; }
+  /* 푸터 SNS — 우측 정렬 */
+  .footer-social { display: flex; gap: 8px; align-items: center; }
+  .footer-social .sns-btn {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    text-decoration: none; overflow: hidden;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+  .footer-social .sns-btn:hover { transform: translateY(-1px); opacity: 0.85; }
+  .footer-social .sns-btn:focus-visible { outline: none; box-shadow: 0 0 0 2px #fff, 0 0 0 4px #3B82F6; }
+  .footer-social .sns-btn img { width: 36px; height: 36px; display: block; }
+  .footer-links { display: flex; gap: 12px 18px; list-style: none; flex-wrap: wrap; }
+  .footer-links a {
+    font-size: 12px; color: var(--gray-700); text-decoration: none; font-weight: 500;
+    white-space: nowrap;
+  }
+  .footer-links a:hover { color: var(--primary); }
+  .footer-toggle {
+    background: none; border: none; cursor: pointer;
+    font-size: 12px; color: var(--gray-600); font-family: inherit; font-weight: 500;
+    padding: 0; display: inline-flex; align-items: center; gap: 4px;
+    margin-left: 12px;
+  }
+  .footer-toggle:hover { color: var(--gray-900); }
+  .footer-toggle .arr { transition: transform 0.2s ease; font-size: 12px; }
+  .footer-toggle.open .arr { transform: rotate(180deg); }
+  .footer-info {
+    font-size: 12px; color: var(--gray-600); line-height: 1.7;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+    padding: 0;
+  }
+  .footer-info.open {
+    max-height: 220px; padding-top: 14px; padding-bottom: 4px;
+    border-top: 1px solid var(--gray-200); margin-top: 4px;
+  }
+  .footer-info > div { margin-top: 4px; }
+  .footer-info .tel-label { color: var(--primary); font-weight: 700; }
+  .footer-info .tel-num { font-weight: 700; color: var(--gray-900); margin: 0 6px; font-family: 'Pretendard', sans-serif; }
+  .footer-copy {
+    font-size: 12px; color: var(--gray-600); font-family: 'Pretendard', sans-serif;
+    margin-top: 4px;
+  }
+
+  /* ========== 반응형 ========== */
+  /* 액션 카드: 1100px 이하 2열 */
+  @media (max-width: 1100px) {
+    .action-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  /* 태블릿 이하(1024px): LNB 숨김 + 햄버거 노출 (가이드 기준) */
+  @media (max-width: 1024px) {
+    aside.sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      box-shadow: var(--shadow-lg);
+    }
+    aside.sidebar.open { transform: translateX(0); }
+    .hamburger { display: inline-flex; }
+    main.main-content { margin-left: 0; }
+    .site-footer { margin-left: 0; }
+  }
+  /* 모바일(768px): 헤더 축소 + 세로 stack */
+  @media (max-width: 768px) {
+    /* 모바일 가로 오버플로우 안전망 — 위젯/그리드 콘텐츠가 화면 폭을 넘지 않도록 */
+    html, body { overflow-x: hidden; }
+    main.main-content { overflow-x: hidden; max-width: 100vw; }
+    .header-inner { padding: 0 16px; gap: 8px; height: var(--header-h-m); }
+    .logo { width: auto; font-size: 18px; }
+    /* 검색 열면 로고 숨겨 입력 공간 확보 (모바일 밀림 방지) */
+    .header-inner.search-open .logo { display: none; }
+    .search-input-box.open { width: min(200px, calc(100vw - 180px)); }
+    aside.sidebar { top: var(--header-h-m); }
+    .sidebar-overlay { inset: var(--header-h-m) 0 0 0; }
+    main.main-content { margin-top: var(--header-h-m); padding: 32px 0; }
+    .content-inner { padding: 0 16px; max-width: 100%; box-sizing: border-box; }
+    .footer-inner { padding: 0 16px; }
+    .greeting { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .greeting-right { text-align: left; }
+    .greeting-left h1 { font-size: 24px; }
+    .action-grid { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+    .action-card { padding: 18px; min-height: 140px; gap: 20px; min-width: 0; }
+    /* 그리드 셀이 자식 nowrap 콘텐츠로 늘어나 가로 잘림 발생 → minmax(0,1fr)로 강제 */
+    .info-row { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .info-row > * { min-width: 0; max-width: 100%; }
+    /* 모바일 캠페인 배너 — 인지성 ↑ 위해 비율 확대 (16:10 → 4:3) */
+    .info-row .campaign-card { aspect-ratio: 4 / 3; height: auto; }
+    /* 도우미 위젯: 1열에서 자연 높이로 풀기 */
+    .helper-mini { height: auto; }
+    .tab-card { min-width: 0; max-width: 100%; overflow: hidden; }
+    .list-item { min-width: 0; }
+    .list-title { min-width: 0; }
+  }
+  @media (max-width: 480px) {
+    .greeting-left h1 { font-size: 21px; }
+    .action-grid { gap: 8px; }
+    .action-card { padding: 16px; min-height: 120px; }
+    /* 카드 padding 16px로 줄어 22px 화살표가 ac-body와 충돌 → 12px 보정 */
+    .action-card::after { bottom: 12px; right: 12px; font-size: 14px; }
+    .ac-body h3 { font-size: 16px; }
+    .kakao-float { padding: 8px 16px 8px 8px; font-size: 13px; right: 16px; bottom: 16px; }
+    /* 좁은 화면: 프로필 버튼 아이콘만 노출 */
+    .profile-btn-name, .profile-btn .chev { display: none; }
+    .profile-btn { padding: 5px; }
+    .header-right { gap: 0; }
+    /* 캠페인 배너 — 480px 미만에서 5:4 (1:1보다 살짝 가로형) — 좌우 잘림 최소화 */
+    .info-row .campaign-card {
+      aspect-ratio: 5 / 4;
+      background-size: cover;
+      background-position: center;
+    }
+  }
+
+  /* ========== 웰컴 토스트 (첫 방문 시 비침습 안내) ========== */
+  .welcome-toast {
+    position: fixed;
+    top: calc(var(--header-h) + 16px);
+    right: 24px;
+    width: 320px; max-width: calc(100vw - 32px);
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 18px 18px 16px;
+    z-index: 95;
+    animation: welcome-toast-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes welcome-toast-in {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .welcome-toast-close {
+    position: absolute; top: 10px; right: 10px;
+    width: 28px; height: 28px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer;
+    color: var(--gray-600); border-radius: 4px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .welcome-toast-close:hover { background: var(--gray-100); color: var(--gray-900); }
+  .welcome-toast-close svg { width: 14px; height: 14px; }
+  .welcome-toast-icon {
+    width: 40px; height: 40px; border-radius: var(--radius-sm);
+    background: var(--primary-soft); color: var(--primary);
+    display: grid; place-items: center;
+    margin-bottom: 12px;
+  }
+  .welcome-toast-icon svg { width: 22px; height: 22px; }
+  .welcome-toast-title {
+    font-size: 15px; font-weight: 800; color: var(--gray-900);
+    letter-spacing: -0.02em; margin-bottom: 4px;
+  }
+  .welcome-toast-desc {
+    font-size: 13px; color: var(--gray-700);
+    line-height: 1.55; margin-bottom: 14px;
+  }
+  .welcome-toast-actions {
+    display: flex; gap: 8px; justify-content: flex-end;
+  }
+  .welcome-toast-btn {
+    font-family: inherit; font-size: 12px; font-weight: 700;
+    padding: 8px 14px; border-radius: var(--radius-sm);
+    border: none; cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .welcome-toast-btn-ghost { background: var(--gray-100); color: var(--gray-700); }
+  .welcome-toast-btn-ghost:hover { background: var(--gray-200); }
+  .welcome-toast-btn-primary { background: var(--primary); color: var(--white); }
+  .welcome-toast-btn-primary:hover { background: var(--primary-dark); }
+  @media (max-width: 768px) {
+    .welcome-toast {
+      top: calc(var(--header-h-m) + 12px);
+      right: 12px;
+      width: calc(100vw - 24px);
+      max-width: 320px;
+    }
+  }
+
+  /* ========== 멀티스텝 투어 (튜토리얼) ========== */
+  .tour-backdrop {
+    position: fixed; inset: 0;
+    background: transparent;
+    z-index: 1100;
+    pointer-events: auto;
+  }
+  /* spotlight: 강조 요소 영역 (box-shadow로 외부를 어둡게) — fixed로 viewport 기준 */
+  .tour-spotlight {
+    position: fixed;
+    border-radius: 10px;
+    box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.55);
+    transition: top 0.25s ease, left 0.25s ease, width 0.25s ease, height 0.25s ease;
+    pointer-events: none;
+    z-index: 1101;
+  }
+  /* spotlight 없는 fallback(모바일) — 단순 어두운 배경 */
+  .tour-backdrop.tour-modal-mode { background: rgba(15, 23, 42, 0.55); }
+
+  .tour-popover {
+    position: fixed;
+    width: 320px; max-width: calc(100vw - 32px);
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--gray-200);
+    padding: 18px 18px 14px;
+    z-index: 1102;
+    animation: tour-pop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  @keyframes tour-pop {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  /* 화살표 */
+  .tour-arrow {
+    position: absolute;
+    width: 14px; height: 14px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    transform: rotate(45deg);
+  }
+  .tour-arrow.arr-left   { left: -8px; border-right: none; border-top: none; }
+  .tour-arrow.arr-right  { right: -8px; border-left: none; border-bottom: none; }
+  .tour-arrow.arr-top    { top: -8px; border-right: none; border-bottom: none; }
+  .tour-arrow.arr-bottom { bottom: -8px; border-left: none; border-top: none; }
+
+  .tour-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; margin-bottom: 6px;
+  }
+  .tour-step-tag {
+    display: inline-flex; align-items: center;
+    font-size: 12px; font-weight: 700;
+    color: var(--primary);
+    background: var(--primary-soft);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    font-family: 'Pretendard', sans-serif;
+    letter-spacing: 0.02em;
+  }
+  .tour-close {
+    width: 26px; height: 26px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: none; border: none; cursor: pointer;
+    color: var(--gray-600); border-radius: 4px;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tour-close:hover { background: var(--gray-100); color: var(--gray-900); }
+  .tour-close svg { width: 16px; height: 16px; }
+
+  .tour-title {
+    font-size: 15px; font-weight: 800; color: var(--gray-900);
+    margin: 4px 0 8px;
+    letter-spacing: -0.02em;
+  }
+  .tour-desc {
+    font-size: 13px; color: var(--gray-700); line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .tour-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+  }
+  .tour-skip {
+    background: none; border: none; cursor: pointer;
+    font-family: inherit; font-size: 12px; font-weight: 600;
+    color: var(--gray-600); padding: 6px 4px;
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .tour-skip:hover { color: var(--gray-900); }
+  .tour-nav { display: flex; gap: 6px; }
+  .tour-btn {
+    font-family: inherit; font-size: 12px; font-weight: 700;
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    border: none; cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tour-btn-prev {
+    background: var(--gray-100); color: var(--gray-700);
+  }
+  .tour-btn-prev:hover { background: var(--gray-200); }
+  .tour-btn-prev:disabled { opacity: 0.4; cursor: not-allowed; }
+  .tour-btn-next {
+    background: var(--primary); color: var(--white);
+  }
+  .tour-btn-next:hover { background: var(--primary-dark); }
+
+  /* 모바일 fallback — 중앙 모달 형태 */
+  @media (max-width: 1024px) {
+    .tour-popover {
+      width: 300px;
+      padding: 16px 16px 14px;
+    }
+    .tour-popover.tour-modal-center {
+      top: 50% !important; left: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      animation: tour-pop-mobile 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .tour-popover.tour-modal-center .tour-arrow { display: none; }
+    .tour-title { font-size: 14px; margin: 2px 0 6px; }
+    .tour-desc  { font-size: 13px; margin-bottom: 14px; line-height: 1.55; }
+    @keyframes tour-pop-mobile {
+      from { opacity: 0; transform: translate(-50%, -48%) scale(0.96); }
+      to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+  }
+
+  /* ========================================================== */
+  /* 교사 자료실 페이지 (teacher-pds) — 디자인 토큰 그대로 사용   */
+  /* ========================================================== */
+  .pds-head { margin: 6px 0 22px; }
+  .pds-crumb {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--gray-600);
+    margin-bottom: 12px;
+  }
+  .pds-crumb-sep { color: var(--gray-400); }
+  .pds-crumb-cur { color: var(--primary); }
+  .pds-title {
+    font-size: var(--fs-display); font-weight: 800;
+    letter-spacing: -0.02em; color: var(--gray-900); line-height: 1.2;
+  }
+  .pds-sub { margin-top: 8px; font-size: var(--fs-body); color: var(--gray-600); }
+
+  /* 메인 탭 (밑줄형 — 메인 페이지 .tab-btn과 동일 룩) */
+  .pds-tabbar {
+    display: flex; gap: 0;
+    border-bottom: 1px solid var(--gray-200);
+    margin-bottom: 24px;
+  }
+  .pds-tab {
+    background: none; border: none; cursor: pointer;
+    font-family: inherit; font-size: 16px; font-weight: 800;
+    color: var(--gray-600); letter-spacing: -0.02em;
+    padding: 12px 0 16px; margin-right: 28px;
+    position: relative; transition: color 0.18s ease;
+  }
+  .pds-tab:hover { color: var(--gray-900); }
+  .pds-tab.active { color: var(--gray-900); }
+  .pds-tab.active::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -1px;
+    height: 3px; background: var(--primary); border-radius: 2px;
+  }
+  .pds-panel[hidden] { display: none; }
+
+  /* 카드 */
+  .pds-card {
+    background: var(--white); border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
+    padding: 24px;
+  }
+  .pds-card + .pds-card { margin-top: 18px; }
+  .pds-card-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 12px; padding-bottom: 16px; margin-bottom: 6px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .pds-card-title {
+    font-size: var(--fs-h3); font-weight: 800;
+    color: var(--gray-900); letter-spacing: -0.02em;
+  }
+  .pds-card-desc { margin-top: 5px; font-size: var(--fs-body-sm); color: var(--gray-600); line-height: 1.5; }
+  .pds-count { flex-shrink: 0; font-size: 13px; color: var(--gray-600); font-weight: 600; white-space: nowrap; }
+  .pds-count-num {
+    font-weight: 800; color: var(--gray-900); margin-right: 2px;
+    font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1;
+  }
+
+  /* 서브탭 (세그먼트형) */
+  .pds-subbar {
+    display: inline-flex; gap: 4px;
+    background: var(--gray-200); padding: 4px;
+    border-radius: var(--radius-pill); margin-bottom: 18px;
+  }
+  .pds-subtab {
+    background: none; border: none; cursor: pointer;
+    font-family: inherit; font-size: 14px; font-weight: 700;
+    color: var(--gray-600); padding: 8px 22px;
+    border-radius: var(--radius-pill); letter-spacing: -0.01em;
+    transition: color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+  }
+  .pds-subtab:hover { color: var(--gray-900); }
+  .pds-subtab.active { background: var(--white); color: var(--gray-900); box-shadow: var(--shadow-sm); }
+  .pds-subpane[hidden] { display: none; }
+
+  /* 자료 행 */
+  .res-list { display: flex; flex-direction: column; }
+  .res-item {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 12px; border-radius: var(--radius-md);
+    text-decoration: none; color: inherit;
+    transition: background 0.18s ease;
+  }
+  .res-item + .res-item { border-top: 1px solid var(--gray-200); }
+  .res-item:hover { background: var(--gray-100); }
+  .res-item:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .res-ic {
+    flex-shrink: 0; width: 44px; height: 44px;
+    border-radius: var(--radius-md); display: grid; place-items: center;
+    background: var(--primary-soft); color: var(--primary);
+    transition: transform 0.18s ease;
+  }
+  .res-item:hover .res-ic { transform: scale(1.06); }
+  .res-ic svg { width: 22px; height: 22px; }
+  .res-body { flex: 1; min-width: 0; }
+  .res-title { font-size: var(--fs-body); font-weight: 700; color: var(--gray-900); letter-spacing: -0.01em; line-height: 1.4; }
+  .res-item:hover .res-title { color: var(--primary); }
+  .res-desc { margin-top: 3px; font-size: 13px; color: var(--gray-600); line-height: 1.45; }
+  .res-meta { flex-shrink: 0; display: flex; align-items: center; gap: 12px; }
+  .res-fmt {
+    font-size: 11px; font-weight: 700; color: var(--gray-600);
+    background: var(--gray-200); padding: 4px 9px;
+    border-radius: var(--radius-sm); letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .res-date {
+    font-size: 12px; color: var(--gray-600); font-weight: 500;
+    width: 44px; text-align: right;
+    font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1;
+  }
+  .res-act {
+    width: 34px; height: 34px; flex-shrink: 0;
+    border-radius: var(--radius-sm); display: grid; place-items: center;
+    color: var(--gray-400); transition: background 0.18s ease, color 0.18s ease;
+  }
+  .res-item:hover .res-act { background: var(--primary-soft); color: var(--primary); }
+  .res-act svg { width: 18px; height: 18px; }
+
+  /* 반응형 */
+  @media (max-width: 768px) {
+    .pds-title { font-size: 24px; }
+    .pds-card { padding: 18px; }
+    .res-desc { display: none; }
+    .res-item { gap: 12px; padding: 14px 8px; }
+    .res-date { display: none; }
+  }
+  @media (max-width: 480px) {
+    .pds-tab { font-size: 15px; margin-right: 20px; }
+    .res-fmt { display: none; }
+  }
+
+  /* 자료 행 — PNG 아이콘 지원 */
+  .res-ic.is-img { background: transparent; }
+  .res-ic.is-file { background: var(--gray-200); color: var(--gray-600); }
+  .res-ic img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+
+  /* 페이지네이션 */
+  .res-pager { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--gray-200); }
+  .res-pager button {
+    min-width: 34px; height: 34px; padding: 0 9px;
+    border: 1px solid var(--gray-300); background: var(--white);
+    border-radius: var(--radius-sm); font-family: inherit; font-size: 13px;
+    font-weight: 600; color: var(--gray-700); cursor: pointer;
+    font-variant-numeric: tabular-nums; transition: background .15s ease, border-color .15s ease, color .15s ease;
+  }
+  .res-pager button:hover:not(:disabled) { border-color: var(--gray-400); color: var(--gray-900); background: var(--gray-100); }
+  .res-pager button.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .res-pager button:disabled { opacity: .4; cursor: not-allowed; }
+  .res-pager button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  /* 워크북 답안지 — 레벨별 아코디언 (레벨 컬러 토큰 유지) */
+  .res-acc-trigger { width: 100%; background: none; border: none; font-family: inherit; text-align: left; cursor: pointer; }
+  .res-acc-caret svg { transition: transform 0.2s ease; }
+  .res-acc-trigger[aria-expanded="true"] .res-acc-caret { background: var(--primary-soft); color: var(--primary); }
+  .res-acc-trigger[aria-expanded="true"] .res-acc-caret svg { transform: rotate(180deg); }
+  .res-item + .res-accordion, .res-accordion + .res-item { border-top: 1px solid var(--gray-200); }
+  .res-acc-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.22s ease; }
+  .res-acc-panel.open { grid-template-rows: 1fr; }
+  .res-acc-inner { overflow: hidden; }
+  .res-level { display: flex; align-items: center; gap: 12px; padding: 11px 12px 11px 70px; text-decoration: none; color: inherit; transition: background 0.15s ease; }
+  .res-level + .res-level { border-top: 1px solid var(--gray-100); }
+  .res-level:hover { background: var(--gray-100); }
+  .res-level:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; border-radius: var(--radius-sm); }
+  .res-level-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .res-level-name { flex: 1; font-size: 14px; font-weight: 600; color: var(--gray-700); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+  .res-level:hover .res-level-name { color: var(--gray-900); }
+  .res-level .res-act { width: 30px; height: 30px; }
+  .res-level:hover .res-act { background: var(--primary-soft); color: var(--primary); }
+  @media (prefers-reduced-motion: reduce) { .res-acc-panel { transition: none; } }
+</style>
+</head>
+<body>
+<!-- 참빛북클럽 교사 메인 v5 (개선판) — Empty/Loading/Error · 접근성 · 반응형 · 디자인 토큰 반영 -->
+
+
+<header class="top-header">
+  <div class="header-inner">
+    <button class="hamburger" id="hamburger" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="sidebar">
+      <svg fill="none" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="logo">(주)참빛교육</div>
+    <div class="header-right">
+      <div class="header-icons">
+        <div class="search-wrap">
+          <div class="search-input-box" id="searchBox">
+            <label for="searchInput" class="sr-only">책 제목 검색</label>
+            <input type="text" placeholder="책 제목으로 검색" id="searchInput">
+          </div>
+          <button class="icon-btn" id="searchBtn" type="button" aria-label="검색 열기" aria-expanded="false" aria-controls="searchBox">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          </button>
+        </div>
+
+        <!-- 프로필 -->
+        <div class="hd-menu">
+          <button class="profile-btn" id="profileBtn" type="button" aria-label="내 계정 메뉴" aria-haspopup="true" aria-expanded="false" aria-controls="profileDropdown">
+            <img class="profile-btn-avatar" src="https://cdn.bookclubs.co.kr/ai/avatars/pack1/girl-12.png" alt="" loading="lazy" decoding="async">
+            <span class="profile-btn-name">Hanna</span>
+            <svg class="chev" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="hd-dropdown profile-dropdown" id="profileDropdown" role="menu" aria-label="내 계정" hidden>
+            <div class="profile-userrow">
+              <img src="https://cdn.bookclubs.co.kr/ai/avatars/pack1/girl-12.png" alt="" loading="lazy" decoding="async">
+              <div class="pu-info">
+                <strong>Hanna 원장님</strong>
+                <span>hanna@chambitedu.com</span>
+              </div>
+            </div>
+            <div class="hd-dropdown-sep"></div>
+            <button class="hd-menu-item" type="button" role="menuitem" data-open-modal="profileModal">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9z"/></svg>
+              프로필 설정
+            </button>
+            <a class="hd-menu-item" role="menuitem" href="https://new.bookclubs.co.kr/pages/readingroom/mybooklist" target="_blank" rel="noopener noreferrer">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+              My Booklist
+            </a>
+            <a class="hd-menu-item" role="menuitem" href="#" data-link="badgeroom">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.5 14.5L7 22l5-3 5 3-1.5-7.5"/></svg>
+              뱃지룸
+            </a>
+            <a class="hd-menu-item" role="menuitem" href="https://new.bookclubs.co.kr/pages/user/mypage" target="_blank" rel="noopener noreferrer">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+              리딩로그
+            </a>
+            <a class="hd-menu-item" role="menuitem" href="https://new.bookclubs.co.kr/pages/lms/classes/members/2000121994/logs/parents?key=4b681fdd2b0513a0226b235aa1105f57&amp;from_date=2026-02-21&amp;to_date=2026-05-21" target="_blank" rel="noopener noreferrer">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+              학습기록 상세보기
+            </a>
+            <a class="hd-menu-item" role="menuitem" href="#" data-link="payment">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+              이용권 및 결제정보
+            </a>
+            <div class="hd-dropdown-sep"></div>
+            <button class="hd-menu-item hd-menu-item-danger" type="button" role="menuitem" id="logoutBtn" data-open-modal="logoutConfirmModal">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+              로그아웃
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar" aria-label="주 메뉴">
+  <nav aria-label="주요 메뉴">
+    <ul class="side-menu">
+      <li>
+        <a href="teacher-main-v10.html">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5V21H3V9.5z"/></svg>
+          홈
+        </a>
+      </li>
+      <li>
+        <button type="button" class="nav-link" data-open-modal="msgModal" aria-label="메시지, 안 읽음 1건">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          메시지
+          <span class="menu-badge" aria-hidden="true">1</span>
+        </button>
+      </li>
+      <li>
+        <a href="https://new.bookclubs.co.kr/pages/lms" target="_blank" rel="noopener noreferrer">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+          LMS
+        </a>
+      </li>
+      <li>
+        <a href="https://new.bookclubs.co.kr/pages/connect/ai/leveltest" target="_blank" rel="noopener noreferrer">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 11h6M9 15h6M12 7v.01"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+          AI 레벨 테스트
+        </a>
+      </li>
+    </ul>
+
+    <div class="side-divider"></div>
+    <div class="side-group-label">콘텐츠</div>
+    <ul class="side-menu">
+      <li><a href="https://new.bookclubs.co.kr/pages/readingroom/library" target="_blank" rel="noopener noreferrer">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        E-LIBRARY
+      </a></li>
+      <li><a href="https://new.bookclubs.co.kr/pages/readingroom/resources" target="_blank" rel="noopener noreferrer">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Resources
+      </a></li>
+      <li><a href="https://new.bookclubs.co.kr/pages/readingroom/workbook" target="_blank" rel="noopener noreferrer">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h8M8 17h5"/></svg>
+        Workbook
+      </a></li>
+      <li><a href="https://new.bookclubs.co.kr/pages/readingroom/storyfrom" target="_blank" rel="noopener noreferrer">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 2l3 7 7 .5-5.5 5 1.5 7-6-4-6 4 1.5-7L2 9.5 9 9z"/></svg>
+        StoryFrom
+      </a></li>
+      <li><a href="https://new.bookclubs.co.kr/pages/readingroom/extra" target="_blank" rel="noopener noreferrer">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Extra Reads
+      </a></li>
+    </ul>
+
+    <div class="side-divider"></div>
+    <div class="side-group-label">지원</div>
+    <ul class="side-menu">
+      <li><a href="#" class="active" aria-current="page">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        교사 자료실
+      </a></li>
+      <li><a href="https://new.bookclubs.co.kr/pages/support/remote" target="_blank" rel="noopener noreferrer">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="2" y="4" width="20" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg>
+        원격지원
+      </a></li>
+      <li><a href="https://new.bookclubs.co.kr/pages/support/faq" target="_blank" rel="noopener noreferrer">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.5 9a2.5 2.5 0 0 1 4.9.6c0 1.5-2.4 2.4-2.4 2.4"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        FAQ
+      </a></li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-bottom">
+  <div class="sidebar-logout">
+    <button type="button" id="sidebarLogoutBtn" aria-label="로그아웃" data-open-modal="logoutConfirmModal">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/></svg>
+      로그아웃
+    </button>
+  </div>
+
+  </div>
+</aside>
+
+<main class="main-content" id="mainContent" tabindex="-1">
+<div class="content-inner">
+
+  <!-- 페이지 헤더 -->
+  <section class="pds-head">
+    <nav class="pds-crumb" aria-label="현재 위치">
+      <span>지원</span>
+      <span class="pds-crumb-sep" aria-hidden="true">›</span>
+      <span class="pds-crumb-cur">교사 자료실</span>
+    </nav>
+    <h1 class="pds-title">교사 자료실</h1>
+    <p class="pds-sub">수업과 학원 운영에 필요한 자료를 한 곳에서 받아보세요.</p>
+  </section>
+
+  <!-- 메인 탭 -->
+  <div class="pds-tabbar" role="tablist" aria-label="자료 분류">
+    <button class="pds-tab active" type="button" role="tab" id="tabArchive" aria-selected="true" aria-controls="paneArchive">교사 자료실</button>
+    <button class="pds-tab" type="button" role="tab" id="tabHelper" aria-selected="false" aria-controls="paneHelper" tabindex="-1">학원 운영 도우미</button>
+  </div>
+
+  <!-- ============ 패널 1 : 교사 자료실 ============ -->
+  <section class="pds-panel" id="paneArchive" role="tabpanel" aria-labelledby="tabArchive">
+    <div class="pds-card">
+
+      <!-- Loading (스켈레톤) -->
+      <div class="widget-skeleton" data-state-for="archive" hidden>
+        <div class="skeleton-row"><span class="sk sk-tag"></span><span class="sk sk-line"></span></div>
+        <div class="skeleton-row"><span class="sk sk-tag"></span><span class="sk sk-line"></span></div>
+        <div class="skeleton-row"><span class="sk sk-tag"></span><span class="sk sk-line"></span></div>
+        <div class="skeleton-row"><span class="sk sk-tag"></span><span class="sk sk-line"></span></div>
+        <div class="skeleton-row"><span class="sk sk-tag"></span><span class="sk sk-line"></span></div>
+      </div>
+
+      <!-- Default (데이터) -->
+      <div class="res-list" data-state-for="archive">
+          <a href="https://cdn.bookclubs.co.kr/tr_a/2024_LMS.pdf" target="_blank" rel="noopener noreferrer" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">북클럽 교사용 사용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">북클럽 학생용 소개 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="https://cdn.bookclubs.co.kr/tr_a/Introduction.pdf" target="_blank" rel="noopener noreferrer" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">참빛북클럽 소개 자료</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">어린이 영어작가 소개 자료</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <div class="res-accordion">
+          <button type="button" class="res-item res-acc-trigger" aria-expanded="false" aria-controls="wbLevels"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">워크북 답안지</span></span><span class="res-meta"><span class="res-act res-acc-caret" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></span></button>
+          <div class="res-acc-panel" id="wbLevels" inert>
+            <div class="res-acc-inner">
+            <a href="#" download class="res-level" aria-label="레벨 K 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-k)"></span><span class="res-level-name">레벨 K</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
+            <a href="#" download class="res-level" aria-label="레벨 G1 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g1)"></span><span class="res-level-name">레벨 G1</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
+            <a href="#" download class="res-level" aria-label="레벨 G2 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g2)"></span><span class="res-level-name">레벨 G2</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
+            <a href="#" download class="res-level" aria-label="레벨 G3 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g3)"></span><span class="res-level-name">레벨 G3</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
+            <a href="#" download class="res-level" aria-label="레벨 G4 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g4)"></span><span class="res-level-name">레벨 G4</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
+            <a href="#" download class="res-level" aria-label="레벨 G5 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g5)"></span><span class="res-level-name">레벨 G5</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
+            <a href="#" download class="res-level" aria-label="레벨 G6 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g6)"></span><span class="res-level-name">레벨 G6</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
+            </div>
+          </div>
+        </div>
+          <a href="https://cdn.bookclubs.co.kr/tr_a/Basic_guide.pdf" target="_blank" rel="noopener noreferrer" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">참빛북클럽 첫 시작 커리큘럼 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">녹음기능 사용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">E-Library 이용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">StoryFrom 활용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">Workbook 활용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">Extra Reads 안내 자료</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">레벨 테스트 안내 자료</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">Monthly Report 활용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">독서 레벨표(Lexile) 안내</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+        </div>
+
+      <!-- Empty -->
+      <div class="widget-state widget-empty" data-state-for="archive" hidden>
+        <div class="ws-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+        <p class="ws-title">등록된 자료가 없습니다</p>
+        <p class="ws-desc">새로운 교사 자료가 등록되면 이곳에 표시됩니다.</p>
+      </div>
+
+      <!-- Error -->
+      <div class="widget-state widget-empty" data-state-for="archive" hidden>
+        <div class="ws-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <p class="ws-title">자료를 불러오지 못했습니다</p>
+        <p class="ws-desc">네트워크 상태를 확인한 뒤 다시 시도해 주세요.</p>
+        <button class="ws-btn" type="button" onclick="location.reload()">다시 시도</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 패널 2 : 학원 운영 도우미 ============ -->
+  <section class="pds-panel" id="paneHelper" role="tabpanel" aria-labelledby="tabHelper" hidden>
+    <div class="pds-subbar" role="tablist" aria-label="운영 도우미 분류">
+      <button class="pds-subtab active" type="button" role="tab" id="subAdmin" aria-selected="true" aria-controls="paneAdmin">운영 자료</button>
+      <button class="pds-subtab" type="button" role="tab" id="subTeach" aria-selected="false" aria-controls="paneTeach" tabindex="-1">교수 자료</button>
+    </div>
+
+    <!-- 운영 자료 (다운로드형 서식) -->
+    <div class="pds-subpane" id="paneAdmin" role="tabpanel" aria-labelledby="subAdmin">
+      <div class="pds-card">
+        <div class="res-list" data-state-for="admin">
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">휴무 공지</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">학원 일정표</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">학생 피드백 카드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">가정통신문</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">방학 특강 안내문</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">학원 홍보용 전단지</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">수강료 안내 템플릿</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">학부모 오리엔테이션 자료</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">신규 원생 등록 양식</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">출결부 양식</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">상담 일지 양식</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">결석·지각 안내문</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">학원 규정 안내문</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+        </div>
+        <div class="widget-state widget-empty" data-state-for="admin" hidden>
+          <div class="ws-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+          <p class="ws-title">등록된 서식이 없습니다</p>
+          <p class="ws-desc">새 운영 서식이 추가되면 이곳에 표시됩니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 교수 자료 (보기형 가이드) -->
+    <div class="pds-subpane" id="paneTeach" role="tabpanel" aria-labelledby="subTeach" hidden>
+      <div class="pds-card">
+        <div class="res-list" data-state-for="teach">
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">학부모 상담 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">첫 상담 스크립트</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">학습 지도법</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">학생 동기부여 노하우</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">레벨별 수업 운영안</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">파닉스 지도 노하우</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">리딩 클래스 진행 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">라이팅 첨삭 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">스피킹 수업 활동지</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">어휘 학습 게임 모음</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">학습 부진 학생 지도법</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">그룹 수업 운영 팁</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">온라인 수업 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
+        </div>
+        <div class="widget-state widget-empty" data-state-for="teach" hidden>
+          <div class="ws-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <p class="ws-title">등록된 가이드가 없습니다</p>
+          <p class="ws-desc">새 교수 자료가 추가되면 이곳에 표시됩니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</main>
+
+
+<!-- 메시지 모달 -->
+<div class="modal-overlay" id="msgModal" role="dialog" aria-modal="true" aria-labelledby="msgModalTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="msgModalTitle">Hanna 원장님의 메시지함</h3>
+      <button class="modal-close" type="button" data-close-modal aria-label="메시지함 닫기">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="list-stack" data-state-for="msg">
+        <button type="button" class="msg-item">
+          <img class="msg-avatar" src="https://cdn.bookclubs.co.kr/ai/avatars/pack1/girl-12.png" alt="지수" loading="lazy" decoding="async">
+          <div class="msg-content">
+            <div class="msg-top"><span class="msg-name">지수</span><span class="msg-time">방금 전</span></div>
+            <div class="msg-bottom"><span class="msg-preview">🎧 Jj - Recording Submission</span><span class="unread-badge" aria-label="안 읽음 1건">1</span></div>
+          </div>
+        </button>
+        <button type="button" class="msg-item">
+          <img class="msg-avatar" src="https://cdn.bookclubs.co.kr/ai/avatars/pack1/boy-3.png" alt="창빈" loading="lazy" decoding="async">
+          <div class="msg-content">
+            <div class="msg-top"><span class="msg-name">창빈</span><span class="msg-time">1시간 전</span></div>
+            <div class="msg-bottom"><span class="msg-preview">선생님, 질문 있어요!</span></div>
+          </div>
+        </button>
+        <button type="button" class="msg-item">
+          <img class="msg-avatar" src="https://cdn.bookclubs.co.kr/ai/avatars/pack1/girl-5.png" alt="줄리엣" loading="lazy" decoding="async">
+          <div class="msg-content">
+            <div class="msg-top"><span class="msg-name">줄리엣</span><span class="msg-time">어제</span></div>
+            <div class="msg-bottom"><span class="msg-preview">녹음 숙제 보냈습니다. 확인해주세요!</span></div>
+          </div>
+        </button>
+        <button type="button" class="msg-item">
+          <img class="msg-avatar" src="https://cdn.bookclubs.co.kr/ai/avatars/pack1/girl-1.png" alt="제니" loading="lazy" decoding="async">
+          <div class="msg-content">
+            <div class="msg-top"><span class="msg-name">제니</span><span class="msg-time">어제</span></div>
+            <div class="msg-bottom"><span class="msg-preview">선생님, 숙제 다 했어요!</span></div>
+          </div>
+        </button>
+      </div>
+      <!-- 메시지 로딩(스켈레톤) -->
+      <div class="widget-skeleton" data-state-for="msg" hidden>
+        <div class="skeleton-row"><span class="sk sk-tag" style="width:48px;height:48px;border-radius:50%;"></span><span class="sk sk-line"></span></div>
+        <div class="skeleton-row"><span class="sk sk-tag" style="width:48px;height:48px;border-radius:50%;"></span><span class="sk sk-line"></span></div>
+        <div class="skeleton-row"><span class="sk sk-tag" style="width:48px;height:48px;border-radius:50%;"></span><span class="sk sk-line"></span></div>
+      </div>
+      <!-- 메시지 빈 화면 -->
+      <div class="widget-state widget-empty" data-state-for="msg" hidden>
+        <div class="ws-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </div>
+        <p class="ws-title">받은 메시지가 없습니다</p>
+        <p class="ws-desc">학생이 보낸 메시지가 이곳에 표시됩니다.</p>
+        <button class="ws-btn ws-btn-ghost" type="button" data-close-modal>닫기</button>
+      </div>
+      <!-- 메시지 에러 -->
+      <div class="widget-state widget-error" data-state-for="msg" hidden>
+        <div class="ws-icon ws-icon-error">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v5M12 16v.01"/></svg>
+        </div>
+        <p class="ws-title">메시지를 불러오지 못했어요</p>
+        <p class="ws-desc">잠시 후 다시 시도해 주세요.</p>
+        <button class="ws-btn" type="button" data-retry="msg">다시 시도</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 프로필 설정 모달 -->
+<div class="modal-overlay profile-modal" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="profileModalTitle">프로필 설정</h3>
+      <button class="modal-close" type="button" data-close-modal aria-label="프로필 설정 닫기">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="profile-tabs" role="tablist" aria-label="프로필 설정 항목">
+      <button class="profile-tab active" type="button" role="tab" id="ptab-avatar"
+              aria-selected="true" aria-controls="pane-avatar">프로필 이미지</button>
+      <button class="profile-tab" type="button" role="tab" id="ptab-password"
+              aria-selected="false" aria-controls="pane-password" tabindex="-1">비밀번호 변경</button>
+    </div>
+    <div class="modal-body">
+      <div class="profile-pane" id="pane-avatar" role="tabpanel" aria-labelledby="ptab-avatar">
+        <div class="avatar-current">
+          <img id="currentAvatar" src="https://cdn.bookclubs.co.kr/ai/avatars/pack1/girl-12.png" alt="현재 프로필 이미지">
+          <strong>Hanna</strong>
+          <p>아래 이미지 중 하나를 선택해주세요</p>
+        </div>
+        <div class="avatar-grid" id="avatarGrid"></div>
+      </div>
+      <div class="profile-pane" id="pane-password" role="tabpanel" aria-labelledby="ptab-password" hidden>
+        <div class="form-field">
+          <label for="pw-current">현재 비밀번호</label>
+          <input id="pw-current" type="password" placeholder="••••••••••" autocomplete="current-password">
+        </div>
+        <div class="form-field">
+          <label for="pw-new">새로운 비밀번호</label>
+          <input id="pw-new" type="password" placeholder="새로운 비밀번호" autocomplete="new-password">
+        </div>
+        <div class="form-field">
+          <label for="pw-confirm">새로운 비밀번호 확인</label>
+          <input id="pw-confirm" type="password" placeholder="새로운 비밀번호 확인" autocomplete="new-password">
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-secondary" type="button" data-close-modal>닫기</button>
+      <button class="btn-primary" type="button" data-close-modal>저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 로그아웃 확인 모달 -->
+<div class="modal-overlay confirm-modal" id="logoutConfirmModal" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle" aria-describedby="logoutModalDesc">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="logoutModalTitle">로그아웃</h3>
+      <button class="modal-close" type="button" data-close-modal aria-label="닫기">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body confirm-body">
+      <p id="logoutModalDesc">로그아웃 하시겠습니까?</p>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-secondary" type="button" data-close-modal>취소</button>
+      <button class="btn-danger" type="button" id="logoutConfirmBtn">로그아웃</button>
+    </div>
+  </div>
+</div>
+
+<!-- 카카오 톡상담 플로팅 -->
+<a href="https://pf.kakao.com/_chambit/chat" target="_blank" rel="noopener noreferrer" class="kakao-float" aria-label="카카오톡 상담">
+  <span class="k-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 4C6.86 4 2.7 7.27 2.7 11.3c0 2.6 1.73 4.88 4.32 6.16-.19.66-.69 2.5-.79 2.89-.12.48.18.47.37.34.15-.1 2.4-1.63 3.37-2.29.64.09 1.3.14 2.03.14 5.14 0 9.3-3.27 9.3-7.3S17.14 4 12 4z"/></svg>
+  </span>
+  <span>톡상담</span>
+</a>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-left">
+        <span class="footer-brand"><img src="https://new.bookclubs.co.kr/brandnew/images/common/bot_logo.png" alt="CHAMBIT BOOKCLUBS"></span>
+        <ul class="footer-links">
+          <li><a href="https://new.bookclubs.co.kr/pages/company" target="_blank" rel="noopener noreferrer">회사소개</a></li>
+          <li><a href="https://new.bookclubs.co.kr/pages/terms/privacy" target="_blank" rel="noopener noreferrer">개인정보처리방침</a></li>
+          <li><a href="https://new.bookclubs.co.kr/pages/terms/terms" target="_blank" rel="noopener noreferrer">이용약관</a></li>
+        </ul>
+      </div>
+      <div class="footer-social" aria-label="공식 채널">
+        <a href="https://www.instagram.com/chambit_bookclubs/" target="_blank" rel="noopener noreferrer" class="sns-btn" aria-label="인스타그램">
+          <img src="https://cdn.bookclubs.co.kr/intern/sye/Instagram.png" alt="인스타그램" width="36" height="36">
+        </a>
+        <a href="https://blog.naver.com/bookclubs" target="_blank" rel="noopener noreferrer" class="sns-btn" aria-label="네이버 블로그">
+          <img src="https://new.bookclubs.co.kr/brandnew/images/common/ico_sns04.png" alt="네이버 블로그" width="36" height="36">
+        </a>
+        <a href="#" data-needs-url="youtube" target="_blank" rel="noopener noreferrer" class="sns-btn" aria-label="유튜브">
+          <img src="https://cdn.bookclubs.co.kr/intern/sye/youtube.png" alt="유튜브" width="36" height="36">
+        </a>
+        <a href="#" data-needs-url="blogger" target="_blank" rel="noopener noreferrer" class="sns-btn" aria-label="구글 블로그">
+          <img src="https://cdn.bookclubs.co.kr/intern/sye/blogger_icon.svg" alt="구글 블로그" width="36" height="36">
+        </a>
+      </div>
+    </div>
+    <div class="footer-copy">
+      © 2020 Chambit Education. All rights reserved.
+      <button class="footer-toggle" id="footerToggle" type="button" aria-expanded="false" aria-controls="footerInfo">
+        <span class="ft-text">사업자 정보 보기</span> <span class="arr" aria-hidden="true">▾</span>
+      </button>
+    </div>
+    <div class="footer-info" id="footerInfo">
+      <div><span class="tel-label">고객센터</span><span class="tel-num">070-7547-8969</span>평일(공휴일제외) 오전10시-오후6시 (점심시간 12-1시)</div>
+      <div>대표이사 : 김병화 &nbsp;·&nbsp; 상호명 : (주)참빛교육 &nbsp;·&nbsp; 사업자등록번호 : 128-86-30878 &nbsp;·&nbsp; 통신판매업신고 : 제 2008-경기고양-7986호 &nbsp;·&nbsp; 개인정보관리책임자 : 김병화</div>
+      <div>주소 : 경기도 고양시 일산동구 태극로 60 빛마루 16층 1604호 우)10393 &nbsp;·&nbsp; FAX : 0303-0106-1060</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* =====================================================================
+   참빛북클럽 교사 메인 v4 — 개선판
+   위젯 상태 API:  setWidgetState(name, state)
+     name : 'pds' | 'news' | 'msg'
+     state: 'loading' | 'data' | 'empty' | 'error'
+   실제 백엔드 연동 시:
+     fetch(...).then(r => setWidgetState('news', r.length ? 'data' : 'empty'))
+               .catch(() => setWidgetState('news', 'error'));
+   ===================================================================== */
+(function () {
+  'use strict';
+
+  /* ---------- 오늘 날짜 ---------- */
+  var days = ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'];
+  var now = new Date();
+  var dayEl = document.getElementById('dateDay');
+  var valEl = document.getElementById('dateValue');
+  if (dayEl) dayEl.textContent = days[now.getDay()];
+  if (valEl) valEl.textContent = now.getFullYear() + '.' +
+    String(now.getMonth() + 1).padStart(2, '0') + '.' +
+    String(now.getDate()).padStart(2, '0');
+
+  /* ---------- 사이드바 ---------- */
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebarOverlay');
+  var hamburger = document.getElementById('hamburger');
+  function toggleSidebar(force) {
+    var open = (force !== undefined) ? force : !sidebar.classList.contains('open');
+    sidebar.classList.toggle('open', open);
+    overlay.classList.toggle('show', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+    hamburger.setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+  }
+  hamburger.addEventListener('click', function () { toggleSidebar(); });
+  overlay.addEventListener('click', function () { toggleSidebar(false); });
+
+  /* ---------- 헤더 프로필 드롭다운 ---------- */
+  function closeAllHdDropdowns(except) {
+    document.querySelectorAll('.hd-menu').forEach(function (menu) {
+      if (menu === except) return;
+      var btn = menu.querySelector('[aria-haspopup]');
+      var dd = menu.querySelector('.hd-dropdown');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      if (dd) dd.hidden = true;
+    });
+  }
+  document.querySelectorAll('.hd-menu').forEach(function (menu) {
+    var btn = menu.querySelector('[aria-haspopup]');
+    var dd = menu.querySelector('.hd-dropdown');
+    if (!btn || !dd) return;
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var willOpen = dd.hidden;
+      closeAllHdDropdowns(menu);
+      dd.hidden = !willOpen;
+      btn.setAttribute('aria-expanded', String(willOpen));
+      if (willOpen) {
+        var first = dd.querySelector('a[href], button');
+        if (first) setTimeout(function () { first.focus(); }, 30);
+      }
+    });
+    dd.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      var items = [].slice.call(dd.querySelectorAll('a[href], button'));
+      if (!items.length) return;
+      var i = items.indexOf(document.activeElement);
+      e.preventDefault();
+      if (e.key === 'ArrowDown') items[(i + 1) % items.length].focus();
+      else items[(i - 1 + items.length) % items.length].focus();
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest('.hd-menu')) closeAllHdDropdowns(null);
+  });
+
+  /* ---------- 검색 ---------- */
+  var searchBtn = document.getElementById('searchBtn');
+  var searchBox = document.getElementById('searchBox');
+  var searchInput = document.getElementById('searchInput');
+  var headerInner = document.querySelector('.header-inner');
+  searchBtn.addEventListener('click', function () {
+    var open = searchBox.classList.toggle('open');
+    headerInner.classList.toggle('search-open', open);
+    searchBtn.setAttribute('aria-expanded', String(open));
+    searchBtn.setAttribute('aria-label', open ? '검색 닫기' : '검색 열기');
+    if (open) setTimeout(function () { searchInput.focus(); }, 200);
+  });
+  // Enter 입력 시 도서 검색 결과(E-LIBRARY)로 이동
+  searchInput.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var q = searchInput.value.trim();
+    if (!q) return;
+    window.open('https://new.bookclubs.co.kr/pages/readingroom/library?keyword=' + encodeURIComponent(q), '_blank', 'noopener');
+  });
+
+  /* ---------- 모달 (포커스 이동 · 포커스 트랩 · 복귀) ---------- */
+  function getFocusable(el) {
+    return [].slice.call(el.querySelectorAll(
+      'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )).filter(function (n) { return n.offsetParent !== null; });
+  }
+  var lastOpener = null;
+  function openModal(id) {
+    var m = document.getElementById(id);
+    if (!m) return;
+    lastOpener = document.activeElement;
+    // 헤더 드롭다운 안에서 열렸으면 포커스 복귀 대상을 드롭다운 트리거로 보정
+    var inDropdown = lastOpener && lastOpener.closest && lastOpener.closest('.hd-menu');
+    if (inDropdown) lastOpener = inDropdown.querySelector('[aria-haspopup]');
+    closeAllHdDropdowns(null);
+    m.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    if (id === 'profileModal') buildAvatarGrid();
+    var f = getFocusable(m);
+    setTimeout(function () { (f[0] || m).focus(); }, 50);
+  }
+  function closeModal(m) {
+    if (!m) return;
+    m.classList.remove('show');
+    document.body.style.overflow = '';
+    if (lastOpener) { lastOpener.focus(); lastOpener = null; }
+  }
+  document.querySelectorAll('[data-open-modal]').forEach(function (b) {
+    b.addEventListener('click', function () { openModal(b.dataset.openModal); });
+  });
+  document.querySelectorAll('[data-close-modal]').forEach(function (b) {
+    b.addEventListener('click', function () { closeModal(b.closest('.modal-overlay')); });
+  });
+  // 로그아웃 확인 버튼 — 실제 로그아웃 처리
+  var logoutConfirmBtn = document.getElementById('logoutConfirmBtn');
+  if (logoutConfirmBtn) {
+    logoutConfirmBtn.addEventListener('click', function () {
+      // TODO: 백엔드 로그아웃 엔드포인트 연결 (예: POST /logout)
+      // window.location.href = '/logout';
+      closeModal(document.getElementById('logoutConfirmModal'));
+    });
+  }
+  document.querySelectorAll('.modal-overlay').forEach(function (m) {
+    m.addEventListener('click', function (e) { if (e.target === m) closeModal(m); });
+    m.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var f = getFocusable(m);
+      if (!f.length) return;
+      var first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+  });
+
+  /* ---------- 탭 (리스트 탭 · 프로필 탭 공통, ARIA + 키보드) ---------- */
+  function activateTab(tab) {
+    var list = tab.closest('[role="tablist"]');
+    list.querySelectorAll('[role="tab"]').forEach(function (t) {
+      var on = (t === tab);
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !on;
+    });
+  }
+  document.querySelectorAll('[role="tab"]').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      activateTab(tab);
+      if (tab.dataset.more) {
+        var ml = document.getElementById('tabMoreLink');
+        if (ml) ml.href = tab.dataset.more;
+      }
+    });
+  });
+  document.querySelectorAll('[role="tablist"]').forEach(function (list) {
+    var tabs = [].slice.call(list.querySelectorAll('[role="tab"]'));
+    list.addEventListener('keydown', function (e) {
+      var i = tabs.indexOf(document.activeElement);
+      if (i < 0) return;
+      var n;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') n = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') n = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') n = 0;
+      else if (e.key === 'End') n = tabs.length - 1;
+      else return;
+      e.preventDefault();
+      tabs[n].focus();
+      tabs[n].click();
+    });
+  });
+
+  /* ---------- 위젯 상태: 로딩 / 데이터 / 빈 화면 / 에러 ---------- */
+  function setWidgetState(name, state) {
+    var kindByState = { loading: 'skeleton', data: 'list', empty: 'empty', error: 'error' };
+    document.querySelectorAll('[data-state-for="' + name + '"]').forEach(function (el) {
+      var kind = el.classList.contains('widget-skeleton') ? 'skeleton'
+        : el.classList.contains('list-stack') ? 'list'
+        : el.classList.contains('widget-empty') ? 'empty'
+        : el.classList.contains('widget-error') ? 'error' : '';
+      el.hidden = (kind !== kindByState[state]);
+    });
+    // 로딩 중에는 보조기기에 'aria-busy'로 알림
+    var pane = document.getElementById('pane-' + name);
+    if (pane) pane.setAttribute('aria-busy', state === 'loading' ? 'true' : 'false');
+  }
+  window.setWidgetState = setWidgetState; // 콘솔/백엔드에서 호출 가능
+
+  function loadWidget(name) {
+    setWidgetState(name, 'loading');
+    // 데모: 0.5초 후 데이터 표시. 실제 연동 시 fetch 결과로 교체하세요.
+    setTimeout(function () { setWidgetState(name, 'data'); }, 500);
+  }
+  // 기본 HTML이 데이터 노출 상태 → JS 미실행 시에도 목록이 보임(점진적 향상).
+  // 로딩 연출은 '다시 시도' 버튼·실제 백엔드 연동 시 loadWidget()으로 호출.
+
+  document.querySelectorAll('[data-retry]').forEach(function (b) {
+    b.addEventListener('click', function () { loadWidget(b.dataset.retry); });
+  });
+
+  /* ---------- 푸터 토글 ---------- */
+  var fToggle = document.getElementById('footerToggle');
+  var fInfo = document.getElementById('footerInfo');
+  fToggle.addEventListener('click', function () {
+    var open = fInfo.classList.toggle('open');
+    fToggle.classList.toggle('open', open);
+    fToggle.setAttribute('aria-expanded', String(open));
+    fToggle.querySelector('.ft-text').textContent = open ? '사업자 정보 접기' : '사업자 정보 보기';
+  });
+
+  /* ---------- 아바타 그리드 (모달 첫 오픈 시 지연 생성) ---------- */
+  var avatars = ['girl-1','girl-2','girl-3','girl-4','girl-5','girl-6','girl-7','girl-8','girl-9','girl-10','girl-11','girl-12','boy-1','boy-2','boy-3','boy-4','boy-5','boy-6','boy-7','boy-8','boy-9','boy-10','boy-11','boy-12'];
+  var avatarBuilt = false;
+  function buildAvatarGrid() {
+    if (avatarBuilt) return;
+    avatarBuilt = true;
+    var grid = document.getElementById('avatarGrid');
+    if (!grid) return;
+    avatars.forEach(function (name) {
+      var img = document.createElement('img');
+      img.src = 'https://cdn.bookclubs.co.kr/ai/avatars/pack1/' + name + '.png';
+      img.alt = name + ' 아바타';
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-pressed', 'false');
+      function pick() {
+        grid.querySelectorAll('img').forEach(function (i) {
+          i.classList.remove('selected');
+          i.setAttribute('aria-pressed', 'false');
+        });
+        img.classList.add('selected');
+        img.setAttribute('aria-pressed', 'true');
+        document.getElementById('currentAvatar').src = img.src;
+      }
+      img.addEventListener('click', pick);
+      img.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); }
+      });
+      grid.appendChild(img);
+    });
+  }
+
+  /* ---------- 사이드바 메시지 뱃지 동기화 (안 읽음 수 동적 바인딩) ---------- */
+  function updateMsgBadge() {
+    var modal = document.getElementById('msgModal');
+    var navBtn = document.querySelector('.side-menu [data-open-modal="msgModal"]');
+    if (!modal || !navBtn) return;
+    var badge = navBtn.querySelector('.menu-badge');
+    if (!badge) return;
+    var unreadCount = modal.querySelectorAll('.msg-item .unread-badge').length;
+    if (unreadCount > 0) {
+      badge.textContent = unreadCount > 99 ? '99+' : String(unreadCount);
+      badge.hidden = false;
+      navBtn.setAttribute('aria-label', '메시지, 안 읽음 ' + unreadCount + '건');
+    } else {
+      badge.hidden = true;
+      navBtn.setAttribute('aria-label', '메시지');
+    }
+  }
+  updateMsgBadge();
+  window.updateMsgBadge = updateMsgBadge; // 외부에서 메시지 읽음 처리 후 호출 가능
+
+  /* ---------- ESC: 모달 · 검색 · 사이드바 닫기 ---------- */
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    document.querySelectorAll('.modal-overlay.show').forEach(closeModal);
+    // 열린 헤더 드롭다운은 닫고 트리거로 포커스 복귀
+    var openTrigger = document.querySelector('.hd-menu [aria-expanded="true"]');
+    closeAllHdDropdowns(null);
+    if (openTrigger) openTrigger.focus();
+    if (searchBox.classList.contains('open')) {
+      searchBox.classList.remove('open');
+      headerInner.classList.remove('search-open');
+      searchBtn.setAttribute('aria-expanded', 'false');
+      searchBtn.setAttribute('aria-label', '검색 열기');
+    }
+    toggleSidebar(false);
+  });
+})();
+</script>
+
+<!-- ========== 웰컴 토스트 (첫 방문 시 비침습 안내) ========== -->
+<div class="welcome-toast" id="welcomeToast" role="dialog" aria-labelledby="welcomeToastTitle" aria-describedby="welcomeToastDesc" hidden>
+  <button type="button" class="welcome-toast-close" id="welcomeToastClose" aria-label="닫기">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <div class="welcome-toast-icon" aria-hidden="true">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7 7 .5-5.5 5 1.5 7-6-4-6 4 1.5-7L2 9.5 9 9z"/></svg>
+  </div>
+  <h3 class="welcome-toast-title" id="welcomeToastTitle">참빛북클럽에 오신 걸 환영해요!</h3>
+  <p class="welcome-toast-desc" id="welcomeToastDesc">1분이면 주요 기능을 빠르게 둘러볼 수 있어요.</p>
+  <div class="welcome-toast-actions">
+    <button type="button" class="welcome-toast-btn welcome-toast-btn-ghost" id="welcomeToastLater">다음에</button>
+    <button type="button" class="welcome-toast-btn welcome-toast-btn-primary" id="welcomeToastStart">둘러보기 시작</button>
+  </div>
+</div>
+
+<!-- ========== 멀티스텝 투어 (튜토리얼) ========== -->
+<div class="tour-backdrop" id="tourBackdrop" hidden>
+  <div class="tour-spotlight" id="tourSpotlight"></div>
+</div>
+<div class="tour-popover" id="tourPopover" role="dialog" aria-modal="true" aria-labelledby="tourTitle" aria-describedby="tourDesc" hidden>
+  <div class="tour-arrow" id="tourArrow"></div>
+  <div class="tour-head">
+    <span class="tour-step-tag" id="tourStepTag">1 / 7</span>
+    <button type="button" class="tour-close" id="tourClose" aria-label="튜토리얼 닫기">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <h3 class="tour-title" id="tourTitle"></h3>
+  <p class="tour-desc" id="tourDesc"></p>
+  <div class="tour-foot">
+    <button type="button" class="tour-skip" id="tourSkip">건너뛰기</button>
+    <div class="tour-nav">
+      <button type="button" class="tour-btn tour-btn-prev" id="tourPrev">이전</button>
+      <button type="button" class="tour-btn tour-btn-next" id="tourNext">다음</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ========== 멀티스텝 투어 (튜토리얼) ========== */
+(function() {
+  const STORAGE_KEY = 'chambit_onboarding_seen';
+
+  const STEPS = [
+    {
+      selector: 'aside.sidebar',
+      title: '왼쪽 메뉴',
+      desc: '왼쪽 메뉴에서 모든 페이지로 한 번에 이동하세요.',
+      placement: 'right'
+    },
+    {
+      selector: '.action-card.card-library',
+      title: 'E-LIBRARY',
+      desc: '참빛북클럽의 모든 도서를 한곳에서.',
+      placement: 'bottom'
+    },
+    {
+      selector: '.action-card.card-lms',
+      title: 'LMS',
+      desc: '학생 등록·학습 진도·월간 리포트까지 한 번에.',
+      placement: 'bottom'
+    },
+    {
+      selector: '.action-card.card-resources',
+      title: 'Resources',
+      desc: '도서별 출력형 학습 자료(워크시트·활동지) 모음.',
+      placement: 'bottom'
+    },
+    {
+      selector: '.action-card.card-workbook',
+      title: 'Workbook',
+      desc: '전용 워크북 확인·학습·인쇄까지 한 번에.',
+      placement: 'bottom'
+    },
+    {
+      selector: '.tab-card',
+      title: '공지 & 자료실',
+      desc: '교사 자료실과 새소식을 한 번에 확인하세요.',
+      placement: 'top'
+    },
+    {
+      selector: '#profileBtn',
+      title: '내 계정',
+      desc: '프로필 설정 · My Booklist(학생 메인페이지) · 리딩로그 · 학습기록 · 로그아웃까지 한 곳에서.',
+      placement: 'bottom'
+    },
+    {
+      selector: '#profileBtn',
+      title: 'My Booklist는 학생 메인페이지',
+      desc: '내 메뉴 → My Booklist를 클릭하면 학생 전용 메인페이지로 이동합니다. 학생 입장의 화면을 그대로 확인할 수 있어요.',
+      placement: 'bottom'
+    }
+  ];
+
+  const backdrop  = document.getElementById('tourBackdrop');
+  const spotlight = document.getElementById('tourSpotlight');
+  const popover   = document.getElementById('tourPopover');
+  const arrow     = document.getElementById('tourArrow');
+  const stepTag   = document.getElementById('tourStepTag');
+  const titleEl   = document.getElementById('tourTitle');
+  const descEl    = document.getElementById('tourDesc');
+  const skipBtn   = document.getElementById('tourSkip');
+  const prevBtn   = document.getElementById('tourPrev');
+  const nextBtn   = document.getElementById('tourNext');
+  const closeBtn  = document.getElementById('tourClose');
+  if (!backdrop || !popover) return;
+
+  let idx = 0;
+  let active = false;
+  let scrolledForStep = -1; // 무한 루프 방지: 같은 step에 대해 scrollIntoView는 1회만
+  let tourLastFocus = null; // 투어 종료 후 포커스 복귀 대상
+
+  function isMobile() { return window.innerWidth <= 1024; }
+
+  function positionTo(step) {
+    const target = document.querySelector(step.selector);
+    const total = STEPS.length;
+    stepTag.textContent = (idx + 1) + ' / ' + total;
+    titleEl.textContent = step.title;
+    descEl.textContent  = step.desc;
+    prevBtn.disabled = (idx === 0);
+    nextBtn.textContent = (idx === total - 1) ? '시작하기' : '다음';
+
+    if (!target || isMobile()) {
+      // fallback: 중앙 모달
+      popover.classList.add('tour-modal-center');
+      popover.style.top = '';
+      popover.style.left = '';
+      spotlight.hidden = true;
+      backdrop.classList.add('tour-modal-mode');
+      return;
+    }
+
+    popover.classList.remove('tour-modal-center');
+    spotlight.hidden = false;
+    backdrop.classList.remove('tour-modal-mode');
+
+    // viewport 기준 좌표 (position: fixed 이므로 scroll 더하지 않음)
+    const rect = target.getBoundingClientRect();
+    const pad = 8;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // spotlight 배치 — viewport 내로 클램프 (사이드바 같은 매우 큰 요소 대응)
+    const sTop    = Math.max(0, rect.top - pad);
+    const sLeft   = Math.max(0, rect.left - pad);
+    const sBottom = Math.min(vh, rect.bottom + pad);
+    const sRight  = Math.min(vw, rect.right + pad);
+    spotlight.style.top    = sTop + 'px';
+    spotlight.style.left   = sLeft + 'px';
+    spotlight.style.width  = Math.max(0, sRight - sLeft) + 'px';
+    spotlight.style.height = Math.max(0, sBottom - sTop) + 'px';
+
+    // popover 배치 (placement 기준, viewport 좌표)
+    const popW = popover.offsetWidth  || 320;
+    const popH = popover.offsetHeight || 200;
+    const gap = 16;
+    let top, left;
+    arrow.className = 'tour-arrow';
+
+    if (step.placement === 'right') {
+      // 사이드바 등 매우 큰 요소는 viewport 세로 중앙에 popover
+      const targetCenter = Math.min(vh - popH/2 - 12, Math.max(popH/2 + 12, rect.top + rect.height / 2));
+      top  = targetCenter - popH / 2;
+      left = rect.right + gap;
+      arrow.classList.add('arr-left');
+      arrow.style.top = (popH / 2 - 7) + 'px';
+      arrow.style.left = '';
+    } else if (step.placement === 'left') {
+      const targetCenter = Math.min(vh - popH/2 - 12, Math.max(popH/2 + 12, rect.top + rect.height / 2));
+      top  = targetCenter - popH / 2;
+      left = rect.left - popW - gap;
+      arrow.classList.add('arr-right');
+      arrow.style.top = (popH / 2 - 7) + 'px';
+      arrow.style.left = '';
+    } else if (step.placement === 'top') {
+      top  = rect.top - popH - gap;
+      left = rect.left + rect.width / 2 - popW / 2;
+      arrow.classList.add('arr-bottom');
+      arrow.style.left = (popW / 2 - 7) + 'px';
+      arrow.style.top = '';
+    } else { // bottom (default)
+      top  = rect.bottom + gap;
+      left = rect.left + rect.width / 2 - popW / 2;
+      arrow.classList.add('arr-top');
+      arrow.style.left = (popW / 2 - 7) + 'px';
+      arrow.style.top = '';
+    }
+
+    // viewport 경계 보정
+    const minLeft = 12, maxLeft = vw - popW - 12;
+    if (left < minLeft) left = minLeft;
+    if (left > maxLeft) left = maxLeft;
+    const minTop = 12, maxTop = vh - popH - 12;
+    if (top < minTop) top = minTop;
+    if (top > maxTop) top = maxTop;
+
+    popover.style.top  = top + 'px';
+    popover.style.left = left + 'px';
+  }
+
+  function showStep(n) {
+    idx = Math.max(0, Math.min(STEPS.length - 1, n));
+    const step = STEPS[idx];
+    const target = document.querySelector(step.selector);
+
+    // 강조 요소가 viewport 밖이면 1회만 스크롤 (사이드바·헤더 같은 fixed 요소나 매우 큰 요소는 제외)
+    if (target && !isMobile() && scrolledForStep !== idx) {
+      const rect = target.getBoundingClientRect();
+      const cs = window.getComputedStyle(target);
+      const isFixed = cs.position === 'fixed';
+      const tooTall = rect.height > window.innerHeight - 100;
+      const outOfView = rect.top < 80 || rect.bottom > window.innerHeight - 80;
+      if (!isFixed && !tooTall && outOfView) {
+        scrolledForStep = idx;
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // 스크롤 후 재배치 — 항상 *현재* step을 참조 (stale closure 방지)
+        setTimeout(() => positionTo(STEPS[idx]), 400);
+        return;
+      }
+      scrolledForStep = idx;
+    }
+    positionTo(step);
+  }
+  function open() {
+    if (active) return;
+    active = true;
+    idx = 0;
+    scrolledForStep = -1;
+    tourLastFocus = document.activeElement; // 종료 후 포커스 복귀
+    backdrop.hidden = false;
+    popover.hidden = false;
+    document.body.style.overflow = 'hidden';
+    showStep(0);
+    setTimeout(() => nextBtn.focus(), 50);
+    document.addEventListener('keydown', onKey);
+    window.addEventListener('resize', onResize);
+  }
+  function close() {
+    if (!active) return;
+    active = false;
+    scrolledForStep = -1;
+    try { localStorage.setItem(STORAGE_KEY, 'true'); } catch (e) {}
+    backdrop.hidden = true;
+    popover.hidden = true;
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', onKey);
+    window.removeEventListener('resize', onResize);
+    // 포커스 복귀
+    if (tourLastFocus && typeof tourLastFocus.focus === 'function') {
+      try { tourLastFocus.focus(); } catch (e) {}
+    }
+    tourLastFocus = null;
+  }
+  function onKey(e) {
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key === 'ArrowRight') { next(); return; }
+    if (e.key === 'ArrowLeft') { prev(); return; }
+    // 포커스 트랩 — popover 내부에서만 Tab 순환 (modal a11y)
+    if (e.key === 'Tab') {
+      const focusable = popover.querySelectorAll(
+        'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  }
+  let resizeT;
+  function onResize() {
+    clearTimeout(resizeT);
+    resizeT = setTimeout(() => positionTo(STEPS[idx]), 120);
+  }
+  function next() {
+    if (idx >= STEPS.length - 1) { close(); return; }
+    scrolledForStep = -1; // 새 step이면 스크롤 재허용
+    showStep(idx + 1);
+  }
+  function prev() {
+    if (idx > 0) {
+      scrolledForStep = -1;
+      showStep(idx - 1);
+    }
+  }
+
+  closeBtn.addEventListener('click', close);
+  skipBtn.addEventListener('click', close);
+  nextBtn.addEventListener('click', next);
+  prevBtn.addEventListener('click', prev);
+
+  // ===== 웰컴 토스트 (첫 방문 시 비침습 노출) =====
+  // 즉시 튜토리얼 모달은 사용자 통제권이 결여됨 → 비침습 토스트로 동의 후 시작
+  const welcomeToast = document.getElementById('welcomeToast');
+  const welcomeToastStart = document.getElementById('welcomeToastStart');
+  const welcomeToastLater = document.getElementById('welcomeToastLater');
+  const welcomeToastClose = document.getElementById('welcomeToastClose');
+  function hideWelcomeToast(markSeen) {
+    if (!welcomeToast) return;
+    welcomeToast.hidden = true;
+    if (markSeen !== false) {
+      try { localStorage.setItem(STORAGE_KEY, 'true'); } catch (e) {}
+    }
+  }
+  function showWelcomeToast() {
+    if (!welcomeToast) return;
+    welcomeToast.hidden = false;
+  }
+  if (welcomeToastStart) welcomeToastStart.addEventListener('click', function() {
+    hideWelcomeToast(false); // 'true' 저장은 close()에서 처리
+    open();
+  });
+  if (welcomeToastLater) welcomeToastLater.addEventListener('click', function() { hideWelcomeToast(true); });
+  if (welcomeToastClose) welcomeToastClose.addEventListener('click', function() { hideWelcomeToast(true); });
+
+  // 최초 방문 — 비침습 토스트로 전환 (즉시 모달은 사용성 부담)
+  let firstVisit = true;
+  try { if (localStorage.getItem(STORAGE_KEY) === 'true') firstVisit = false; } catch (e) {}
+  // 교사 자료실 페이지: 대시보드 온보딩 투어 비표시 (강조 대상 요소 부재)
+  if (false && firstVisit) {
+    setTimeout(showWelcomeToast, 800);
+  }
+
+  // 다시 보기 트리거 (전역 노출)
+  window.__chambitStartTour = function() {
+    try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+    open();
+  };
+  document.querySelectorAll('[data-start-tour]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.__chambitStartTour();
+    });
+  });
+})();
+</script>
+
+<script>
+/* 교사 자료실 페이지 — 탭/서브탭 전환 (접근성: 화살표 키 + Home/End) */
+(function () {
+  function wireTabs(tabs, panes) {
+    function activate(idx, focus) {
+      tabs.forEach(function (t, i) {
+        var on = i === idx;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        t.tabIndex = on ? 0 : -1;
+        if (panes[i]) panes[i].hidden = !on;
+      });
+      if (focus) tabs[idx].focus();
+    }
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener('click', function () { activate(i, false); });
+      tab.addEventListener('keydown', function (e) {
+        var n = tabs.length, next = null;
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % n;
+        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + n) % n;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = n - 1;
+        if (next !== null) { e.preventDefault(); activate(next, true); }
+      });
+    });
+  }
+
+  wireTabs(
+    [document.getElementById('tabArchive'), document.getElementById('tabHelper')],
+    [document.getElementById('paneArchive'), document.getElementById('paneHelper')]
+  );
+  wireTabs(
+    [document.getElementById('subAdmin'), document.getElementById('subTeach')],
+    [document.getElementById('paneAdmin'), document.getElementById('paneTeach')]
+  );
+})();
+</script>
+
+
+<script>
+/* 자료 목록 페이지네이션 — 페이지당 10개, 초과 시 다음 페이지 */
+(function () {
+  var SIZE = 10;
+  document.querySelectorAll('.res-list').forEach(function (list) {
+    var items = Array.prototype.slice.call(list.querySelectorAll(':scope > .res-item, :scope > .res-accordion'));
+    if (items.length <= SIZE) return;
+    var pages = Math.ceil(items.length / SIZE), cur = 1;
+    var pager = document.createElement('nav');
+    pager.className = 'res-pager';
+    pager.setAttribute('aria-label', '페이지 탐색');
+    function mk(txt, label) { var b = document.createElement('button'); b.type = 'button'; b.textContent = txt; b.setAttribute('aria-label', label); return b; }
+    var prev = mk('\u2039', '이전 페이지'), next = mk('\u203A', '다음 페이지'), nums = [];
+    for (var p = 1; p <= pages; p++) (function (p) {
+      var b = document.createElement('button'); b.type = 'button'; b.textContent = p;
+      b.setAttribute('aria-label', p + '페이지');
+      b.addEventListener('click', function () { cur = p; render(); });
+      nums.push(b);
+    })(p);
+    prev.addEventListener('click', function () { if (cur > 1) { cur--; render(); } });
+    next.addEventListener('click', function () { if (cur < pages) { cur++; render(); } });
+    pager.appendChild(prev); nums.forEach(function (b) { pager.appendChild(b); }); pager.appendChild(next);
+    list.parentNode.insertBefore(pager, list.nextSibling);
+    function render() {
+      items.forEach(function (it, i) { it.hidden = !(i >= (cur - 1) * SIZE && i < cur * SIZE); });
+      nums.forEach(function (b, i) { var on = i + 1 === cur; b.classList.toggle('active', on); if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+      prev.disabled = cur === 1; next.disabled = cur === pages;
+    }
+    list.__resetPager = function () { cur = 1; render(); };
+    render();
+  });
+  // 운영/교수 서브탭 전환 시 양쪽 목록 모두 1페이지로 초기화
+  function resetPane(id) { var l = document.querySelector('#' + id + ' .res-list'); if (l && l.__resetPager) l.__resetPager(); }
+  ['subAdmin', 'subTeach'].forEach(function (id) {
+    var b = document.getElementById(id);
+    if (b) b.addEventListener('click', function () { resetPane('paneAdmin'); resetPane('paneTeach'); });
+  });
+})();
+</script>
+
+
+<script>
+/* 워크북 답안지 — 레벨 아코디언 토글 */
+(function () {
+  document.querySelectorAll('.res-acc-trigger').forEach(function (btn) {
+    var panel = document.getElementById(btn.getAttribute('aria-controls'));
+    if (!panel) return;
+    btn.addEventListener('click', function () {
+      var open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      panel.classList.toggle('open', open);
+      if (open) panel.removeAttribute('inert'); else panel.setAttribute('inert', '');
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
