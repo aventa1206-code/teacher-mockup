@@ -1439,7 +1439,7 @@
         <div class="tab-list" role="tablist" aria-label="공지 및 자료 목록">
           <button class="tab-btn active" type="button" role="tab" id="tab-pds"
                   aria-selected="true" aria-controls="pane-pds"
-                  data-more="https://new.bookclubs.co.kr/pages/lms/teachers/pds">
+                  data-more="teacher-pds.html">
             교사 자료실
           </button>
           <button class="tab-btn" type="button" role="tab" id="tab-news"
@@ -1448,7 +1448,7 @@
             새소식
           </button>
         </div>
-        <a href="https://new.bookclubs.co.kr/pages/lms/teachers/pds" target="_blank" rel="noopener noreferrer" class="tab-more" id="tabMoreLink">전체 보기 ›</a>
+        <a href="teacher-pds.html" class="tab-more" id="tabMoreLink">전체 보기 ›</a>
       </div>
 
       <!-- 교사 자료실 패널 -->
@@ -1501,7 +1501,7 @@
           </div>
           <p class="ws-title">등록된 자료가 없습니다</p>
           <p class="ws-desc">새로운 교사 자료가 등록되면 이곳에 표시됩니다.</p>
-          <a class="ws-btn ws-btn-ghost" href="https://new.bookclubs.co.kr/pages/lms/teachers/pds" target="_blank" rel="noopener noreferrer">전체 자료실 열기</a>
+          <a class="ws-btn ws-btn-ghost" href="teacher-pds.html">전체 자료실 열기</a>
         </div>
         <!-- 에러 -->
         <div class="widget-state widget-error" data-state-for="pds" hidden>
@@ -1581,7 +1581,7 @@
           <button type="button" class="tab-btn active" role="tab" id="hmTabAdmin" aria-selected="true" aria-controls="hmPanelAdmin">운영 서식</button>
           <button type="button" class="tab-btn" role="tab" id="hmTabTeach" aria-selected="false" aria-controls="hmPanelTeach" tabindex="-1">교수 자료</button>
         </div>
-        <a href="https://new.bookclubs.co.kr/pages/lms/teachers/pds" target="_blank" rel="noopener noreferrer" class="tab-more">전체 보기 ›</a>
+        <a href="teacher-pds.html" class="tab-more">전체 보기 ›</a>
       </div>
       <div class="helper-mini-panel" id="hmPanelAdmin" role="tabpanel" aria-labelledby="hmTabAdmin">
       <div class="helper-mini-list">
@@ -1995,7 +1995,14 @@
       activateTab(tab);
       if (tab.dataset.more) {
         var ml = document.getElementById('tabMoreLink');
-        if (ml) ml.href = tab.dataset.more;
+        if (ml) {
+          ml.href = tab.dataset.more;
+          if (/^https?:\/\//.test(tab.dataset.more)) {
+            ml.target = '_blank'; ml.rel = 'noopener noreferrer';
+          } else {
+            ml.removeAttribute('target'); ml.removeAttribute('rel');
+          }
+        }
       }
     });
   });
