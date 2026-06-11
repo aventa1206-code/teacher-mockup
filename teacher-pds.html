@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>참빛북클럽 · 교사 자료실</title>
-<meta name="description" content="참빛교육 학원 관리자(원장님) 메인 대시보드">
+<meta name="description" content="참빛북클럽 교사 자료실 — 수업·운영 자료 다운로드">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
@@ -56,8 +56,6 @@
     --prog-green-d: #4CA34F;
     --green-soft: #E8F6E9;
     --read-green: #3FA796;
-    --mr-purple: #6C5CE7;
-    --mr-purple-soft: #ECEAFB;
     --info-blue: #4F46E5;
     --info-blue-soft: #EEF2FF;
     /* Typography scale — 학생/교사 통일 */
@@ -89,6 +87,8 @@
     color: var(--gray-900);
     -webkit-font-smoothing: antialiased;
     letter-spacing: -0.01em;
+    word-break: keep-all;
+    overflow-wrap: break-word;
   }
 
   /* ========== 접근성 유틸 ========== */
@@ -103,7 +103,7 @@
     position: absolute; top: -40px; left: 12px;
     background: var(--primary); color: #fff;
     padding: 10px 18px; border-radius: var(--radius-sm);
-    font-size: 13px; font-weight: 700; text-decoration: none;
+    font-size: 14px; font-weight: 700; text-decoration: none;
     z-index: 200;
     transition: top 0.18s ease;
   }
@@ -198,7 +198,7 @@
   }
   .side-menu { list-style: none; padding: 8px 14px; }
   .side-group-label {
-    font-size: 12px; font-weight: 700; color: var(--gray-600);
+    font-size: 13px; font-weight: 700; color: var(--gray-600);
     letter-spacing: 0.12em; text-transform: uppercase;
     padding: 8px 16px 6px;
   }
@@ -238,7 +238,7 @@
     margin-left: auto;
     min-width: 18px; height: 18px; padding: 0 5px;
     background: var(--primary); color: white;
-    font-size: 12px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     line-height: 18px; text-align: center;
     border-radius: 9px;
     font-family: 'Pretendard', sans-serif;
@@ -287,7 +287,7 @@
     display: block; font-size: 14px; font-weight: 700; color: var(--gray-900);
   }
   .profile-userrow span {
-    display: block; font-size: 12px; color: var(--gray-600);
+    display: block; font-size: 13px; color: var(--gray-600);
     font-family: 'Pretendard', sans-serif;
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
@@ -297,7 +297,7 @@
     width: 100%; padding: 10px 12px;
     border-radius: var(--radius-sm);
     background: none; border: none; cursor: pointer;
-    font-family: inherit; font-size: 13px; font-weight: 600;
+    font-family: inherit; font-size: 14px; font-weight: 600;
     color: var(--gray-700); text-decoration: none; text-align: left;
     transition: background 0.15s, color 0.15s;
   }
@@ -390,7 +390,7 @@
   }
   .greeting-right { text-align: right; }
   .greeting-date {
-    font-size: 12px; font-weight: 700; color: var(--gray-600);
+    font-size: 13px; font-weight: 700; color: var(--gray-600);
     letter-spacing: 0.02em;
   }
   .greeting-day {
@@ -426,7 +426,7 @@
   .action-card::after {
     content: '→'; position: absolute;
     bottom: 22px; right: 22px;
-    color: var(--gray-400);
+    color: var(--gray-600);
     font-size: 16px; font-weight: 700;
     transition: color 0.2s ease, transform 0.2s ease;
   }
@@ -515,7 +515,7 @@
     height: 3px; background: var(--gray-900); border-radius: 2px;
   }
   .tab-more {
-    font-size: 12px; color: var(--gray-600); text-decoration: none;
+    font-size: 13px; color: var(--gray-600); text-decoration: none;
     font-weight: 600;
   }
   .tab-more:hover { color: var(--primary); }
@@ -534,7 +534,7 @@
     flex-shrink: 0;
     display: grid; place-items: center;
     width: 20px; height: 20px;
-    color: var(--gray-400);
+    color: var(--gray-600);
   }
   .file-icon svg { width: 16px; height: 16px; }
   .list-title {
@@ -548,7 +548,7 @@
   .list-date {
     flex-shrink: 0;
     width: 48px; text-align: right;
-    font-size: 12px; color: var(--gray-600);
+    font-size: 13px; color: var(--gray-600);
     font-family: 'Pretendard', sans-serif; font-weight: 500;
     /* Pretendard 숫자 → 등폭(tabular)으로 강제, 행마다 픽셀 단위 정렬 보장 */
     font-variant-numeric: tabular-nums;
@@ -557,7 +557,7 @@
   }
   /* (NEW 뱃지 미사용 — 룰 제거됨) */
   .list-arrow {
-    color: var(--gray-400); font-size: 18px; font-weight: 700;
+    color: var(--gray-600); font-size: 18px; font-weight: 700;
     transition: transform 0.18s ease, color 0.18s ease; flex-shrink: 0;
     /* 고정폭 + 중앙정렬 → 행마다 화살표 X 위치 동일 보장 */
     width: 14px; text-align: center;
@@ -568,7 +568,7 @@
 
   /* 모바일에서 날짜 축소 */
   @media (max-width: 480px) {
-    .list-date { font-size: 12px; }
+    .list-date { font-size: 13px; }
   }
 
   /* ===== 위젯 상태: 로딩(스켈레톤) / 빈 화면 / 에러 ===== */
@@ -599,19 +599,19 @@
   .ws-icon {
     width: 64px; height: 64px; border-radius: 50%;
     display: grid; place-items: center;
-    background: var(--gray-100); color: var(--gray-400);
+    background: var(--gray-100); color: var(--gray-600);
     margin-bottom: 8px;
   }
   .ws-icon svg { width: 30px; height: 30px; }
   .ws-icon.ws-icon-error { background: var(--danger-soft); color: var(--danger); }
   .ws-title { font-size: 15px; font-weight: 700; color: var(--gray-900); }
-  .ws-desc { font-size: 13px; color: var(--gray-600); line-height: 1.5; }
+  .ws-desc { font-size: 14px; color: var(--gray-600); line-height: 1.5; }
   .ws-btn {
     margin-top: 14px;
     display: inline-flex; align-items: center; gap: 6px;
     padding: 10px 18px; border-radius: var(--radius-sm);
     background: var(--primary); color: #fff;
-    font-size: 13px; font-weight: 700; font-family: inherit;
+    font-size: 14px; font-weight: 700; font-family: inherit;
     border: none; cursor: pointer; text-decoration: none;
     transition: background 0.18s ease;
   }
@@ -658,7 +658,7 @@
     letter-spacing: -0.02em;
   }
   .helper-mini-more {
-    font-size: 12px; color: var(--gray-600); font-weight: 600;
+    font-size: 13px; color: var(--gray-600); font-weight: 600;
     text-decoration: none;
   }
   .helper-mini-more:hover { color: var(--primary); }
@@ -694,7 +694,7 @@
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
   }
   .helper-mini-fmt {
-    font-size: 12px; color: var(--gray-600); font-weight: 600;
+    font-size: 13px; color: var(--gray-600); font-weight: 600;
     font-family: 'Pretendard', sans-serif; letter-spacing: 0.04em;
   }
   .helper-mini-dl {
@@ -715,8 +715,8 @@
     align-items: center; justify-content: center;
     gap: 8px; padding: 32px 12px; text-align: center;
   }
-  .helper-mini-empty svg { width: 30px; height: 30px; color: var(--gray-400); }
-  .helper-mini-empty p { font-size: 13px; font-weight: 600; color: var(--gray-600); line-height: 1.5; }
+  .helper-mini-empty svg { width: 30px; height: 30px; color: var(--gray-600); }
+  .helper-mini-empty p { font-size: 14px; font-weight: 600; color: var(--gray-600); line-height: 1.5; }
 
   /* ========== 모달 공통 ========== */
   .modal-overlay {
@@ -762,20 +762,20 @@
   .msg-content { flex: 1; min-width: 0; }
   .msg-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
   .msg-name { font-size: 14px; font-weight: 700; color: var(--gray-900); }
-  .msg-time { font-size: 12px; color: var(--gray-600); font-family: 'Pretendard', sans-serif; }
+  .msg-time { font-size: 13px; color: var(--gray-600); font-family: 'Pretendard', sans-serif; }
   .msg-bottom { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
-  .msg-preview { font-size: 13px; color: var(--gray-600); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .msg-preview { font-size: 14px; color: var(--gray-600); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .unread-badge {
     min-width: 20px; height: 20px; padding: 0 6px;
     background: var(--primary); color: white;
-    border-radius: 10px; font-size: 12px; font-weight: 700;
+    border-radius: 10px; font-size: 13px; font-weight: 700;
     line-height: 20px; text-align: center; flex-shrink: 0;
   }
   /* 레벨 뱃지 — 7단계 시맨틱 팔레트 (배경 옅게, 글씨 뚜렷하게) */
   .msg-name-row { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
   .level-badge {
     display: inline-block; flex-shrink: 0;
-    font-size: 12px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     padding: 2px 7px; border-radius: 5px;
     font-family: 'Pretendard', sans-serif; line-height: 1.5;
   }
@@ -809,7 +809,7 @@
     background: #ffd6df; border: 3px solid white; box-shadow: var(--shadow-md);
   }
   .avatar-current strong { font-size: 16px; font-weight: 700; margin-top: 8px; color: var(--gray-900); }
-  .avatar-current p { font-size: 12px; color: var(--gray-600); }
+  .avatar-current p { font-size: 13px; color: var(--gray-600); }
   .avatar-grid {
     display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
     max-height: 260px; overflow-y: auto; padding: 4px;
@@ -826,7 +826,7 @@
   }
   .form-field { margin-bottom: 16px; }
   .form-field label {
-    display: block; font-size: 12px; color: var(--gray-600);
+    display: block; font-size: 13px; color: var(--gray-600);
     margin-bottom: 6px; font-weight: 600;
   }
   .form-field input {
@@ -904,21 +904,21 @@
   .footer-social .sns-btn img { width: 36px; height: 36px; display: block; }
   .footer-links { display: flex; gap: 12px 18px; list-style: none; flex-wrap: wrap; }
   .footer-links a {
-    font-size: 12px; color: var(--gray-700); text-decoration: none; font-weight: 500;
+    font-size: 13px; color: var(--gray-700); text-decoration: none; font-weight: 500;
     white-space: nowrap;
   }
   .footer-links a:hover { color: var(--primary); }
   .footer-toggle {
     background: none; border: none; cursor: pointer;
-    font-size: 12px; color: var(--gray-600); font-family: inherit; font-weight: 500;
+    font-size: 13px; color: var(--gray-600); font-family: inherit; font-weight: 500;
     padding: 0; display: inline-flex; align-items: center; gap: 4px;
     margin-left: 12px;
   }
   .footer-toggle:hover { color: var(--gray-900); }
-  .footer-toggle .arr { transition: transform 0.2s ease; font-size: 12px; }
+  .footer-toggle .arr { transition: transform 0.2s ease; font-size: 13px; }
   .footer-toggle.open .arr { transform: rotate(180deg); }
   .footer-info {
-    font-size: 12px; color: var(--gray-600); line-height: 1.7;
+    font-size: 13px; color: var(--gray-600); line-height: 1.7;
     max-height: 0; overflow: hidden;
     transition: max-height 0.3s ease, padding 0.3s ease;
     padding: 0;
@@ -931,7 +931,7 @@
   .footer-info .tel-label { color: var(--primary); font-weight: 700; }
   .footer-info .tel-num { font-weight: 700; color: var(--gray-900); margin: 0 6px; font-family: 'Pretendard', sans-serif; }
   .footer-copy {
-    font-size: 12px; color: var(--gray-600); font-family: 'Pretendard', sans-serif;
+    font-size: 13px; color: var(--gray-600); font-family: 'Pretendard', sans-serif;
     margin-top: 4px;
   }
 
@@ -990,7 +990,7 @@
     /* 카드 padding 16px로 줄어 22px 화살표가 ac-body와 충돌 → 12px 보정 */
     .action-card::after { bottom: 12px; right: 12px; font-size: 14px; }
     .ac-body h3 { font-size: 16px; }
-    .kakao-float { padding: 8px 16px 8px 8px; font-size: 13px; right: 16px; bottom: 16px; }
+    .kakao-float { padding: 8px 16px 8px 8px; font-size: 14px; right: 16px; bottom: 16px; }
     /* 좁은 화면: 프로필 버튼 아이콘만 노출 */
     .profile-btn-name, .profile-btn .chev { display: none; }
     .profile-btn { padding: 5px; }
@@ -1043,14 +1043,14 @@
     letter-spacing: -0.02em; margin-bottom: 4px;
   }
   .welcome-toast-desc {
-    font-size: 13px; color: var(--gray-700);
+    font-size: 14px; color: var(--gray-700);
     line-height: 1.55; margin-bottom: 14px;
   }
   .welcome-toast-actions {
     display: flex; gap: 8px; justify-content: flex-end;
   }
   .welcome-toast-btn {
-    font-family: inherit; font-size: 12px; font-weight: 700;
+    font-family: inherit; font-size: 13px; font-weight: 700;
     padding: 8px 14px; border-radius: var(--radius-sm);
     border: none; cursor: pointer;
     transition: background 0.15s, color 0.15s;
@@ -1121,7 +1121,7 @@
   }
   .tour-step-tag {
     display: inline-flex; align-items: center;
-    font-size: 12px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     color: var(--primary);
     background: var(--primary-soft);
     padding: 3px 10px;
@@ -1145,7 +1145,7 @@
     letter-spacing: -0.02em;
   }
   .tour-desc {
-    font-size: 13px; color: var(--gray-700); line-height: 1.6;
+    font-size: 14px; color: var(--gray-700); line-height: 1.6;
     margin-bottom: 16px;
   }
   .tour-foot {
@@ -1154,14 +1154,14 @@
   }
   .tour-skip {
     background: none; border: none; cursor: pointer;
-    font-family: inherit; font-size: 12px; font-weight: 600;
+    font-family: inherit; font-size: 13px; font-weight: 600;
     color: var(--gray-600); padding: 6px 4px;
     text-decoration: underline; text-underline-offset: 3px;
   }
   .tour-skip:hover { color: var(--gray-900); }
   .tour-nav { display: flex; gap: 6px; }
   .tour-btn {
-    font-family: inherit; font-size: 12px; font-weight: 700;
+    font-family: inherit; font-size: 13px; font-weight: 700;
     padding: 8px 14px;
     border-radius: var(--radius-sm);
     border: none; cursor: pointer;
@@ -1190,7 +1190,7 @@
     }
     .tour-popover.tour-modal-center .tour-arrow { display: none; }
     .tour-title { font-size: 14px; margin: 2px 0 6px; }
-    .tour-desc  { font-size: 13px; margin-bottom: 14px; line-height: 1.55; }
+    .tour-desc  { font-size: 14px; margin-bottom: 14px; line-height: 1.55; }
     @keyframes tour-pop-mobile {
       from { opacity: 0; transform: translate(-50%, -48%) scale(0.96); }
       to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
@@ -1203,10 +1203,10 @@
   .pds-head { margin: 6px 0 22px; }
   .pds-crumb {
     display: flex; align-items: center; gap: 6px;
-    font-size: 13px; font-weight: 600; color: var(--gray-600);
+    font-size: 14px; font-weight: 600; color: var(--gray-600);
     margin-bottom: 12px;
   }
-  .pds-crumb-sep { color: var(--gray-400); }
+  .pds-crumb-sep { color: var(--gray-600); }
   .pds-crumb-cur { color: var(--primary); }
   .pds-title {
     font-size: var(--fs-display); font-weight: 800;
@@ -1231,7 +1231,7 @@
   .pds-tab.active { color: var(--gray-900); }
   .pds-tab.active::after {
     content: ''; position: absolute; left: 0; right: 0; bottom: -1px;
-    height: 3px; background: var(--primary); border-radius: 2px;
+    height: 3px; background: var(--gray-900); border-radius: 2px;
   }
   .pds-panel[hidden] { display: none; }
 
@@ -1252,7 +1252,7 @@
     color: var(--gray-900); letter-spacing: -0.02em;
   }
   .pds-card-desc { margin-top: 5px; font-size: var(--fs-body-sm); color: var(--gray-600); line-height: 1.5; }
-  .pds-count { flex-shrink: 0; font-size: 13px; color: var(--gray-600); font-weight: 600; white-space: nowrap; }
+  .pds-count { flex-shrink: 0; font-size: 14px; color: var(--gray-600); font-weight: 600; white-space: nowrap; }
   .pds-count-num {
     font-weight: 800; color: var(--gray-900); margin-right: 2px;
     font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1;
@@ -1297,23 +1297,23 @@
   .res-body { flex: 1; min-width: 0; }
   .res-title { font-size: var(--fs-body); font-weight: 700; color: var(--gray-900); letter-spacing: -0.01em; line-height: 1.4; }
   .res-item:hover .res-title { color: var(--primary); }
-  .res-desc { margin-top: 3px; font-size: 13px; color: var(--gray-600); line-height: 1.45; }
+  .res-desc { margin-top: 3px; font-size: 14px; color: var(--gray-600); line-height: 1.45; }
   .res-meta { flex-shrink: 0; display: flex; align-items: center; gap: 12px; }
   .res-fmt {
-    font-size: 11px; font-weight: 700; color: var(--gray-600);
+    font-size: 13px; font-weight: 700; color: var(--gray-600);
     background: var(--gray-200); padding: 4px 9px;
     border-radius: var(--radius-sm); letter-spacing: 0.02em;
     font-variant-numeric: tabular-nums;
   }
   .res-date {
-    font-size: 12px; color: var(--gray-600); font-weight: 500;
+    font-size: 13px; color: var(--gray-600); font-weight: 500;
     width: 44px; text-align: right;
     font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1;
   }
   .res-act {
     width: 34px; height: 34px; flex-shrink: 0;
     border-radius: var(--radius-sm); display: grid; place-items: center;
-    color: var(--gray-400); transition: background 0.18s ease, color 0.18s ease;
+    color: var(--gray-600); transition: background 0.18s ease, color 0.18s ease;
   }
   .res-item:hover .res-act { background: var(--primary-soft); color: var(--primary); }
   .res-act svg { width: 18px; height: 18px; }
@@ -1342,11 +1342,11 @@
   .res-pager button {
     min-width: 34px; height: 34px; padding: 0 9px;
     border: 1px solid var(--gray-300); background: var(--white);
-    border-radius: var(--radius-sm); font-family: inherit; font-size: 13px;
+    border-radius: var(--radius-sm); font-family: inherit; font-size: 14px;
     font-weight: 600; color: var(--gray-700); cursor: pointer;
     font-variant-numeric: tabular-nums; transition: background .15s ease, border-color .15s ease, color .15s ease;
   }
-  .res-pager button:hover:not(:disabled) { border-color: var(--gray-400); color: var(--gray-900); background: var(--gray-100); }
+  .res-pager button:hover:not(:disabled) { border-color: var(--gray-600); color: var(--gray-900); background: var(--gray-100); }
   .res-pager button.active { background: var(--primary); border-color: var(--primary); color: #fff; }
   .res-pager button:disabled { opacity: .4; cursor: not-allowed; }
   .res-pager button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
@@ -1370,9 +1370,154 @@
   .res-level .res-act { width: 30px; height: 30px; }
   .res-level:hover .res-act { background: var(--primary-soft); color: var(--primary); }
   @media (prefers-reduced-motion: reduce) { .res-acc-panel { transition: none; } }
+
+  /* ================= 교사 자료실 재설계 (findability·메타데이터·어포던스) ================= */
+  /* 카드형 리스트 */
+  .rl-list { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 8px 10px; }
+
+  /* 행 */
+  .rl-row { display: flex; align-items: center; gap: 16px; min-height: 64px; padding: 12px; border-radius: var(--radius-md); text-decoration: none; color: inherit; width: 100%; background: none; border: none; font-family: inherit; text-align: left; cursor: pointer; transition: background .15s ease; }
+  .rl-row[hidden] { display: none; }
+  .rl-list > .rl-row:not([hidden]) ~ .rl-row:not([hidden]) { border-top: 1px solid var(--gray-100); }
+  .rl-row:hover { background: var(--gray-100); }
+  .rl-row:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+  .rl-ic { flex-shrink: 0; width: 40px; height: 40px; border-radius: var(--radius-md); display: grid; place-items: center; background: var(--gray-200); color: var(--gray-600); }
+  .rl-ic svg { width: 21px; height: 21px; }
+  .rl-mainwrap { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+  .rl-titlerow { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .rl-title { font-size: 15px; font-weight: 600; color: var(--gray-900); letter-spacing: -0.01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rl-meta { font-size: 13px; color: var(--gray-600); font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1; letter-spacing: 0; }
+
+  /* 받기 버튼 (아이콘 전용, 터치 타깃 ≥44px) */
+  .rl-get { flex-shrink: 0; display: grid; place-items: center; min-width: 44px; min-height: 44px; border-radius: var(--radius-md); color: var(--gray-600); background: var(--gray-100); transition: background .15s, color .15s; }
+  .rl-row:hover .rl-get { background: var(--primary); color: #fff; }
+  .rl-get svg { width: 17px; height: 17px; }
+  .rl-get.is-off { background: transparent; color: var(--gray-600); cursor: not-allowed; }
+  /* 워크북 답안지 등 묶음 자료 — 폴더 아이콘 */
+  .rl-ic-folder { background: var(--gray-200); color: var(--gray-600); }
+  /* 서브탭 (세그먼트 컨트롤) */
+  .rl-subtabs { display: inline-flex; background: var(--gray-100); border-radius: 10px; padding: 3px; margin-bottom: 16px; }
+  .rl-subtab { display: inline-flex; align-items: center; gap: 6px; border: none; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; padding: 7px 14px; border-radius: 8px; color: var(--gray-600); background: transparent; transition: background-color .18s ease, color .18s ease, box-shadow .18s ease; }
+  .rl-subtab svg { width: 16px; height: 16px; flex-shrink: 0; }
+  /* 활성 토글 — 살짝 컬러(브랜드 레드 1색, 연한 배경 + 텍스트/아이콘 강조) */
+  .rl-subtab[aria-selected="true"] { background: var(--white); color: var(--primary); box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 0 0 1px var(--primary-soft); }
+  .rl-subtab:hover:not([aria-selected="true"]) { color: var(--gray-900); }
+  .rl-subtab:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  /* 페이지네이션 (페이지당 10건, 프론트 전용) */
+  .rl-pager { display: flex; justify-content: center; align-items: center; gap: 4px; margin-top: 14px; }
+  .rl-pager[hidden] { display: none; }
+  .rl-pager button { width: 32px; height: 32px; display: grid; place-items: center; border: none; background: transparent; border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--gray-600); font-variant-numeric: tabular-nums; cursor: pointer; transition: background-color .18s ease, color .18s ease; }
+  .rl-pager button:hover:not(:disabled):not([aria-current="page"]) { background: var(--gray-100); }
+  .rl-pager button[aria-current="page"] { background: var(--gray-900); color: var(--white); }
+  .rl-pager button:disabled { color: var(--gray-300); cursor: not-allowed; }
+  .rl-pager button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  /* 자료실 검색/정렬 툴바 */
+  .rl-toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .rl-search { position: relative; flex: 1; min-width: 200px; }
+  .rl-search > svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--gray-600); pointer-events: none; }
+  .rl-search input { width: 100%; height: 44px; padding: 0 40px 0 38px; font-family: inherit; font-size: 15px; color: var(--gray-900); background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius-md); outline: none; transition: border-color .15s ease, box-shadow .15s ease; }
+  .rl-search input::placeholder { color: var(--gray-600); }
+  .rl-search input:focus-visible { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(211,54,51,0.12); }
+  .rl-search-clear { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; display: grid; place-items: center; border: none; background: transparent; border-radius: 8px; color: var(--gray-600); cursor: pointer; }
+  .rl-search-clear:hover { background: var(--gray-100); color: var(--gray-900); }
+  .rl-search-clear:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+  .rl-sort { height: 44px; padding: 0 32px 0 12px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--gray-700); background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius-md); cursor: pointer; outline: none; appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>"); background-repeat: no-repeat; background-position: right 10px center; }
+  .rl-sort:focus-visible { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(211,54,51,0.12); }
+  .rl-count { width: 100%; font-size: 13px; color: var(--gray-600); font-variant-numeric: tabular-nums; margin: -4px 0 10px; }
+  .rl-count b { color: var(--gray-900); font-weight: 700; }
+  /* 검색 결과 없음 */
+  .rl-empty { display: none; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding: 44px 20px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); }
+  .rl-empty[data-show="1"] { display: flex; }
+  .rl-empty svg { width: 40px; height: 40px; color: var(--gray-400); }
+  .rl-empty p { font-size: 15px; font-weight: 700; color: var(--gray-900); }
+  .rl-empty p span { color: var(--gray-900); }
+  .rl-empty button { height: 40px; padding: 0 16px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--white); background: var(--primary); border: none; border-radius: var(--radius-md); cursor: pointer; }
+  .rl-empty button:hover { background: var(--primary-dark); }
+  .rl-empty button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  /* 검색창 강조 (정렬 제거 → 전체 폭) */
+  .rl-toolbar { margin-bottom: 10px; }
+  .rl-search { flex: 1 1 100%; min-width: 0; }
+  .rl-search input { height: 48px; font-size: 15px; background: var(--white); border-color: var(--gray-300); box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+  .rl-search > svg { color: var(--gray-600); }
+
+
+  /* 반응형 */
+  @media (max-width: 768px) {
+    .rl-row { gap: 12px; padding: 10px 8px; }
+    .rl-meta { font-size: 13px; }
+    .rl-toolbar { gap: 8px; }
+  }
+
+
+  /* ===== 교사 자료실 v2 본문 (카테고리 컬러·3탭·레벨컬러) ===== */
+  :root{
+    --c-start-bg:#E7F3E8;--c-start-fg:#3B8A4E;
+    --c-feature-bg:#E8EBF8;--c-feature-fg:#5566C7;
+    --c-answer-bg:#FBEEDA;--c-answer-fg:#BE7C18;
+    --c-ops-bg:#EDEFF2;--c-ops-fg:#5B636E;
+    --c-report-bg:#E1F1EF;--c-report-fg:#2E857B;
+    --c-counsel-bg:#FCEAEA;--c-counsel-fg:#D8473E;
+    --c-class-bg:#E9EBF2;--c-class-fg:#4E5A78;
+    --c-curri-bg:#F3EEE3;--c-curri-fg:#8A6D3B;
+  }
+  .pv-tabs{display:flex;gap:24px;border-bottom:1px solid var(--gray-200);margin:0 0 18px;flex-wrap:wrap;}
+  .pv-tab{appearance:none;background:none;border:none;cursor:pointer;padding:11px 2px;font-size:15px;font-family:inherit;color:var(--gray-400);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;font-weight:600;}
+  .pv-tab.on{color:var(--gray-900);border-bottom-color:var(--primary);}
+  .pv-tab:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px;}
+  .pv-toolbar{display:flex;gap:8px;margin-bottom:14px;}
+  .pv-search{flex:1;display:flex;align-items:center;gap:8px;height:44px;padding:0 13px;background:var(--white);border:1px solid var(--gray-300);border-radius:var(--radius-md);color:var(--gray-600);}
+  .pv-search>i{font-size:18px;}
+  .pv-search input{border:none;outline:none;background:none;font-family:inherit;font-size:15px;flex:1;color:var(--gray-900);min-width:0;}
+  .pv-search input::placeholder{color:var(--gray-600);}
+  .pv-search:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px rgba(211,54,51,.12);}
+  .pv-clear{border:none;background:none;color:var(--gray-600);cursor:pointer;font-size:16px;display:grid;place-items:center;width:28px;height:28px;border-radius:6px;flex-shrink:0;}
+  .pv-clear:hover{background:var(--gray-100);color:var(--gray-900);}
+  .pv-sort{display:flex;align-items:center;gap:7px;height:44px;padding:0 14px;background:var(--white);border:1px solid var(--gray-300);border-radius:var(--radius-md);color:var(--gray-700);font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;}
+  .pv-sort>i{font-size:17px;}
+  .pv-sort:hover{border-color:var(--gray-400);}
+  .pv-sort:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
+  .pv-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;}
+  .pv-ghd{display:flex;align-items:center;gap:9px;padding:16px 16px 9px;font-size:13px;font-weight:700;color:var(--gray-700);}
+  .pv-dot{display:none;}
+  .pv-row{display:flex;align-items:center;gap:13px;padding:13px 16px;border-top:1px solid var(--gray-100);}
+  .pv-ghd + .pv-row{border-top:none;}
+  .pv-row:hover{background:#FAFBFC;}
+  .pv-ico{width:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:#9CA3AF;}
+  .pv-body{flex:1;min-width:0;}
+  .pv-ttl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .pv-name{font-size:15px;color:var(--gray-900);font-weight:500;}
+  .pv-new{font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--primary-soft);color:var(--primary);}
+  .pv-date{font-size:13px;color:var(--gray-600);font-variant-numeric:tabular-nums;margin-top:3px;}
+  .pv-dl{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:var(--radius-md);background:transparent;color:var(--gray-600);border:1px solid var(--gray-200);cursor:pointer;flex-shrink:0;}
+  .pv-dl>i{font-size:18px;}
+  .pv-dl:hover{background:var(--gray-100);color:var(--gray-900);border-color:var(--gray-300);}
+  .pv-dl:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
+  .pv-answer-grid{display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 16px;}
+  .pv-achip{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border:1px solid transparent;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;}
+  .pv-achip>i{font-size:16px;}
+  .pv-achip:hover{background:#FAFBFC;}
+  .pv-achip:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
+  .pv-state{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:54px 20px;color:var(--gray-600);}
+  .pv-state>i{font-size:40px;color:var(--gray-400);margin-bottom:12px;}
+  .pv-state h3{margin:0 0 6px;font-size:15px;color:var(--gray-900);font-weight:700;}
+  .pv-state p{margin:0;font-size:13px;color:var(--gray-600);}
+  .pv-retry{margin-top:16px;display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border:1px solid var(--gray-300);border-radius:var(--radius-md);background:var(--white);color:var(--gray-900);font-size:14px;font-family:inherit;cursor:pointer;}
+  .pv-retry>i{font-size:16px;}
+  .pv-sk-row{display:flex;align-items:center;gap:13px;padding:14px 16px;border-top:1px solid var(--gray-100);}
+  .pv-sk-row:first-child{border-top:none;}
+  .pv-sk{background:linear-gradient(90deg,#EEF0F3 25%,#F5F6F8 37%,#EEF0F3 63%);background-size:400% 100%;animation:pv-shimmer 1.4s ease infinite;border-radius:6px;}
+  @keyframes pv-shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
+  @media (prefers-reduced-motion: reduce){.pv-sk{animation:none}}
+  @media (max-width:768px){.pv-tabs{gap:14px}.pv-toolbar{flex-wrap:wrap}.pv-name{font-size:14.5px}}
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css" />
 </head>
 <body>
+<a class="skip-link" href="#mainContent">본문 바로가기</a>
 <!-- 참빛북클럽 교사 메인 v5 (개선판) — Empty/Loading/Error · 접근성 · 반응형 · 디자인 토큰 반영 -->
 
 
@@ -1543,136 +1688,46 @@
       <span class="pds-crumb-cur">교사 자료실</span>
     </nav>
     <h1 class="pds-title">교사 자료실</h1>
-    <p class="pds-sub">수업과 학원 운영에 필요한 자료를 한 곳에서 받아보세요.</p>
   </section>
 
-  <!-- 메인 탭 -->
-  <div class="pds-tabbar" role="tablist" aria-label="자료 분류">
-    <button class="pds-tab active" type="button" role="tab" id="tabArchive" aria-selected="true" aria-controls="paneArchive">교사 자료실</button>
-    <button class="pds-tab" type="button" role="tab" id="tabHelper" aria-selected="false" aria-controls="paneHelper" tabindex="-1">학원 운영 도우미</button>
+  <!-- Lv1 탭 (3개) -->
+  <div class="pv-tabs" role="tablist" aria-label="자료 구분">
+    <button class="pv-tab on" type="button" role="tab" aria-selected="true" data-tab="product">참빛북클럽 운영 자료</button>
+    <button class="pv-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="helper">학원 운영 도우미</button>
+    <button class="pv-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="know">Bill Kim의 노하우</button>
   </div>
 
-  <!-- ============ 패널 1 : 교사 자료실 ============ -->
-  <section class="pds-panel" id="paneArchive" role="tabpanel" aria-labelledby="tabArchive">
-    <div class="pds-card">
+  <!-- 검색 + 정렬 -->
+  <div class="pv-toolbar">
+    <label class="pv-search"><i class="ti ti-search" aria-hidden="true"></i>
+      <input id="pvQ" type="search" placeholder="자료 찾기" aria-label="자료 검색" autocomplete="off">
+      <button class="pv-clear" id="pvClear" type="button" aria-label="검색어 지우기" hidden><i class="ti ti-x" aria-hidden="true"></i></button>
+    </label>
+    <button class="pv-sort" id="pvSort" type="button"><i class="ti ti-arrows-sort" aria-hidden="true"></i><span id="pvSortLabel">최신순</span></button>
+  </div>
 
-      <!-- Loading (스켈레톤) -->
-      <div class="widget-skeleton" data-state-for="archive" hidden>
-        <div class="skeleton-row"><span class="sk sk-tag"></span><span class="sk sk-line"></span></div>
-        <div class="skeleton-row"><span class="sk sk-tag"></span><span class="sk sk-line"></span></div>
-        <div class="skeleton-row"><span class="sk sk-tag"></span><span class="sk sk-line"></span></div>
-        <div class="skeleton-row"><span class="sk sk-tag"></span><span class="sk sk-line"></span></div>
-        <div class="skeleton-row"><span class="sk sk-tag"></span><span class="sk sk-line"></span></div>
+  <!-- 목록 -->
+  <section class="pv-card" aria-live="polite">
+    <div id="pvRows"></div>
+    <div class="pv-state" id="pvLoading">
+      <div style="width:100%">
+        <div class="pv-sk-row"><div class="pv-sk" style="width:38px;height:38px"></div><div style="flex:1"><div class="pv-sk" style="width:42%;height:13px"></div><div class="pv-sk" style="width:24%;height:10px;margin-top:8px"></div></div><div class="pv-sk" style="width:64px;height:34px"></div></div>
+        <div class="pv-sk-row"><div class="pv-sk" style="width:38px;height:38px"></div><div style="flex:1"><div class="pv-sk" style="width:54%;height:13px"></div><div class="pv-sk" style="width:20%;height:10px;margin-top:8px"></div></div><div class="pv-sk" style="width:64px;height:34px"></div></div>
+        <div class="pv-sk-row"><div class="pv-sk" style="width:38px;height:38px"></div><div style="flex:1"><div class="pv-sk" style="width:36%;height:13px"></div><div class="pv-sk" style="width:28%;height:10px;margin-top:8px"></div></div><div class="pv-sk" style="width:64px;height:34px"></div></div>
       </div>
-
-      <!-- Default (데이터) -->
-      <div class="res-list" data-state-for="archive">
-          <a href="https://cdn.bookclubs.co.kr/tr_a/2024_LMS.pdf" target="_blank" rel="noopener noreferrer" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">북클럽 교사용 사용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">북클럽 학생용 소개 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="https://cdn.bookclubs.co.kr/tr_a/Introduction.pdf" target="_blank" rel="noopener noreferrer" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">참빛북클럽 소개 자료</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">어린이 영어작가 소개 자료</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <div class="res-accordion">
-          <button type="button" class="res-item res-acc-trigger" aria-expanded="false" aria-controls="wbLevels"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">워크북 답안지</span></span><span class="res-meta"><span class="res-act res-acc-caret" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></span></button>
-          <div class="res-acc-panel" id="wbLevels" inert>
-            <div class="res-acc-inner">
-            <a href="#" download class="res-level" aria-label="레벨 K 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-k)"></span><span class="res-level-name">레벨 K</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
-            <a href="#" download class="res-level" aria-label="레벨 G1 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g1)"></span><span class="res-level-name">레벨 G1</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
-            <a href="#" download class="res-level" aria-label="레벨 G2 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g2)"></span><span class="res-level-name">레벨 G2</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
-            <a href="#" download class="res-level" aria-label="레벨 G3 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g3)"></span><span class="res-level-name">레벨 G3</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
-            <a href="#" download class="res-level" aria-label="레벨 G4 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g4)"></span><span class="res-level-name">레벨 G4</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
-            <a href="#" download class="res-level" aria-label="레벨 G5 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g5)"></span><span class="res-level-name">레벨 G5</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
-            <a href="#" download class="res-level" aria-label="레벨 G6 워크북 답안지 다운로드"><span class="res-level-dot" style="background: var(--level-g6)"></span><span class="res-level-name">레벨 G6</span><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></a>
-            </div>
-          </div>
-        </div>
-          <a href="https://cdn.bookclubs.co.kr/tr_a/Basic_guide.pdf" target="_blank" rel="noopener noreferrer" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">참빛북클럽 첫 시작 커리큘럼 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">녹음기능 사용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">E-Library 이용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">StoryFrom 활용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">Workbook 활용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">Extra Reads 안내 자료</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">레벨 테스트 안내 자료</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">Monthly Report 활용 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></span><span class="res-body"><span class="res-title">독서 레벨표(Lexile) 안내</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-        </div>
-
-      <!-- Empty -->
-      <div class="widget-state widget-empty" data-state-for="archive" hidden>
-        <div class="ws-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-        <p class="ws-title">등록된 자료가 없습니다</p>
-        <p class="ws-desc">새로운 교사 자료가 등록되면 이곳에 표시됩니다.</p>
-      </div>
-
-      <!-- Error -->
-      <div class="widget-state widget-empty" data-state-for="archive" hidden>
-        <div class="ws-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="13"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-        <p class="ws-title">자료를 불러오지 못했습니다</p>
-        <p class="ws-desc">네트워크 상태를 확인한 뒤 다시 시도해 주세요.</p>
-        <button class="ws-btn" type="button" onclick="location.reload()">다시 시도</button>
-      </div>
+    </div>
+    <div class="pv-state" id="pvEmpty">
+      <i class="ti ti-folder-open" aria-hidden="true"></i>
+      <h3>자료가 없습니다</h3>
+      <p>검색어를 바꾸거나, 새 자료가 등록되면 이곳에 표시됩니다.</p>
+    </div>
+    <div class="pv-state" id="pvError">
+      <i class="ti ti-alert-triangle" aria-hidden="true"></i>
+      <h3>자료를 불러오지 못했습니다</h3>
+      <p>네트워크 상태를 확인한 뒤 다시 시도해 주세요.</p>
+      <button class="pv-retry" id="pvRetry" type="button"><i class="ti ti-refresh" aria-hidden="true"></i>다시 시도</button>
     </div>
   </section>
-
-  <!-- ============ 패널 2 : 학원 운영 도우미 ============ -->
-  <section class="pds-panel" id="paneHelper" role="tabpanel" aria-labelledby="tabHelper" hidden>
-    <div class="pds-subbar" role="tablist" aria-label="운영 도우미 분류">
-      <button class="pds-subtab active" type="button" role="tab" id="subAdmin" aria-selected="true" aria-controls="paneAdmin">운영 자료</button>
-      <button class="pds-subtab" type="button" role="tab" id="subTeach" aria-selected="false" aria-controls="paneTeach" tabindex="-1">교수 자료</button>
-    </div>
-
-    <!-- 운영 자료 (다운로드형 서식) -->
-    <div class="pds-subpane" id="paneAdmin" role="tabpanel" aria-labelledby="subAdmin">
-      <div class="pds-card">
-        <div class="res-list" data-state-for="admin">
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">휴무 공지</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">학원 일정표</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">학생 피드백 카드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">가정통신문</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">방학 특강 안내문</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">학원 홍보용 전단지</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">수강료 안내 템플릿</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">학부모 오리엔테이션 자료</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">신규 원생 등록 양식</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">출결부 양식</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">상담 일지 양식</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">결석·지각 안내문</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg></span><span class="res-body"><span class="res-title">학원 규정 안내문</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-        </div>
-        <div class="widget-state widget-empty" data-state-for="admin" hidden>
-          <div class="ws-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-          <p class="ws-title">등록된 서식이 없습니다</p>
-          <p class="ws-desc">새 운영 서식이 추가되면 이곳에 표시됩니다.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- 교수 자료 (보기형 가이드) -->
-    <div class="pds-subpane" id="paneTeach" role="tabpanel" aria-labelledby="subTeach" hidden>
-      <div class="pds-card">
-        <div class="res-list" data-state-for="teach">
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">학부모 상담 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">첫 상담 스크립트</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">학습 지도법</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">학생 동기부여 노하우</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">레벨별 수업 운영안</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">파닉스 지도 노하우</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">리딩 클래스 진행 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">라이팅 첨삭 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">스피킹 수업 활동지</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">어휘 학습 게임 모음</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">학습 부진 학생 지도법</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">그룹 수업 운영 팁</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-          <a href="#" class="res-item"><span class="res-ic is-file" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="res-body"><span class="res-title">온라인 수업 가이드</span></span><span class="res-meta"><span class="res-act" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span></span></a>
-        </div>
-        <div class="widget-state widget-empty" data-state-for="teach" hidden>
-          <div class="ws-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-          <p class="ws-title">등록된 가이드가 없습니다</p>
-          <p class="ws-desc">새 교수 자료가 추가되면 이곳에 표시됩니다.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
 </div>
 </main>
 
@@ -1692,7 +1747,7 @@
           <img class="msg-avatar" src="https://cdn.bookclubs.co.kr/ai/avatars/pack1/girl-12.png" alt="지수" loading="lazy" decoding="async">
           <div class="msg-content">
             <div class="msg-top"><span class="msg-name">지수</span><span class="msg-time">방금 전</span></div>
-            <div class="msg-bottom"><span class="msg-preview">🎧 Jj - Recording Submission</span><span class="unread-badge" aria-label="안 읽음 1건">1</span></div>
+            <div class="msg-bottom"><span class="msg-preview">지수 - 녹음 과제 제출</span><span class="unread-badge" aria-label="안 읽음 1건">1</span></div>
           </div>
         </button>
         <button type="button" class="msg-item">
@@ -1837,10 +1892,10 @@
         <a href="https://blog.naver.com/bookclubs" target="_blank" rel="noopener noreferrer" class="sns-btn" aria-label="네이버 블로그">
           <img src="https://new.bookclubs.co.kr/brandnew/images/common/ico_sns04.png" alt="네이버 블로그" width="36" height="36">
         </a>
-        <a href="#" data-needs-url="youtube" target="_blank" rel="noopener noreferrer" class="sns-btn" aria-label="유튜브">
+        <a href="#" data-needs-url="youtube" rel="noopener noreferrer" class="sns-btn" aria-label="유튜브">
           <img src="https://cdn.bookclubs.co.kr/intern/sye/youtube.png" alt="유튜브" width="36" height="36">
         </a>
-        <a href="#" data-needs-url="blogger" target="_blank" rel="noopener noreferrer" class="sns-btn" aria-label="구글 블로그">
+        <a href="#" data-needs-url="blogger" rel="noopener noreferrer" class="sns-btn" aria-label="구글 블로그">
           <img src="https://cdn.bookclubs.co.kr/intern/sye/blogger_icon.svg" alt="구글 블로그" width="36" height="36">
         </a>
       </div>
@@ -2022,6 +2077,7 @@
     });
   }
   document.querySelectorAll('[role="tab"]').forEach(function (tab) {
+    if (tab.closest('.pds-tabbar') || tab.closest('.rl-subtabs') || tab.closest('.pv-tabs')) return; // 자료실 메인 탭·서브탭은 wireTabs()가 전담 (이중 바인딩 방지)
     tab.addEventListener('click', function () {
       activateTab(tab);
       if (tab.dataset.more) {
@@ -2031,6 +2087,7 @@
     });
   });
   document.querySelectorAll('[role="tablist"]').forEach(function (list) {
+    if (list.closest('.pds-tabbar') || list.classList.contains('rl-subtabs') || list.classList.contains('pv-tabs')) return; // 자료실 메인 탭·서브탭은 wireTabs()가 전담 (이중 바인딩 방지)
     var tabs = [].slice.call(list.querySelectorAll('[role="tab"]'));
     list.addEventListener('keydown', function (e) {
       var i = tabs.indexOf(document.activeElement);
@@ -2497,98 +2554,155 @@
 </script>
 
 <script>
-/* 교사 자료실 페이지 — 탭/서브탭 전환 (접근성: 화살표 키 + Home/End) */
+/* 교사 자료실 v2 — 카테고리 컬러·3탭·검색/정렬·상태 (어드민은 category만 지정) */
 (function () {
-  function wireTabs(tabs, panes) {
-    function activate(idx, focus) {
-      tabs.forEach(function (t, i) {
-        var on = i === idx;
-        t.classList.toggle('active', on);
-        t.setAttribute('aria-selected', on ? 'true' : 'false');
-        t.tabIndex = on ? 0 : -1;
-        if (panes[i]) panes[i].hidden = !on;
-      });
-      if (focus) tabs[idx].focus();
-    }
-    tabs.forEach(function (tab, i) {
-      tab.addEventListener('click', function () { activate(i, false); });
-      tab.addEventListener('keydown', function (e) {
-        var n = tabs.length, next = null;
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') next = (i + 1) % n;
-        else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') next = (i - 1 + n) % n;
-        else if (e.key === 'Home') next = 0;
-        else if (e.key === 'End') next = n - 1;
-        if (next !== null) { e.preventDefault(); activate(next, true); }
-      });
-    });
+  var CATEGORY = {
+    start:  {label:'시작하기',     icon:'ti-flag-2',         bg:'--c-start-bg',  fg:'--c-start-fg'},
+    feature:{label:'콘텐츠 활용',   icon:'ti-book-2',         bg:'--c-feature-bg',fg:'--c-feature-fg'},
+    answer: {label:'워크북 답안지', icon:'ti-list-check',     bg:'--c-answer-bg', fg:'--c-answer-fg'},
+    ops:    {label:'운영 서식',     icon:'ti-calendar-event', bg:'--c-ops-bg',    fg:'--c-ops-fg'},
+    report: {label:'평가·리포트',   icon:'ti-chart-bar',      bg:'--c-report-bg', fg:'--c-report-fg'},
+    counsel:{label:'학부모 상담',   icon:'ti-messages',       bg:'--c-counsel-bg',fg:'--c-counsel-fg'},
+    class:  {label:'수업 진행',     icon:'ti-school',         bg:'--c-class-bg',  fg:'--c-class-fg'},
+    curri:  {label:'커리큘럼',      icon:'ti-route',          bg:'--c-curri-bg',  fg:'--c-curri-fg'}
+  };
+  var ORDER = ['start','feature','answer','ops','report','counsel','class','curri'];
+  /* 워크북 답안지 — 레벨별 컬러 [배경, 글자] */
+  var LEVELC = {
+    'K':['#FCE9E9','#D8473E'],'G1':['#FDEEDD','#C2620E'],'G2':['#FBF2D9','#8A6D11'],
+    'G3':['#E7F3E8','#3B8A4E'],'G4':['#E1F1EF','#2E857B'],'G5':['#E6EEFB','#2563EB'],'G6':['#E9EBF2','#4E5A78']
+  };
+  var isNew = function(d){ return (Date.now() - new Date(d)) / 864e5 <= 14; };
+
+  var DATA = [
+    /* 탭1 · 참빛북클럽 운영 자료 */
+    {tab:'product',cat:'start',  title:'참빛북클럽 첫 시작 커리큘럼 가이드',date:'2026-06-08',url:'https://cdn.bookclubs.co.kr/tr_a/Basic_guide.pdf'},
+    {tab:'product',cat:'start',  title:'북클럽 교사용 사용 가이드',date:'2026-05-20',url:'https://cdn.bookclubs.co.kr/tr_a/2024_LMS.pdf'},
+    {tab:'product',cat:'start',  title:'참빛북클럽 소개 자료',date:'2026-04-22',url:'https://cdn.bookclubs.co.kr/tr_a/Introduction.pdf'},
+    {tab:'product',cat:'start',  title:'북클럽 학생용 소개 가이드',date:'2026-04-18',url:'#'},
+    {tab:'product',cat:'start',  title:'어린이 영어작가 소개 자료',date:'2026-04-11',url:'#'},
+    {tab:'product',cat:'feature',title:'E-Library 이용 가이드',date:'2026-06-02',url:'#'},
+    {tab:'product',cat:'feature',title:'녹음기능 사용 가이드',date:'2026-05-28',url:'#'},
+    {tab:'product',cat:'feature',title:'StoryFrom 활용 가이드',date:'2026-05-12',url:'#'},
+    {tab:'product',cat:'feature',title:'Workbook 활용 가이드',date:'2026-05-09',url:'#'},
+    {tab:'product',cat:'feature',title:'Extra Reads 안내 자료',date:'2026-04-30',url:'#'},
+    {tab:'product',cat:'answer', title:'K', level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'answer', title:'G1',level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'answer', title:'G2',level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'answer', title:'G3',level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'answer', title:'G4',level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'answer', title:'G5',level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'answer', title:'G6',level:true,date:'2026-05-02',url:'#'},
+    /* 탭2 · 학원 운영 도우미 */
+    {tab:'helper',cat:'ops',   title:'휴무 공지 서식',date:'2026-06-05',url:'#'},
+    {tab:'helper',cat:'ops',   title:'방학 특강 안내문',date:'2026-06-01',url:'#'},
+    {tab:'helper',cat:'ops',   title:'학원 월간 일정표',date:'2026-05-28',url:'#'},
+    {tab:'helper',cat:'ops',   title:'학생 피드백 카드',date:'2026-05-05',url:'#'},
+    {tab:'helper',cat:'ops',   title:'가정통신문',date:'2026-04-30',url:'#'},
+    {tab:'helper',cat:'ops',   title:'학원 홍보용 전단지',date:'2026-04-18',url:'#'},
+    {tab:'helper',cat:'ops',   title:'학부모 오리엔테이션 자료',date:'2026-04-05',url:'#'},
+    {tab:'helper',cat:'ops',   title:'신규 원생 등록 양식',date:'2026-03-28',url:'#'},
+    {tab:'helper',cat:'ops',   title:'수강료 안내 템플릿',date:'2026-03-25',url:'#'},
+    {tab:'helper',cat:'ops',   title:'출결부 양식',date:'2026-03-20',url:'#'},
+    {tab:'helper',cat:'ops',   title:'결석·지각 안내문',date:'2026-03-05',url:'#'},
+    {tab:'helper',cat:'ops',   title:'학원 규정 안내문',date:'2026-02-28',url:'#'},
+    {tab:'helper',cat:'ops',   title:'상담 일지 양식',date:'2026-02-20',url:'#'},
+    {tab:'helper',cat:'report',title:'Monthly Report 활용 가이드',date:'2026-04-25',url:'#'},
+    {tab:'helper',cat:'report',title:'독서 레벨표(Lexile) 안내',date:'2026-04-15',url:'#'},
+    {tab:'helper',cat:'report',title:'레벨 테스트 안내 자료',date:'2026-04-10',url:'#'},
+    /* 탭3 · Bill Kim의 노하우 */
+    {tab:'know',cat:'counsel',title:'학부모 상담 가이드',date:'2026-05-20',url:'#'},
+    {tab:'know',cat:'counsel',title:'첫 상담 스크립트',date:'2026-05-08',url:'#'},
+    {tab:'know',cat:'class',  title:'책 읽고 수업 진행하는 법',date:'2026-06-04',url:'#'},
+    {tab:'know',cat:'class',  title:'학습 지도법',date:'2026-04-25',url:'#'},
+    {tab:'know',cat:'class',  title:'학생 동기부여 노하우',date:'2026-04-16',url:'#'},
+    {tab:'know',cat:'class',  title:'레벨별 수업 운영안',date:'2026-04-08',url:'#'},
+    {tab:'know',cat:'class',  title:'파닉스 지도 노하우',date:'2026-03-30',url:'#'},
+    {tab:'know',cat:'class',  title:'리딩 클래스 진행 가이드',date:'2026-03-24',url:'#'},
+    {tab:'know',cat:'class',  title:'라이팅 첨삭 가이드',date:'2026-03-18',url:'#'},
+    {tab:'know',cat:'class',  title:'스피킹 수업 활동지',date:'2026-03-10',url:'#'},
+    {tab:'know',cat:'class',  title:'어휘 학습 게임 모음',date:'2026-03-02',url:'#'},
+    {tab:'know',cat:'class',  title:'학습 부진 학생 지도법',date:'2026-02-26',url:'#'},
+    {tab:'know',cat:'class',  title:'그룹 수업 운영 팁',date:'2026-02-20',url:'#'},
+    {tab:'know',cat:'class',  title:'온라인 수업 가이드',date:'2026-02-14',url:'#'},
+    {tab:'know',cat:'curri', title:'정규반 커리큘럼',date:'2026-05-10',url:'#'},
+    {tab:'know',cat:'curri', title:'방학 특강 커리큘럼',date:'2026-04-20',url:'#'}
+  ];
+
+  var curTab='product', sortDesc=true;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
+
+  function rowHTML(it){
+    var c=CATEGORY[it.cat];
+    return '<div class="pv-row">'
+      +'<div class="pv-ico"><i class="ti ti-folder" aria-hidden="true" style="color:var('+c.fg+')"></i></div>'
+      +'<div class="pv-body"><div class="pv-ttl"><span class="pv-name">'+esc(it.title)+'</span></div><div class="pv-date">'+it.date.replace(/-/g,'.')+'</div></div>'
+      +'<a class="pv-dl" href="'+it.url+'"'+(it.url!=='#'?' target="_blank" rel="noopener"':'')+' aria-label="'+esc(it.title)+' 다운로드"><i class="ti ti-download" aria-hidden="true"></i></a>'
+      +'</div>';
   }
-
-  wireTabs(
-    [document.getElementById('tabArchive'), document.getElementById('tabHelper')],
-    [document.getElementById('paneArchive'), document.getElementById('paneHelper')]
-  );
-  wireTabs(
-    [document.getElementById('subAdmin'), document.getElementById('subTeach')],
-    [document.getElementById('paneAdmin'), document.getElementById('paneTeach')]
-  );
-})();
-</script>
-
-
-<script>
-/* 자료 목록 페이지네이션 — 페이지당 10개, 초과 시 다음 페이지 */
-(function () {
-  var SIZE = 10;
-  document.querySelectorAll('.res-list').forEach(function (list) {
-    var items = Array.prototype.slice.call(list.querySelectorAll(':scope > .res-item, :scope > .res-accordion'));
-    if (items.length <= SIZE) return;
-    var pages = Math.ceil(items.length / SIZE), cur = 1;
-    var pager = document.createElement('nav');
-    pager.className = 'res-pager';
-    pager.setAttribute('aria-label', '페이지 탐색');
-    function mk(txt, label) { var b = document.createElement('button'); b.type = 'button'; b.textContent = txt; b.setAttribute('aria-label', label); return b; }
-    var prev = mk('\u2039', '이전 페이지'), next = mk('\u203A', '다음 페이지'), nums = [];
-    for (var p = 1; p <= pages; p++) (function (p) {
-      var b = document.createElement('button'); b.type = 'button'; b.textContent = p;
-      b.setAttribute('aria-label', p + '페이지');
-      b.addEventListener('click', function () { cur = p; render(); });
-      nums.push(b);
-    })(p);
-    prev.addEventListener('click', function () { if (cur > 1) { cur--; render(); } });
-    next.addEventListener('click', function () { if (cur < pages) { cur++; render(); } });
-    pager.appendChild(prev); nums.forEach(function (b) { pager.appendChild(b); }); pager.appendChild(next);
-    list.parentNode.insertBefore(pager, list.nextSibling);
-    function render() {
-      items.forEach(function (it, i) { it.hidden = !(i >= (cur - 1) * SIZE && i < cur * SIZE); });
-      nums.forEach(function (b, i) { var on = i + 1 === cur; b.classList.toggle('active', on); if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
-      prev.disabled = cur === 1; next.disabled = cur === pages;
+  function groupHTML(catKey, items){
+    var c=CATEGORY[catKey];
+    var head='<div class="pv-ghd">'+c.label+'</div>';
+    if(catKey==='answer'){
+      var chips=items.map(function(it){
+        var lv=LEVELC[it.title]||['#EDEFF2','#5B636E'];
+        return '<a class="pv-achip" href="'+it.url+'" style="background:#fff;border-color:'+lv[1]+';color:'+lv[1]+'" aria-label="워크북 답안지 '+esc(it.title)+' 다운로드"><i class="ti ti-file-type-pdf" aria-hidden="true" style="color:'+lv[1]+'"></i>'+esc(it.title)+'</a>';
+      }).join('');
+      return head+'<div class="pv-answer-grid">'+chips+'</div>';
     }
-    list.__resetPager = function () { cur = 1; render(); };
-    render();
-  });
-  // 운영/교수 서브탭 전환 시 양쪽 목록 모두 1페이지로 초기화
-  function resetPane(id) { var l = document.querySelector('#' + id + ' .res-list'); if (l && l.__resetPager) l.__resetPager(); }
-  ['subAdmin', 'subTeach'].forEach(function (id) {
-    var b = document.getElementById(id);
-    if (b) b.addEventListener('click', function () { resetPane('paneAdmin'); resetPane('paneTeach'); });
-  });
-})();
-</script>
+    return head+items.map(rowHTML).join('');
+  }
+  function render(){
+    var q=(document.getElementById('pvQ').value||'').trim().toLowerCase();
+    var items=DATA.filter(function(it){return it.tab===curTab;});
+    if(q) items=items.filter(function(it){return it.title.toLowerCase().indexOf(q)!==-1;});
+    items.sort(function(a,b){return sortDesc? new Date(b.date)-new Date(a.date) : new Date(a.date)-new Date(b.date);});
+    var rows=document.getElementById('pvRows');
+    if(items.length===0){rows.innerHTML='';setState('empty',true);return;}
+    setState('default',true);
+    var html='';
+    ORDER.forEach(function(cat){
+      var grp=items.filter(function(it){return it.cat===cat;});
+      if(grp.length) html+=groupHTML(cat,grp);
+    });
+    rows.innerHTML=html;
+  }
+  function setState(st,fromRender){
+    document.getElementById('pvRows').style.display = st==='default'?'block':'none';
+    document.getElementById('pvLoading').style.display = st==='loading'?'flex':'none';
+    document.getElementById('pvEmpty').style.display = st==='empty'?'flex':'none';
+    document.getElementById('pvError').style.display = st==='error'?'flex':'none';
+    if(!fromRender && st==='default') render();
+  }
+  function toggleSort(){sortDesc=!sortDesc;document.getElementById('pvSortLabel').textContent=sortDesc?'최신순':'오래된순';render();}
 
+  var qEl=document.getElementById('pvQ'), clr=document.getElementById('pvClear');
+  var t;
+  qEl.addEventListener('input',function(){clr.hidden=!qEl.value;clearTimeout(t);t=setTimeout(render,120);});
+  clr.addEventListener('click',function(){qEl.value='';clr.hidden=true;render();qEl.focus();});
+  document.getElementById('pvSort').addEventListener('click',toggleSort);
+  document.getElementById('pvRetry').addEventListener('click',function(){render();});
 
-<script>
-/* 워크북 답안지 — 레벨 아코디언 토글 */
-(function () {
-  document.querySelectorAll('.res-acc-trigger').forEach(function (btn) {
-    var panel = document.getElementById(btn.getAttribute('aria-controls'));
-    if (!panel) return;
-    btn.addEventListener('click', function () {
-      var open = btn.getAttribute('aria-expanded') !== 'true';
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      panel.classList.toggle('open', open);
-      if (open) panel.removeAttribute('inert'); else panel.setAttribute('inert', '');
+  var tabs=[].slice.call(document.querySelectorAll('.pv-tab'));
+  tabs.forEach(function(tb){
+    tb.addEventListener('click',function(){
+      tabs.forEach(function(x){x.classList.remove('on');x.setAttribute('aria-selected','false');x.tabIndex=-1;});
+      tb.classList.add('on');tb.setAttribute('aria-selected','true');tb.tabIndex=0;
+      curTab=tb.dataset.tab; qEl.value='';clr.hidden=true; render();
+    });
+    tb.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(tb), n=tabs.length, nx=null;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown')nx=(i+1)%n;
+      else if(e.key==='ArrowLeft'||e.key==='ArrowUp')nx=(i-1+n)%n;
+      else if(e.key==='Home')nx=0; else if(e.key==='End')nx=n-1;
+      if(nx!==null){e.preventDefault();tabs[nx].focus();tabs[nx].click();}
     });
   });
+
+  /* 목업: 미연결(#) 링크 클릭 시 페이지 점프 방지 */
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="#"]');if(a)e.preventDefault();});
+
+  render();
 })();
 </script>
 
