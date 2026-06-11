@@ -1465,8 +1465,9 @@
     --c-curri-bg:#F3EEE3;--c-curri-fg:#8A6D3B;
   }
   .pv-tabs{display:flex;gap:24px;border-bottom:1px solid var(--gray-200);margin:0 0 18px;flex-wrap:wrap;}
-  .pv-tab{appearance:none;background:none;border:none;cursor:pointer;padding:11px 2px;font-size:15px;font-family:inherit;color:var(--gray-400);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;font-weight:600;}
-  .pv-tab.on{color:var(--gray-900);border-bottom-color:var(--primary);}
+  .pv-tab{display:inline-flex;align-items:center;gap:7px;appearance:none;background:none;border:none;cursor:pointer;padding:11px 2px;font-size:15px;font-family:inherit;color:var(--gray-400);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;font-weight:600;}
+  .pv-tab>i{font-size:18px;color:var(--tc,#9CA3AF);}
+  .pv-tab.on{color:var(--gray-900);border-bottom-color:var(--tc,var(--primary));}
   .pv-tab:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px;}
   .pv-toolbar{display:flex;gap:8px;margin-bottom:14px;}
   .pv-search{flex:1;display:flex;align-items:center;gap:8px;height:44px;padding:0 13px;background:var(--white);border:1px solid var(--gray-300);border-radius:var(--radius-md);color:var(--gray-600);}
@@ -1513,6 +1514,11 @@
   @keyframes pv-shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
   @media (prefers-reduced-motion: reduce){.pv-sk{animation:none}}
   @media (max-width:768px){.pv-tabs{gap:14px}.pv-toolbar{flex-wrap:wrap}.pv-name{font-size:14.5px}}
+  /* 워크북 답안지 — 레벨 컬러 원형 버튼 (PDF 표시 없음) */
+  .pv-wb-grid{display:flex;flex-wrap:wrap;gap:10px;padding:6px 16px 16px;}
+  .pv-wb{display:inline-flex;align-items:center;justify-content:center;min-width:54px;height:42px;padding:0 18px;border-radius:999px;font-size:15px;font-weight:800;color:#fff;border:none;cursor:pointer;text-decoration:none;}
+  .pv-wb:hover{filter:brightness(.93);}
+  .pv-wb:focus-visible{outline:2px solid #1F2937;outline-offset:2px;}
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css" />
 </head>
@@ -1692,9 +1698,9 @@
 
   <!-- Lv1 탭 (3개) -->
   <div class="pv-tabs" role="tablist" aria-label="자료 구분">
-    <button class="pv-tab on" type="button" role="tab" aria-selected="true" data-tab="product">참빛북클럽 운영 자료</button>
-    <button class="pv-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="helper">학원 운영 도우미</button>
-    <button class="pv-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="know">Bill Kim의 노하우</button>
+    <button class="pv-tab on" type="button" role="tab" aria-selected="true" data-tab="product" style="--tc:#3B8A4E"><i class="ti ti-books" aria-hidden="true"></i>참빛북클럽 운영 자료</button>
+    <button class="pv-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="helper" style="--tc:#2563EB"><i class="ti ti-school" aria-hidden="true"></i>학원 운영 도우미</button>
+    <button class="pv-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="know" style="--tc:#D8473E"><i class="ti ti-bulb" aria-hidden="true"></i>Bill Kim의 노하우</button>
   </div>
 
   <!-- 검색 + 정렬 -->
@@ -2554,28 +2560,32 @@
 </script>
 
 <script>
-/* 교사 자료실 v2 — 카테고리 컬러·3탭·검색/정렬·상태 (어드민은 category만 지정) */
+/* 교사 자료실 — 탭별/카테고리별 아이콘·컬러 + 워크북 레벨 원형버튼 */
 (function () {
   var CATEGORY = {
-    start:  {label:'시작하기',     icon:'ti-flag-2',         bg:'--c-start-bg',  fg:'--c-start-fg'},
-    feature:{label:'콘텐츠 활용',   icon:'ti-book-2',         bg:'--c-feature-bg',fg:'--c-feature-fg'},
-    answer: {label:'워크북 답안지', icon:'ti-list-check',     bg:'--c-answer-bg', fg:'--c-answer-fg'},
-    ops:    {label:'운영 서식',     icon:'ti-calendar-event', bg:'--c-ops-bg',    fg:'--c-ops-fg'},
-    report: {label:'평가·리포트',   icon:'ti-chart-bar',      bg:'--c-report-bg', fg:'--c-report-fg'},
-    counsel:{label:'학부모 상담',   icon:'ti-messages',       bg:'--c-counsel-bg',fg:'--c-counsel-fg'},
-    class:  {label:'수업 진행',     icon:'ti-school',         bg:'--c-class-bg',  fg:'--c-class-fg'},
-    curri:  {label:'커리큘럼',      icon:'ti-route',          bg:'--c-curri-bg',  fg:'--c-curri-fg'}
+    /* 참빛북클럽 운영 자료 */
+    start:   {label:'시작하기',   icon:'ti-flag-2',  color:'#3B8A4E'},
+    feature: {label:'콘텐츠 활용', icon:'ti-book-2',  color:'#5566C7'},
+    workbook:{label:'워크북',     icon:'ti-notebook',color:'#BE7C18'},
+    /* 학원 운영 도우미 (고정 6분류) */
+    notice:  {label:'공지·안내', icon:'ti-bell',            color:'#D8473E'},
+    payment: {label:'수강·결제', icon:'ti-credit-card',     color:'#2E857B'},
+    csot:    {label:'상담·소통', icon:'ti-messages',        color:'#2563EB'},
+    attend:  {label:'출결·운영', icon:'ti-clipboard-check', color:'#5B636E'},
+    promo:   {label:'모집·홍보', icon:'ti-speakerphone',    color:'#C2620E'},
+    event:   {label:'행사·시즌', icon:'ti-confetti',        color:'#B7791F'},
+    /* Bill Kim의 노하우 */
+    kcounsel:{label:'학부모 상담', icon:'ti-user-heart', color:'#2563EB'},
+    kclass:  {label:'수업 진행',   icon:'ti-school',     color:'#4E5A78'},
+    kcurri:  {label:'커리큘럼',    icon:'ti-route',      color:'#8A6D3B'}
   };
-  var ORDER = ['start','feature','answer','ops','report','counsel','class','curri'];
-  /* 워크북 답안지 — 레벨별 컬러 [배경, 글자] */
-  var LEVELC = {
-    'K':['#FCE9E9','#D8473E'],'G1':['#FDEEDD','#C2620E'],'G2':['#FBF2D9','#8A6D11'],
-    'G3':['#E7F3E8','#3B8A4E'],'G4':['#E1F1EF','#2E857B'],'G5':['#E6EEFB','#2563EB'],'G6':['#E9EBF2','#4E5A78']
-  };
+  var ORDER = ['start','feature','workbook','notice','payment','csot','attend','promo','event','kcounsel','kclass','kcurri'];
+  /* 워크북 레벨 컬러 (원형 버튼 채움색) */
+  var LEVELC = {'K':'#D8473E','G1':'#E0560B','G2':'#B7791F','G3':'#3B8A4E','G4':'#2E857B','G5':'#2563EB','G6':'#4E5A78'};
   var isNew = function(d){ return (Date.now() - new Date(d)) / 864e5 <= 14; };
 
   var DATA = [
-    /* 탭1 · 참빛북클럽 운영 자료 */
+    /* 참빛북클럽 운영 자료 */
     {tab:'product',cat:'start',  title:'참빛북클럽 첫 시작 커리큘럼 가이드',date:'2026-06-08',url:'https://cdn.bookclubs.co.kr/tr_a/Basic_guide.pdf'},
     {tab:'product',cat:'start',  title:'북클럽 교사용 사용 가이드',date:'2026-05-20',url:'https://cdn.bookclubs.co.kr/tr_a/2024_LMS.pdf'},
     {tab:'product',cat:'start',  title:'참빛북클럽 소개 자료',date:'2026-04-22',url:'https://cdn.bookclubs.co.kr/tr_a/Introduction.pdf'},
@@ -2586,47 +2596,70 @@
     {tab:'product',cat:'feature',title:'StoryFrom 활용 가이드',date:'2026-05-12',url:'#'},
     {tab:'product',cat:'feature',title:'Workbook 활용 가이드',date:'2026-05-09',url:'#'},
     {tab:'product',cat:'feature',title:'Extra Reads 안내 자료',date:'2026-04-30',url:'#'},
-    {tab:'product',cat:'answer', title:'K', level:true,date:'2026-05-02',url:'#'},
-    {tab:'product',cat:'answer', title:'G1',level:true,date:'2026-05-02',url:'#'},
-    {tab:'product',cat:'answer', title:'G2',level:true,date:'2026-05-02',url:'#'},
-    {tab:'product',cat:'answer', title:'G3',level:true,date:'2026-05-02',url:'#'},
-    {tab:'product',cat:'answer', title:'G4',level:true,date:'2026-05-02',url:'#'},
-    {tab:'product',cat:'answer', title:'G5',level:true,date:'2026-05-02',url:'#'},
-    {tab:'product',cat:'answer', title:'G6',level:true,date:'2026-05-02',url:'#'},
-    /* 탭2 · 학원 운영 도우미 */
-    {tab:'helper',cat:'ops',   title:'휴무 공지 서식',date:'2026-06-05',url:'#'},
-    {tab:'helper',cat:'ops',   title:'방학 특강 안내문',date:'2026-06-01',url:'#'},
-    {tab:'helper',cat:'ops',   title:'학원 월간 일정표',date:'2026-05-28',url:'#'},
-    {tab:'helper',cat:'ops',   title:'학생 피드백 카드',date:'2026-05-05',url:'#'},
-    {tab:'helper',cat:'ops',   title:'가정통신문',date:'2026-04-30',url:'#'},
-    {tab:'helper',cat:'ops',   title:'학원 홍보용 전단지',date:'2026-04-18',url:'#'},
-    {tab:'helper',cat:'ops',   title:'학부모 오리엔테이션 자료',date:'2026-04-05',url:'#'},
-    {tab:'helper',cat:'ops',   title:'신규 원생 등록 양식',date:'2026-03-28',url:'#'},
-    {tab:'helper',cat:'ops',   title:'수강료 안내 템플릿',date:'2026-03-25',url:'#'},
-    {tab:'helper',cat:'ops',   title:'출결부 양식',date:'2026-03-20',url:'#'},
-    {tab:'helper',cat:'ops',   title:'결석·지각 안내문',date:'2026-03-05',url:'#'},
-    {tab:'helper',cat:'ops',   title:'학원 규정 안내문',date:'2026-02-28',url:'#'},
-    {tab:'helper',cat:'ops',   title:'상담 일지 양식',date:'2026-02-20',url:'#'},
-    {tab:'helper',cat:'report',title:'Monthly Report 활용 가이드',date:'2026-04-25',url:'#'},
-    {tab:'helper',cat:'report',title:'독서 레벨표(Lexile) 안내',date:'2026-04-15',url:'#'},
-    {tab:'helper',cat:'report',title:'레벨 테스트 안내 자료',date:'2026-04-10',url:'#'},
-    /* 탭3 · Bill Kim의 노하우 */
-    {tab:'know',cat:'counsel',title:'학부모 상담 가이드',date:'2026-05-20',url:'#'},
-    {tab:'know',cat:'counsel',title:'첫 상담 스크립트',date:'2026-05-08',url:'#'},
-    {tab:'know',cat:'class',  title:'책 읽고 수업 진행하는 법',date:'2026-06-04',url:'#'},
-    {tab:'know',cat:'class',  title:'학습 지도법',date:'2026-04-25',url:'#'},
-    {tab:'know',cat:'class',  title:'학생 동기부여 노하우',date:'2026-04-16',url:'#'},
-    {tab:'know',cat:'class',  title:'레벨별 수업 운영안',date:'2026-04-08',url:'#'},
-    {tab:'know',cat:'class',  title:'파닉스 지도 노하우',date:'2026-03-30',url:'#'},
-    {tab:'know',cat:'class',  title:'리딩 클래스 진행 가이드',date:'2026-03-24',url:'#'},
-    {tab:'know',cat:'class',  title:'라이팅 첨삭 가이드',date:'2026-03-18',url:'#'},
-    {tab:'know',cat:'class',  title:'스피킹 수업 활동지',date:'2026-03-10',url:'#'},
-    {tab:'know',cat:'class',  title:'어휘 학습 게임 모음',date:'2026-03-02',url:'#'},
-    {tab:'know',cat:'class',  title:'학습 부진 학생 지도법',date:'2026-02-26',url:'#'},
-    {tab:'know',cat:'class',  title:'그룹 수업 운영 팁',date:'2026-02-20',url:'#'},
-    {tab:'know',cat:'class',  title:'온라인 수업 가이드',date:'2026-02-14',url:'#'},
-    {tab:'know',cat:'curri', title:'정규반 커리큘럼',date:'2026-05-10',url:'#'},
-    {tab:'know',cat:'curri', title:'방학 특강 커리큘럼',date:'2026-04-20',url:'#'}
+    {tab:'product',cat:'workbook',title:'K', level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'workbook',title:'G1',level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'workbook',title:'G2',level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'workbook',title:'G3',level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'workbook',title:'G4',level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'workbook',title:'G5',level:true,date:'2026-05-02',url:'#'},
+    {tab:'product',cat:'workbook',title:'G6',level:true,date:'2026-05-02',url:'#'},
+    /* 학원 운영 도우미 */
+    {tab:'helper',cat:'notice', title:'휴무 공지 서식',date:'2026-06-05',url:'#'},
+    {tab:'helper',cat:'notice', title:'방학 안내문 서식',date:'2026-06-01',url:'#'},
+    {tab:'helper',cat:'notice', title:'특강 안내문',date:'2026-05-25',url:'#'},
+    {tab:'helper',cat:'notice', title:'수업 변경 안내문',date:'2026-05-18',url:'#'},
+    {tab:'helper',cat:'notice', title:'보강 안내문',date:'2026-05-10',url:'#'},
+    {tab:'helper',cat:'notice', title:'준비물 안내문',date:'2026-04-28',url:'#'},
+    {tab:'helper',cat:'notice', title:'학원 월간 일정표',date:'2026-04-20',url:'#'},
+    {tab:'helper',cat:'payment',title:'수강료 안내 템플릿',date:'2026-06-03',url:'#'},
+    {tab:'helper',cat:'payment',title:'수강료 변경 안내문',date:'2026-05-22',url:'#'},
+    {tab:'helper',cat:'payment',title:'결제일 안내문',date:'2026-05-12',url:'#'},
+    {tab:'helper',cat:'payment',title:'미납 안내문',date:'2026-04-30',url:'#'},
+    {tab:'helper',cat:'payment',title:'환불 규정 안내',date:'2026-04-18',url:'#'},
+    {tab:'helper',cat:'payment',title:'신규 등록 양식',date:'2026-04-05',url:'#'},
+    {tab:'helper',cat:'payment',title:'재등록 안내문',date:'2026-03-28',url:'#'},
+    {tab:'helper',cat:'csot',   title:'학부모 상담 신청서',date:'2026-06-04',url:'#'},
+    {tab:'helper',cat:'csot',   title:'첫 상담지',date:'2026-05-20',url:'#'},
+    {tab:'helper',cat:'csot',   title:'상담 일지 양식',date:'2026-05-06',url:'#'},
+    {tab:'helper',cat:'csot',   title:'학습 피드백 카드',date:'2026-04-25',url:'#'},
+    {tab:'helper',cat:'csot',   title:'가정 학습 안내문',date:'2026-04-12',url:'#'},
+    {tab:'helper',cat:'csot',   title:'오리엔테이션 자료',date:'2026-03-30',url:'#'},
+    {tab:'helper',cat:'attend', title:'출석부 양식',date:'2026-05-30',url:'#'},
+    {tab:'helper',cat:'attend', title:'결석·지각 안내문',date:'2026-05-15',url:'#'},
+    {tab:'helper',cat:'attend', title:'보강 신청서',date:'2026-05-02',url:'#'},
+    {tab:'helper',cat:'attend', title:'원생 정보 카드',date:'2026-04-20',url:'#'},
+    {tab:'helper',cat:'attend', title:'비상연락망 양식',date:'2026-04-08',url:'#'},
+    {tab:'helper',cat:'attend', title:'차량 운행표',date:'2026-03-25',url:'#'},
+    {tab:'helper',cat:'attend', title:'학원 규정 안내문',date:'2026-03-10',url:'#'},
+    {tab:'helper',cat:'promo',  title:'신규 원생 모집 포스터',date:'2026-06-06',url:'#'},
+    {tab:'helper',cat:'promo',  title:'방학 특강 홍보문',date:'2026-05-24',url:'#'},
+    {tab:'helper',cat:'promo',  title:'학원 소개서',date:'2026-05-10',url:'#'},
+    {tab:'helper',cat:'promo',  title:'설명회 안내문',date:'2026-04-26',url:'#'},
+    {tab:'helper',cat:'promo',  title:'홍보용 전단지',date:'2026-04-14',url:'#'},
+    {tab:'helper',cat:'promo',  title:'문자·SNS 홍보 문구',date:'2026-03-30',url:'#'},
+    {tab:'helper',cat:'event',  title:'공개수업 안내문',date:'2026-06-02',url:'#'},
+    {tab:'helper',cat:'event',  title:'레벨업 시상장',date:'2026-05-18',url:'#'},
+    {tab:'helper',cat:'event',  title:'수료증 양식',date:'2026-05-04',url:'#'},
+    {tab:'helper',cat:'event',  title:'독서 챌린지 안내',date:'2026-04-20',url:'#'},
+    {tab:'helper',cat:'event',  title:'여름·겨울 이벤트 안내',date:'2026-04-06',url:'#'},
+    {tab:'helper',cat:'event',  title:'크리스마스 카드',date:'2026-03-20',url:'#'},
+    /* Bill Kim의 노하우 */
+    {tab:'know',cat:'kcounsel',title:'학부모 상담 가이드',date:'2026-05-20',url:'#'},
+    {tab:'know',cat:'kcounsel',title:'첫 상담 스크립트',date:'2026-05-08',url:'#'},
+    {tab:'know',cat:'kclass',  title:'책 읽고 수업 진행하는 법',date:'2026-06-04',url:'#'},
+    {tab:'know',cat:'kclass',  title:'학습 지도법',date:'2026-04-25',url:'#'},
+    {tab:'know',cat:'kclass',  title:'학생 동기부여 노하우',date:'2026-04-16',url:'#'},
+    {tab:'know',cat:'kclass',  title:'레벨별 수업 운영안',date:'2026-04-08',url:'#'},
+    {tab:'know',cat:'kclass',  title:'파닉스 지도 노하우',date:'2026-03-30',url:'#'},
+    {tab:'know',cat:'kclass',  title:'리딩 클래스 진행 가이드',date:'2026-03-24',url:'#'},
+    {tab:'know',cat:'kclass',  title:'라이팅 첨삭 가이드',date:'2026-03-18',url:'#'},
+    {tab:'know',cat:'kclass',  title:'스피킹 수업 활동지',date:'2026-03-10',url:'#'},
+    {tab:'know',cat:'kclass',  title:'어휘 학습 게임 모음',date:'2026-03-02',url:'#'},
+    {tab:'know',cat:'kclass',  title:'학습 부진 학생 지도법',date:'2026-02-26',url:'#'},
+    {tab:'know',cat:'kclass',  title:'그룹 수업 운영 팁',date:'2026-02-20',url:'#'},
+    {tab:'know',cat:'kclass',  title:'온라인 수업 가이드',date:'2026-02-14',url:'#'},
+    {tab:'know',cat:'kcurri', title:'정규반 커리큘럼',date:'2026-05-10',url:'#'},
+    {tab:'know',cat:'kcurri', title:'방학 특강 커리큘럼',date:'2026-04-20',url:'#'}
   ];
 
   var curTab='product', sortDesc=true;
@@ -2635,20 +2668,20 @@
   function rowHTML(it){
     var c=CATEGORY[it.cat];
     return '<div class="pv-row">'
-      +'<div class="pv-ico"><i class="ti ti-folder" aria-hidden="true" style="color:var('+c.fg+')"></i></div>'
+      +'<div class="pv-ico"><i class="ti '+c.icon+'" aria-hidden="true" style="color:'+c.color+'"></i></div>'
       +'<div class="pv-body"><div class="pv-ttl"><span class="pv-name">'+esc(it.title)+'</span></div><div class="pv-date">'+it.date.replace(/-/g,'.')+'</div></div>'
       +'<a class="pv-dl" href="'+it.url+'"'+(it.url!=='#'?' target="_blank" rel="noopener"':'')+' aria-label="'+esc(it.title)+' 다운로드"><i class="ti ti-download" aria-hidden="true"></i></a>'
       +'</div>';
   }
   function groupHTML(catKey, items){
     var c=CATEGORY[catKey];
-    var head='<div class="pv-ghd">'+c.label+'</div>';
-    if(catKey==='answer'){
-      var chips=items.map(function(it){
-        var lv=LEVELC[it.title]||['#EDEFF2','#5B636E'];
-        return '<a class="pv-achip" href="'+it.url+'" style="background:#fff;border-color:'+lv[1]+';color:'+lv[1]+'" aria-label="워크북 답안지 '+esc(it.title)+' 다운로드"><i class="ti ti-file-type-pdf" aria-hidden="true" style="color:'+lv[1]+'"></i>'+esc(it.title)+'</a>';
+    var head='<div class="pv-ghd"><i class="ti '+c.icon+'" aria-hidden="true" style="color:'+c.color+';font-size:16px"></i>'+c.label+'</div>';
+    if(catKey==='workbook'){
+      var btns=items.map(function(it){
+        var col=LEVELC[it.title]||'#5B636E';
+        return '<a class="pv-wb" href="'+it.url+'" style="background:'+col+'" aria-label="워크북 답안지 '+esc(it.title)+' 다운로드">'+esc(it.title)+'</a>';
       }).join('');
-      return head+'<div class="pv-answer-grid">'+chips+'</div>';
+      return head+'<div class="pv-wb-grid">'+btns+'</div>';
     }
     return head+items.map(rowHTML).join('');
   }
@@ -2699,9 +2732,7 @@
     });
   });
 
-  /* 목업: 미연결(#) 링크 클릭 시 페이지 점프 방지 */
   document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href="#"]');if(a)e.preventDefault();});
-
   render();
 })();
 </script>
