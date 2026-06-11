@@ -1487,7 +1487,7 @@
   .pv-row{display:flex;align-items:center;gap:13px;padding:13px 16px;border-top:1px solid var(--gray-100);}
   .pv-ghd + .pv-row{border-top:none;}
   .pv-row:hover{background:#FAFBFC;}
-  .pv-ico{width:38px;height:38px;flex-shrink:0;border-radius:10px;background:#F1F2F7;display:flex;align-items:center;justify-content:center;font-size:19px;color:#6B7280;}
+  .pv-ico{width:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:#4B5563;}
   .pv-body{flex:1;min-width:0;}
   .pv-ttl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .pv-name{font-size:15px;color:var(--gray-900);font-weight:500;}
@@ -2675,7 +2675,7 @@
   }
   function groupHTML(catKey, items){
     var c=CATEGORY[catKey];
-    var head='<div class="pv-ghd"><i class="ti '+c.icon+'" aria-hidden="true" style="color:#6B7280;font-size:16px"></i>'+c.label+'</div>';
+    var head='<div class="pv-ghd"><i class="ti '+c.icon+'" aria-hidden="true" style="color:#4B5563;font-size:16px"></i>'+c.label+'</div>';
     if(catKey==='workbook'){
       var btns=items.map(function(it){
         var col=LEVELC[it.title]||'#5B636E';
