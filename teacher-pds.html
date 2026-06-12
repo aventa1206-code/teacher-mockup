@@ -1214,287 +1214,37 @@
   }
   .pds-sub { margin-top: 8px; font-size: var(--fs-body); color: var(--gray-600); }
 
-  /* 메인 탭 (밑줄형 — 메인 페이지 .tab-btn과 동일 룩) */
-  .pds-tabbar {
-    display: flex; gap: 0;
-    border-bottom: 1px solid var(--gray-200);
-    margin-bottom: 24px;
-  }
-  .pds-tab {
-    background: none; border: none; cursor: pointer;
-    font-family: inherit; font-size: 16px; font-weight: 800;
-    color: var(--gray-600); letter-spacing: -0.02em;
-    padding: 12px 0 16px; margin-right: 28px;
-    position: relative; transition: color 0.18s ease;
-  }
-  .pds-tab:hover { color: var(--gray-900); }
-  .pds-tab.active { color: var(--gray-900); }
-  .pds-tab.active::after {
-    content: ''; position: absolute; left: 0; right: 0; bottom: -1px;
-    height: 3px; background: var(--gray-900); border-radius: 2px;
-  }
-  .pds-panel[hidden] { display: none; }
-
-  /* 카드 */
-  .pds-card {
-    background: var(--white); border: 1px solid var(--gray-200);
-    border-radius: var(--radius-lg); box-shadow: var(--shadow-card);
-    padding: 24px;
-  }
-  .pds-card + .pds-card { margin-top: 18px; }
-  .pds-card-head {
-    display: flex; align-items: flex-start; justify-content: space-between;
-    gap: 12px; padding-bottom: 16px; margin-bottom: 6px;
-    border-bottom: 1px solid var(--gray-200);
-  }
-  .pds-card-title {
-    font-size: var(--fs-h3); font-weight: 800;
-    color: var(--gray-900); letter-spacing: -0.02em;
-  }
-  .pds-card-desc { margin-top: 5px; font-size: var(--fs-body-sm); color: var(--gray-600); line-height: 1.5; }
-  .pds-count { flex-shrink: 0; font-size: 14px; color: var(--gray-600); font-weight: 600; white-space: nowrap; }
-  .pds-count-num {
-    font-weight: 800; color: var(--gray-900); margin-right: 2px;
-    font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1;
-  }
-
-  /* 서브탭 (세그먼트형) */
-  .pds-subbar {
-    display: inline-flex; gap: 4px;
-    background: var(--gray-200); padding: 4px;
-    border-radius: var(--radius-pill); margin-bottom: 18px;
-  }
-  .pds-subtab {
-    background: none; border: none; cursor: pointer;
-    font-family: inherit; font-size: 14px; font-weight: 700;
-    color: var(--gray-600); padding: 8px 22px;
-    border-radius: var(--radius-pill); letter-spacing: -0.01em;
-    transition: color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
-  }
-  .pds-subtab:hover { color: var(--gray-900); }
-  .pds-subtab.active { background: var(--white); color: var(--gray-900); box-shadow: var(--shadow-sm); }
-  .pds-subpane[hidden] { display: none; }
-
-  /* 자료 행 */
-  .res-list { display: flex; flex-direction: column; }
-  .res-item {
-    display: flex; align-items: center; gap: 14px;
-    padding: 16px 12px; border-radius: var(--radius-md);
-    text-decoration: none; color: inherit;
-    transition: background 0.18s ease;
-  }
-  .res-item + .res-item { border-top: 1px solid var(--gray-200); }
-  .res-item:hover { background: var(--gray-100); }
-  .res-item:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-  .res-ic {
-    flex-shrink: 0; width: 44px; height: 44px;
-    border-radius: var(--radius-md); display: grid; place-items: center;
-    background: var(--primary-soft); color: var(--primary);
-    transition: transform 0.18s ease;
-  }
-  .res-item:hover .res-ic { transform: scale(1.06); }
-  .res-ic svg { width: 22px; height: 22px; }
-  .res-body { flex: 1; min-width: 0; }
-  .res-title { font-size: var(--fs-body); font-weight: 700; color: var(--gray-900); letter-spacing: -0.01em; line-height: 1.4; }
-  .res-item:hover .res-title { color: var(--primary); }
-  .res-desc { margin-top: 3px; font-size: 14px; color: var(--gray-600); line-height: 1.45; }
-  .res-meta { flex-shrink: 0; display: flex; align-items: center; gap: 12px; }
-  .res-fmt {
-    font-size: 13px; font-weight: 700; color: var(--gray-600);
-    background: var(--gray-200); padding: 4px 9px;
-    border-radius: var(--radius-sm); letter-spacing: 0.02em;
-    font-variant-numeric: tabular-nums;
-  }
-  .res-date {
-    font-size: 13px; color: var(--gray-600); font-weight: 500;
-    width: 44px; text-align: right;
-    font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1;
-  }
-  .res-act {
-    width: 34px; height: 34px; flex-shrink: 0;
-    border-radius: var(--radius-sm); display: grid; place-items: center;
-    color: var(--gray-600); transition: background 0.18s ease, color 0.18s ease;
-  }
-  .res-item:hover .res-act { background: var(--primary-soft); color: var(--primary); }
-  .res-act svg { width: 18px; height: 18px; }
-
   /* 반응형 */
   @media (max-width: 768px) {
     .pds-title { font-size: 24px; }
-    .pds-card { padding: 18px; }
-    .res-desc { display: none; }
-    .res-item { gap: 12px; padding: 14px 8px; }
-    .res-date { display: none; }
-  }
-  @media (max-width: 480px) {
-    .pds-tab { font-size: 15px; margin-right: 20px; }
-    .res-fmt { display: none; }
   }
 
-  /* 자료 행 — PNG 아이콘 지원 */
-  .res-ic.is-img { background: transparent; }
-  .res-ic.is-file { background: var(--gray-200); color: var(--gray-600); }
-  .res-ic img { width: 100%; height: 100%; object-fit: contain; display: block; }
+  /* (구버전 pds-tabbar/pds-card/res-*/rl-* 스타일 제거됨 — 2026-06-12, 마크업·JS 미사용 확인) */
 
-
-  /* 페이지네이션 */
-  .res-pager { display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--gray-200); }
-  .res-pager button {
-    min-width: 34px; height: 34px; padding: 0 9px;
-    border: 1px solid var(--gray-300); background: var(--white);
-    border-radius: var(--radius-sm); font-family: inherit; font-size: 14px;
-    font-weight: 600; color: var(--gray-700); cursor: pointer;
-    font-variant-numeric: tabular-nums; transition: background .15s ease, border-color .15s ease, color .15s ease;
-  }
-  .res-pager button:hover:not(:disabled) { border-color: var(--gray-600); color: var(--gray-900); background: var(--gray-100); }
-  .res-pager button.active { background: var(--primary); border-color: var(--primary); color: #fff; }
-  .res-pager button:disabled { opacity: .4; cursor: not-allowed; }
-  .res-pager button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-
-  /* 워크북 답안지 — 레벨별 아코디언 (레벨 컬러 토큰 유지) */
-  .res-acc-trigger { width: 100%; background: none; border: none; font-family: inherit; text-align: left; cursor: pointer; }
-  .res-acc-caret svg { transition: transform 0.2s ease; }
-  .res-acc-trigger[aria-expanded="true"] .res-acc-caret { background: var(--primary-soft); color: var(--primary); }
-  .res-acc-trigger[aria-expanded="true"] .res-acc-caret svg { transform: rotate(180deg); }
-  .res-item + .res-accordion, .res-accordion + .res-item { border-top: 1px solid var(--gray-200); }
-  .res-acc-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.22s ease; }
-  .res-acc-panel.open { grid-template-rows: 1fr; }
-  .res-acc-inner { overflow: hidden; }
-  .res-level { display: flex; align-items: center; gap: 12px; padding: 11px 12px 11px 70px; text-decoration: none; color: inherit; transition: background 0.15s ease; }
-  .res-level + .res-level { border-top: 1px solid var(--gray-100); }
-  .res-level:hover { background: var(--gray-100); }
-  .res-level:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; border-radius: var(--radius-sm); }
-  .res-level-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-  .res-level-name { flex: 1; font-size: 14px; font-weight: 600; color: var(--gray-700); letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
-  .res-level:hover .res-level-name { color: var(--gray-900); }
-  .res-level .res-act { width: 30px; height: 30px; }
-  .res-level:hover .res-act { background: var(--primary-soft); color: var(--primary); }
-  @media (prefers-reduced-motion: reduce) { .res-acc-panel { transition: none; } }
-
-  /* ================= 교사 자료실 재설계 (findability·메타데이터·어포던스) ================= */
-  /* 카드형 리스트 */
-  .rl-list { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); box-shadow: var(--shadow-card); padding: 8px 10px; }
-
-  /* 행 */
-  .rl-row { display: flex; align-items: center; gap: 16px; min-height: 64px; padding: 12px; border-radius: var(--radius-md); text-decoration: none; color: inherit; width: 100%; background: none; border: none; font-family: inherit; text-align: left; cursor: pointer; transition: background .15s ease; }
-  .rl-row[hidden] { display: none; }
-  .rl-list > .rl-row:not([hidden]) ~ .rl-row:not([hidden]) { border-top: 1px solid var(--gray-100); }
-  .rl-row:hover { background: var(--gray-100); }
-  .rl-row:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
-  .rl-ic { flex-shrink: 0; width: 40px; height: 40px; border-radius: var(--radius-md); display: grid; place-items: center; background: var(--gray-200); color: var(--gray-600); }
-  .rl-ic svg { width: 21px; height: 21px; }
-  .rl-mainwrap { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-  .rl-titlerow { display: flex; align-items: center; gap: 8px; min-width: 0; }
-  .rl-title { font-size: 15px; font-weight: 600; color: var(--gray-900); letter-spacing: -0.01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .rl-meta { font-size: 13px; color: var(--gray-600); font-variant-numeric: tabular-nums; font-feature-settings: 'tnum' 1; letter-spacing: 0; }
-
-  /* 받기 버튼 (아이콘 전용, 터치 타깃 ≥44px) */
-  .rl-get { flex-shrink: 0; display: grid; place-items: center; min-width: 44px; min-height: 44px; border-radius: var(--radius-md); color: var(--gray-600); background: var(--gray-100); transition: background .15s, color .15s; }
-  .rl-row:hover .rl-get { background: var(--primary); color: #fff; }
-  .rl-get svg { width: 17px; height: 17px; }
-  .rl-get.is-off { background: transparent; color: var(--gray-600); cursor: not-allowed; }
-  /* 워크북 답안지 등 묶음 자료 — 폴더 아이콘 */
-  .rl-ic-folder { background: var(--gray-200); color: var(--gray-600); }
-  /* 서브탭 (세그먼트 컨트롤) */
-  .rl-subtabs { display: inline-flex; background: var(--gray-100); border-radius: 10px; padding: 3px; margin-bottom: 16px; }
-  .rl-subtab { display: inline-flex; align-items: center; gap: 6px; border: none; cursor: pointer; font-family: inherit; font-size: 14px; font-weight: 700; padding: 7px 14px; border-radius: 8px; color: var(--gray-600); background: transparent; transition: background-color .18s ease, color .18s ease, box-shadow .18s ease; }
-  .rl-subtab svg { width: 16px; height: 16px; flex-shrink: 0; }
-  /* 활성 토글 — 살짝 컬러(브랜드 레드 1색, 연한 배경 + 텍스트/아이콘 강조) */
-  .rl-subtab[aria-selected="true"] { background: var(--white); color: var(--primary); box-shadow: 0 1px 2px rgba(0,0,0,0.08), 0 0 0 1px var(--primary-soft); }
-  .rl-subtab:hover:not([aria-selected="true"]) { color: var(--gray-900); }
-  .rl-subtab:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-
-  /* 페이지네이션 (페이지당 10건, 프론트 전용) */
-  .rl-pager { display: flex; justify-content: center; align-items: center; gap: 4px; margin-top: 14px; }
-  .rl-pager[hidden] { display: none; }
-  .rl-pager button { width: 32px; height: 32px; display: grid; place-items: center; border: none; background: transparent; border-radius: 8px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--gray-600); font-variant-numeric: tabular-nums; cursor: pointer; transition: background-color .18s ease, color .18s ease; }
-  .rl-pager button:hover:not(:disabled):not([aria-current="page"]) { background: var(--gray-100); }
-  .rl-pager button[aria-current="page"] { background: var(--gray-900); color: var(--white); }
-  .rl-pager button:disabled { color: var(--gray-300); cursor: not-allowed; }
-  .rl-pager button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-
-  /* 자료실 검색/정렬 툴바 */
-  .rl-toolbar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
-  .rl-search { position: relative; flex: 1; min-width: 200px; }
-  .rl-search > svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--gray-600); pointer-events: none; }
-  .rl-search input { width: 100%; height: 44px; padding: 0 40px 0 38px; font-family: inherit; font-size: 15px; color: var(--gray-900); background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius-md); outline: none; transition: border-color .15s ease, box-shadow .15s ease; }
-  .rl-search input::placeholder { color: var(--gray-600); }
-  .rl-search input:focus-visible { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(211,54,51,0.12); }
-  .rl-search-clear { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; display: grid; place-items: center; border: none; background: transparent; border-radius: 8px; color: var(--gray-600); cursor: pointer; }
-  .rl-search-clear:hover { background: var(--gray-100); color: var(--gray-900); }
-  .rl-search-clear:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-  .rl-sort { height: 44px; padding: 0 32px 0 12px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--gray-700); background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius-md); cursor: pointer; outline: none; appearance: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>"); background-repeat: no-repeat; background-position: right 10px center; }
-  .rl-sort:focus-visible { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(211,54,51,0.12); }
-  .rl-count { width: 100%; font-size: 13px; color: var(--gray-600); font-variant-numeric: tabular-nums; margin: -4px 0 10px; }
-  .rl-count b { color: var(--gray-900); font-weight: 700; }
-  /* 검색 결과 없음 */
-  .rl-empty { display: none; flex-direction: column; align-items: center; gap: 12px; text-align: center; padding: 44px 20px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); }
-  .rl-empty[data-show="1"] { display: flex; }
-  .rl-empty svg { width: 40px; height: 40px; color: var(--gray-400); }
-  .rl-empty p { font-size: 15px; font-weight: 700; color: var(--gray-900); }
-  .rl-empty p span { color: var(--gray-900); }
-  .rl-empty button { height: 40px; padding: 0 16px; font-family: inherit; font-size: 14px; font-weight: 600; color: var(--white); background: var(--primary); border: none; border-radius: var(--radius-md); cursor: pointer; }
-  .rl-empty button:hover { background: var(--primary-dark); }
-  .rl-empty button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-
-  /* 검색창 강조 (정렬 제거 → 전체 폭) */
-  .rl-toolbar { margin-bottom: 10px; }
-  .rl-search { flex: 1 1 100%; min-width: 0; }
-  .rl-search input { height: 48px; font-size: 15px; background: var(--white); border-color: var(--gray-300); box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
-  .rl-search > svg { color: var(--gray-600); }
-
-
-  /* 반응형 */
-  @media (max-width: 768px) {
-    .rl-row { gap: 12px; padding: 10px 8px; }
-    .rl-meta { font-size: 13px; }
-    .rl-toolbar { gap: 8px; }
-  }
-
-
-  /* ===== 교사 자료실 v2 본문 (카테고리 컬러·3탭·레벨컬러) ===== */
-  :root{
-    --c-start-bg:#E7F3E8;--c-start-fg:#3B8A4E;
-    --c-feature-bg:#E8EBF8;--c-feature-fg:#5566C7;
-    --c-answer-bg:#FBEEDA;--c-answer-fg:#BE7C18;
-    --c-ops-bg:#EDEFF2;--c-ops-fg:#5B636E;
-    --c-report-bg:#E1F1EF;--c-report-fg:#2E857B;
-    --c-counsel-bg:#FCEAEA;--c-counsel-fg:#D8473E;
-    --c-class-bg:#E9EBF2;--c-class-fg:#4E5A78;
-    --c-curri-bg:#F3EEE3;--c-curri-fg:#8A6D3B;
-  }
-  .pv-tabs{display:flex;gap:24px;border-bottom:1px solid var(--gray-200);margin:0 0 18px;flex-wrap:wrap;}
-  .pv-tab{display:inline-flex;align-items:center;gap:7px;appearance:none;background:none;border:none;cursor:pointer;padding:11px 2px;font-size:15px;font-family:inherit;color:var(--gray-400);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;font-weight:600;}
-  .pv-tab>i{font-size:18px;color:var(--tc,#9CA3AF);}
-  .pv-tab.on{color:var(--gray-900);border-bottom-color:var(--tc,var(--primary));}
-  .pv-tab:focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:4px;}
-  .pv-toolbar{display:flex;gap:8px;margin-bottom:14px;}
-  .pv-search{flex:1;display:flex;align-items:center;gap:8px;height:44px;padding:0 13px;background:var(--white);border:1px solid var(--gray-300);border-radius:var(--radius-md);color:var(--gray-600);}
-  .pv-search>i{font-size:18px;}
-  .pv-search input{border:none;outline:none;background:none;font-family:inherit;font-size:15px;flex:1;color:var(--gray-900);min-width:0;}
-  .pv-search input::placeholder{color:var(--gray-600);}
-  .pv-search:focus-within{border-color:var(--primary);box-shadow:0 0 0 3px rgba(211,54,51,.12);}
-  .pv-clear{border:none;background:none;color:var(--gray-600);cursor:pointer;font-size:16px;display:grid;place-items:center;width:28px;height:28px;border-radius:6px;flex-shrink:0;}
-  .pv-clear:hover{background:var(--gray-100);color:var(--gray-900);}
-  .pv-sort{display:flex;align-items:center;gap:7px;height:44px;padding:0 14px;background:var(--white);border:1px solid var(--gray-300);border-radius:var(--radius-md);color:var(--gray-700);font-size:14px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;}
-  .pv-sort>i{font-size:17px;}
-  .pv-sort:hover{border-color:var(--gray-400);}
-  .pv-sort:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
+  /* ===== 교사 자료실 v3 본문 (아이콘 절제판 — 행=파일형식 배지·헤더=단색 아이콘·탭 언더바 1색) ===== */
+  /* 3분류 선택 — 알약 칩, 활성=진한 채움 (메인 위젯 .pds3-btn과 동일 룩, 2026-06-12 통일 / 검색 기능 제거됨) */
+  .pv-head{margin:0 0 16px;}
+  .pv-tabs{display:flex;align-items:center;flex-wrap:wrap;gap:8px;}
+  .pv-tab{appearance:none;background:var(--white);border:1px solid var(--gray-300);cursor:pointer;padding:8px 16px;font-size:14px;font-family:inherit;color:var(--gray-600);border-radius:999px;white-space:nowrap;font-weight:600;transition:background-color .15s ease,border-color .15s ease,color .15s ease;}
+  .pv-tab:hover:not(.on){border-color:var(--gray-600);color:var(--gray-900);}
+  .pv-tab.on{background:var(--gray-900);border-color:var(--gray-900);color:var(--white);font-weight:700;}
+  .pv-tab:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
   .pv-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius-lg);overflow:hidden;}
-  .pv-ghd{display:flex;align-items:center;gap:9px;padding:16px 16px 9px;font-size:13px;font-weight:700;color:var(--gray-700);}
-  .pv-dot{display:none;}
+  /* 그룹 헤더 — 파스텔 아이콘 타일 + 건수 (모노톤 보완, 2026-06-12 컨펌) */
+  .pv-ghd{display:flex;align-items:center;gap:9px;padding:16px 16px 10px;font-size:14px;font-weight:700;color:var(--gray-900);}
+  .pv-ghd-ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex-shrink:0;}
+  .pv-ghd-ic svg{width:16px;height:16px;}
+  .pv-ghd-cnt{font-size:13px;font-weight:600;color:var(--gray-600);font-variant-numeric:tabular-nums;}
   .pv-row{display:flex;align-items:center;gap:13px;padding:13px 16px;border-top:1px solid var(--gray-100);}
   .pv-ghd + .pv-row{border-top:none;}
   .pv-row:hover{background:#FAFBFC;}
-  .pv-ico{width:28px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:#4B5563;}
+  /* 행 좌측 표시 없음 — 제목+날짜+다운로드만 (2026-06-12 컨펌) */
   .pv-body{flex:1;min-width:0;}
   .pv-ttl{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
   .pv-name{font-size:15px;color:var(--gray-900);font-weight:500;}
-  .pv-new{font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--primary-soft);color:var(--primary);}
-  .pv-date{font-size:13px;color:var(--gray-600);font-variant-numeric:tabular-nums;margin-top:3px;}
+  .pv-new{font-size:12px;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--primary-soft);color:var(--primary);flex-shrink:0;}
   .pv-dl{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:var(--radius-md);background:transparent;color:var(--gray-600);border:1px solid var(--gray-200);cursor:pointer;flex-shrink:0;}
-  .pv-dl>i{font-size:18px;}
+  .pv-dl svg{width:17px;height:17px;}
   .pv-dl:hover{background:var(--gray-100);color:var(--gray-900);border-color:var(--gray-300);}
   .pv-dl:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
   .pv-answer-grid{display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 16px;}
@@ -1503,24 +1253,23 @@
   .pv-achip:hover{background:#FAFBFC;}
   .pv-achip:focus-visible{outline:2px solid var(--primary);outline-offset:2px;}
   .pv-state{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:54px 20px;color:var(--gray-600);}
-  .pv-state>i{font-size:40px;color:var(--gray-400);margin-bottom:12px;}
+  .pv-state>svg{width:40px;height:40px;color:var(--gray-400);margin-bottom:12px;}
   .pv-state h3{margin:0 0 6px;font-size:15px;color:var(--gray-900);font-weight:700;}
   .pv-state p{margin:0;font-size:13px;color:var(--gray-600);}
   .pv-retry{margin-top:16px;display:inline-flex;align-items:center;gap:7px;padding:9px 16px;border:1px solid var(--gray-300);border-radius:var(--radius-md);background:var(--white);color:var(--gray-900);font-size:14px;font-family:inherit;cursor:pointer;}
-  .pv-retry>i{font-size:16px;}
+  .pv-retry svg{width:15px;height:15px;}
   .pv-sk-row{display:flex;align-items:center;gap:13px;padding:14px 16px;border-top:1px solid var(--gray-100);}
   .pv-sk-row:first-child{border-top:none;}
   .pv-sk{background:linear-gradient(90deg,#EEF0F3 25%,#F5F6F8 37%,#EEF0F3 63%);background-size:400% 100%;animation:pv-shimmer 1.4s ease infinite;border-radius:6px;}
   @keyframes pv-shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
   @media (prefers-reduced-motion: reduce){.pv-sk{animation:none}}
-  @media (max-width:768px){.pv-tabs{gap:14px}.pv-toolbar{flex-wrap:wrap}.pv-name{font-size:14.5px}}
-  /* 워크북 답안지 — 레벨 컬러 원형 버튼 (PDF 표시 없음) */
-  .pv-wb-grid{display:flex;flex-wrap:wrap;gap:10px;padding:6px 16px 16px;}
-  .pv-wb{display:inline-flex;align-items:center;justify-content:center;min-width:54px;height:42px;padding:0 18px;border-radius:999px;font-size:15px;font-weight:800;color:#fff;border:none;cursor:pointer;text-decoration:none;}
+  @media (max-width:768px){.pv-name{font-size:14.5px}}
+  /* 워크북 답지 — 레벨 컬러 원형 버튼 (공식 레벨 팔레트, PDF 표시 없음) */
+  .pv-wb-grid{display:flex;flex-wrap:wrap;gap:8px;padding:6px 16px 16px;}
+  .pv-wb{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:34px;padding:0 14px;border-radius:999px;font-size:13px;font-weight:700;color:#fff;border:none;cursor:pointer;text-decoration:none;}
   .pv-wb:hover{filter:brightness(.93);}
   .pv-wb:focus-visible{outline:2px solid #1F2937;outline-offset:2px;}
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css" />
 </head>
 <body>
 <a class="skip-link" href="#mainContent">본문 바로가기</a>
@@ -1696,20 +1445,13 @@
     <h1 class="pds-title">교사 자료실</h1>
   </section>
 
-  <!-- Lv1 탭 (3개) -->
-  <div class="pv-tabs" role="tablist" aria-label="자료 구분">
-    <button class="pv-tab on" type="button" role="tab" aria-selected="true" data-tab="product" style="--tc:#3B8A4E"><i class="ti ti-books" aria-hidden="true"></i>참빛북클럽 운영 자료</button>
-    <button class="pv-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="helper" style="--tc:#2563EB"><i class="ti ti-school" aria-hidden="true"></i>학원 운영 도우미</button>
-    <button class="pv-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="know" style="--tc:#D8473E"><i class="ti ti-bulb" aria-hidden="true"></i>Bill Kim의 노하우</button>
-  </div>
-
-  <!-- 검색 + 정렬 -->
-  <div class="pv-toolbar">
-    <label class="pv-search"><i class="ti ti-search" aria-hidden="true"></i>
-      <input id="pvQ" type="search" placeholder="자료 찾기" aria-label="자료 검색" autocomplete="off">
-      <button class="pv-clear" id="pvClear" type="button" aria-label="검색어 지우기" hidden><i class="ti ti-x" aria-hidden="true"></i></button>
-    </label>
-    <button class="pv-sort" id="pvSort" type="button"><i class="ti ti-arrows-sort" aria-hidden="true"></i><span id="pvSortLabel">최신순</span></button>
+  <!-- 3분류 칩 -->
+  <div class="pv-head">
+    <div class="pv-tabs" role="tablist" aria-label="자료 구분">
+      <button class="pv-tab on" type="button" role="tab" aria-selected="true" data-tab="product">참빛북클럽 운영 자료</button>
+      <button class="pv-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="helper">학원 운영 도우미</button>
+      <button class="pv-tab" type="button" role="tab" aria-selected="false" tabindex="-1" data-tab="know">Bill Kim의 노하우</button>
+    </div>
   </div>
 
   <!-- 목록 -->
@@ -1717,21 +1459,21 @@
     <div id="pvRows"></div>
     <div class="pv-state" id="pvLoading">
       <div style="width:100%">
-        <div class="pv-sk-row"><div class="pv-sk" style="width:38px;height:38px"></div><div style="flex:1"><div class="pv-sk" style="width:42%;height:13px"></div><div class="pv-sk" style="width:24%;height:10px;margin-top:8px"></div></div><div class="pv-sk" style="width:64px;height:34px"></div></div>
-        <div class="pv-sk-row"><div class="pv-sk" style="width:38px;height:38px"></div><div style="flex:1"><div class="pv-sk" style="width:54%;height:13px"></div><div class="pv-sk" style="width:20%;height:10px;margin-top:8px"></div></div><div class="pv-sk" style="width:64px;height:34px"></div></div>
-        <div class="pv-sk-row"><div class="pv-sk" style="width:38px;height:38px"></div><div style="flex:1"><div class="pv-sk" style="width:36%;height:13px"></div><div class="pv-sk" style="width:28%;height:10px;margin-top:8px"></div></div><div class="pv-sk" style="width:64px;height:34px"></div></div>
+        <div class="pv-sk-row"><div style="flex:1"><div class="pv-sk" style="width:42%;height:13px"></div></div><div class="pv-sk" style="width:64px;height:34px"></div></div>
+        <div class="pv-sk-row"><div style="flex:1"><div class="pv-sk" style="width:54%;height:13px"></div></div><div class="pv-sk" style="width:64px;height:34px"></div></div>
+        <div class="pv-sk-row"><div style="flex:1"><div class="pv-sk" style="width:36%;height:13px"></div></div><div class="pv-sk" style="width:64px;height:34px"></div></div>
       </div>
     </div>
     <div class="pv-state" id="pvEmpty">
-      <i class="ti ti-folder-open" aria-hidden="true"></i>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
       <h3>자료가 없습니다</h3>
-      <p>검색어를 바꾸거나, 새 자료가 등록되면 이곳에 표시됩니다.</p>
+      <p>새 자료가 등록되면 이곳에 표시됩니다.</p>
     </div>
     <div class="pv-state" id="pvError">
-      <i class="ti ti-alert-triangle" aria-hidden="true"></i>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17v.01"/></svg>
       <h3>자료를 불러오지 못했습니다</h3>
       <p>네트워크 상태를 확인한 뒤 다시 시도해 주세요.</p>
-      <button class="pv-retry" id="pvRetry" type="button"><i class="ti ti-refresh" aria-hidden="true"></i>다시 시도</button>
+      <button class="pv-retry" id="pvRetry" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 4v6h-6"/><path d="M20.5 15a9 9 0 1 1-2-9.4L23 10"/></svg>다시 시도</button>
     </div>
   </section>
 </div>
@@ -2083,7 +1825,7 @@
     });
   }
   document.querySelectorAll('[role="tab"]').forEach(function (tab) {
-    if (tab.closest('.pds-tabbar') || tab.closest('.rl-subtabs') || tab.closest('.pv-tabs')) return; // 자료실 메인 탭·서브탭은 wireTabs()가 전담 (이중 바인딩 방지)
+    if (tab.closest('.pv-tabs')) return; // 자료실 메인 탭은 전용 핸들러가 전담 (이중 바인딩 방지)
     tab.addEventListener('click', function () {
       activateTab(tab);
       if (tab.dataset.more) {
@@ -2093,7 +1835,7 @@
     });
   });
   document.querySelectorAll('[role="tablist"]').forEach(function (list) {
-    if (list.closest('.pds-tabbar') || list.classList.contains('rl-subtabs') || list.classList.contains('pv-tabs')) return; // 자료실 메인 탭·서브탭은 wireTabs()가 전담 (이중 바인딩 방지)
+    if (list.classList.contains('pv-tabs')) return; // 자료실 메인 탭은 전용 핸들러가 전담 (이중 바인딩 방지)
     var tabs = [].slice.call(list.querySelectorAll('[role="tab"]'));
     list.addEventListener('keydown', function (e) {
       var i = tabs.indexOf(document.activeElement);
@@ -2560,28 +2302,49 @@
 </script>
 
 <script>
-/* 교사 자료실 — 탭별/카테고리별 아이콘·컬러 + 워크북 레벨 원형버튼 */
+/* 교사 자료실 v3 — 행=파일형식 배지(단색) · 그룹 헤더=단색 아이콘 · 워크북 레벨 원형버튼(7색 유지)
+   어드민 연동 메모: 백엔드는 {tab, cat, title, date, url, (선택)ft} 만 내려주면 됨.
+   아이콘/라벨은 프론트 CATEGORY 설정에서만 관리 — DB에 아이콘명 저장 금지. */
 (function () {
+  /* 아이콘 — 인라인 SVG 단일 시스템 (사이드바와 동일 계열, stroke 1.8 / 어드민 전환 시 Phosphor 1:1 치환) */
+  var S='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+  var ICONS={
+    flag:    S+'<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></svg>',
+    book:    S+'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+    notebook:S+'<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h8M8 17h5"/></svg>',
+    bell:    S+'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>',
+    card:    S+'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>',
+    chat:    S+'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+    clip:    S+'<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>',
+    mega:    S+'<path d="M3 11l16-6v14L3 13z"/><path d="M7 13v4a2 2 0 0 0 4 0"/></svg>',
+    gift:    S+'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M5 12v9h14v-9"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>',
+    heart:   S+'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+    cap:     S+'<path d="M22 9L12 4 2 9l10 5 10-5z"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5"/></svg>',
+    route:   S+'<circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M8 19h6.5a4 4 0 0 0 0-8h-5a4 4 0 0 1 0-8H16"/></svg>',
+    dl:      S+'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>'
+  };
+  /* 카테고리 설정 — bg/fg는 그룹 헤더 파스텔 타일 전용 (저채도, 본문은 모노톤 유지) */
   var CATEGORY = {
     /* 참빛북클럽 운영 자료 */
-    start:   {label:'시작하기',   icon:'ti-flag-2',  color:'#3B8A4E'},
-    feature: {label:'콘텐츠 활용', icon:'ti-book-2',  color:'#5566C7'},
-    workbook:{label:'워크북',     icon:'ti-notebook',color:'#BE7C18'},
+    start:   {label:'시작하기',   ic:'flag',    bg:'#E7F3E8',fg:'#3B8A4E'},
+    feature: {label:'콘텐츠 활용', ic:'book',    bg:'#E8EBF8',fg:'#5566C7'},
+    workbook:{label:'워크북 답지', ic:'notebook',bg:'#FBEEDA',fg:'#BE7C18'},
     /* 학원 운영 도우미 (고정 6분류) */
-    notice:  {label:'공지·안내', icon:'ti-bell',            color:'#D8473E'},
-    payment: {label:'수강·결제', icon:'ti-credit-card',     color:'#2E857B'},
-    csot:    {label:'상담·소통', icon:'ti-messages',        color:'#2563EB'},
-    attend:  {label:'출결·운영', icon:'ti-clipboard-check', color:'#5B636E'},
-    promo:   {label:'모집·홍보', icon:'ti-speakerphone',    color:'#C2620E'},
-    event:   {label:'행사·시즌', icon:'ti-confetti',        color:'#B7791F'},
+    notice:  {label:'공지·안내', ic:'bell', bg:'#FCEAEA',fg:'#D8473E'},
+    payment: {label:'수강·결제', ic:'card', bg:'#E1F1EF',fg:'#2E857B'},
+    csot:    {label:'상담·소통', ic:'chat', bg:'#E3EDFB',fg:'#2563EB'},
+    attend:  {label:'출결·운영', ic:'clip', bg:'#EDEFF2',fg:'#5B636E'},
+    promo:   {label:'모집·홍보', ic:'mega', bg:'#FBEFE3',fg:'#C2620E'},
+    event:   {label:'행사·시즌', ic:'gift', bg:'#F7F0DF',fg:'#B7791F'},
     /* Bill Kim의 노하우 */
-    kcounsel:{label:'학부모 상담', icon:'ti-user-heart', color:'#2563EB'},
-    kclass:  {label:'수업 진행',   icon:'ti-school',     color:'#4E5A78'},
-    kcurri:  {label:'커리큘럼',    icon:'ti-route',      color:'#8A6D3B'}
+    kcounsel:{label:'학부모 상담', ic:'heart', bg:'#E3EDFB',fg:'#2563EB'},
+    kclass:  {label:'수업 진행',   ic:'cap',   bg:'#E9EBF2',fg:'#4E5A78'},
+    kcurri:  {label:'커리큘럼',    ic:'route', bg:'#F3EEE3',fg:'#8A6D3B'}
   };
   var ORDER = ['start','feature','workbook','notice','payment','csot','attend','promo','event','kcounsel','kclass','kcurri'];
-  /* 워크북 레벨 컬러 (원형 버튼 채움색) */
-  var LEVELC = {'K':'#D8473E','G1':'#E0560B','G2':'#B7791F','G3':'#3B8A4E','G4':'#2E857B','G5':'#2563EB','G6':'#4E5A78'};
+  /* 워크북 답지 레벨 컬러 — 공식 레벨 팔레트 (단일 출처: student-main-v27 LEVEL_COLORS / 참빛북클럽-DESIGN.md §1.7) */
+  var LEVELC = {'K':'#ed6114','G1':'#f99120','G2':'#ffc267','G3':'#3ebcbb','G4':'#108c98','G5':'#146d8f','G6':'#2f3653'};
+  /* 텍스트는 전 레벨 흰색 고정 (DESIGN.md §1.7 --lv-on 정책, 2026-06-12 컨펌) */
   var isNew = function(d){ return (Date.now() - new Date(d)) / 864e5 <= 14; };
 
   var DATA = [
@@ -2662,34 +2425,30 @@
     {tab:'know',cat:'kcurri', title:'방학 특강 커리큘럼',date:'2026-04-20',url:'#'}
   ];
 
-  var curTab='product', sortDesc=true;
+  var curTab='product';
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c];});}
 
   function rowHTML(it){
-    var c=CATEGORY[it.cat];
     return '<div class="pv-row">'
-      +'<div class="pv-ico"><i class="ti '+c.icon+'" aria-hidden="true"></i></div>'
-      +'<div class="pv-body"><div class="pv-ttl"><span class="pv-name">'+esc(it.title)+'</span></div><div class="pv-date">'+it.date.replace(/-/g,'.')+'</div></div>'
-      +'<a class="pv-dl" href="'+it.url+'"'+(it.url!=='#'?' target="_blank" rel="noopener"':'')+' aria-label="'+esc(it.title)+' 다운로드"><i class="ti ti-download" aria-hidden="true"></i></a>'
+      +'<div class="pv-body"><div class="pv-ttl"><span class="pv-name">'+esc(it.title)+'</span>'+(isNew(it.date)?'<span class="pv-new">NEW</span>':'')+'</div></div>'
+      +'<a class="pv-dl" href="'+it.url+'"'+(it.url!=='#'?' target="_blank" rel="noopener"':'')+' aria-label="'+esc(it.title)+' 다운로드">'+ICONS.dl+'</a>'
       +'</div>';
   }
   function groupHTML(catKey, items){
     var c=CATEGORY[catKey];
-    var head='<div class="pv-ghd"><i class="ti '+c.icon+'" aria-hidden="true" style="color:#4B5563;font-size:16px"></i>'+c.label+'</div>';
+    var head='<div class="pv-ghd"><span class="pv-ghd-ic" style="background:'+c.bg+';color:'+c.fg+'">'+ICONS[c.ic]+'</span><span>'+c.label+'</span><span class="pv-ghd-cnt">'+items.length+'</span></div>';
     if(catKey==='workbook'){
       var btns=items.map(function(it){
         var col=LEVELC[it.title]||'#5B636E';
-        return '<a class="pv-wb" href="'+it.url+'" style="background:'+col+'" aria-label="워크북 답안지 '+esc(it.title)+' 다운로드">'+esc(it.title)+'</a>';
+        return '<a class="pv-wb" href="'+it.url+'" style="background:'+col+'" aria-label="워크북 답지 '+esc(it.title)+' 다운로드">'+esc(it.title)+'</a>';
       }).join('');
       return head+'<div class="pv-wb-grid">'+btns+'</div>';
     }
     return head+items.map(rowHTML).join('');
   }
   function render(){
-    var q=(document.getElementById('pvQ').value||'').trim().toLowerCase();
     var items=DATA.filter(function(it){return it.tab===curTab;});
-    if(q) items=items.filter(function(it){return it.title.toLowerCase().indexOf(q)!==-1;});
-    items.sort(function(a,b){return sortDesc? new Date(b.date)-new Date(a.date) : new Date(a.date)-new Date(b.date);});
+    items.sort(function(a,b){return new Date(b.date)-new Date(a.date);}); /* 최신순 고정 (정렬 토글 제거 — 2026-06-12) */
     var rows=document.getElementById('pvRows');
     if(items.length===0){rows.innerHTML='';setState('empty',true);return;}
     setState('default',true);
@@ -2707,13 +2466,6 @@
     document.getElementById('pvError').style.display = st==='error'?'flex':'none';
     if(!fromRender && st==='default') render();
   }
-  function toggleSort(){sortDesc=!sortDesc;document.getElementById('pvSortLabel').textContent=sortDesc?'최신순':'오래된순';render();}
-
-  var qEl=document.getElementById('pvQ'), clr=document.getElementById('pvClear');
-  var t;
-  qEl.addEventListener('input',function(){clr.hidden=!qEl.value;clearTimeout(t);t=setTimeout(render,120);});
-  clr.addEventListener('click',function(){qEl.value='';clr.hidden=true;render();qEl.focus();});
-  document.getElementById('pvSort').addEventListener('click',toggleSort);
   document.getElementById('pvRetry').addEventListener('click',function(){render();});
 
   var tabs=[].slice.call(document.querySelectorAll('.pv-tab'));
@@ -2721,7 +2473,7 @@
     tb.addEventListener('click',function(){
       tabs.forEach(function(x){x.classList.remove('on');x.setAttribute('aria-selected','false');x.tabIndex=-1;});
       tb.classList.add('on');tb.setAttribute('aria-selected','true');tb.tabIndex=0;
-      curTab=tb.dataset.tab; qEl.value='';clr.hidden=true; render();
+      curTab=tb.dataset.tab; render();
     });
     tb.addEventListener('keydown',function(e){
       var i=tabs.indexOf(tb), n=tabs.length, nx=null;

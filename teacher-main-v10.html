@@ -545,6 +545,9 @@
   }
   /* hover 시 weight 변동 제거 → 텍스트 폭 변동 없음, 정렬 안정 */
   .list-item:hover .list-title { color: var(--primary); }
+  /* 자료실 행 — 카테고리 칩(파스텔, 자료실 페이지 그룹 헤더 타일과 동일 팔레트) + NEW 배지 (2026-06-12) */
+  .list-cat { flex-shrink: 0; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; letter-spacing: -0.01em; white-space: nowrap; }
+  .list-new { flex-shrink: 0; font-size: 12px; font-weight: 700; padding: 2px 7px; border-radius: 999px; background: var(--primary-soft); color: var(--primary); }
   /* 날짜 메타 — 모든 list-item에서 픽셀 단위 우측 정렬 */
   .list-date {
     flex-shrink: 0;
@@ -635,7 +638,6 @@
     box-shadow: var(--shadow-card);
   }
   .campaign-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
-
 
   /* ========== 학원 운영 도우미 (info-row 우측 위젯) ========== */
   .helper-mini {
@@ -1202,23 +1204,19 @@
 
   /* 교사 자료실 3분류 토글 (메인) — 핀 버튼, 회색 박스/동그라미 없음 */
   .pds3-toggle{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-self:flex-start;}
-  .pds3-btn{display:inline-flex;align-items:center;gap:6px;border:1px solid #E5E7EB;background:#fff;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;color:#6B7280;padding:7px 14px;border-radius:999px;transition:border-color .15s,color .15s,background-color .15s;}
-  .pds3-btn>i{font-size:16px;}
-  .pds3-btn.on{border-color:var(--tc,#1F2937);color:var(--tc,#1F2937);font-weight:700;}
-  .pds3-btn:hover:not(.on){border-color:#9CA3AF;color:#1F2937;}
+  /* 자료실 페이지 .pv-tab과 동일 룩 (알약 칩 + 활성 진한 채움, 2026-06-12 통일) */
+  .pds3-btn{display:inline-flex;align-items:center;border:1px solid #D1D5DB;background:#fff;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;color:#6B7280;padding:8px 16px;border-radius:999px;transition:border-color .15s,color .15s,background-color .15s;}
+  .pds3-btn.on{background:#1F2937;border-color:#1F2937;color:#fff;font-weight:700;}
+  .pds3-btn:hover:not(.on){border-color:#6B7280;color:#1F2937;}
   .pds3-btn:focus-visible{outline:2px solid #D33633;outline-offset:2px;}
   .pds-cat-list{display:flex;flex-direction:column;}
   .pds-cat-list[hidden]{display:none;}
-  .pds-cat-list .file-icon{width:28px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;color:#4B5563;}
-  .pds-cat-list .file-icon>i{font-size:20px;}
-  .pds-cat-list .file-icon svg{display:none;}
 
 </style>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.5.0/dist/tabler-icons.min.css" />
+
 </head>
 <body>
 <!-- 참빛북클럽 교사 메인 v5 (개선판) — Empty/Loading/Error · 접근성 · 반응형 · 디자인 토큰 반영 -->
-
 
 <header class="top-header">
   <div class="header-inner">
@@ -1480,27 +1478,27 @@
         <!-- 데이터 (기본 표시 — JS 미실행 시에도 노출) -->
         <div class="list-stack pds-cat-wrap" data-state-for="pds">
         <div class="pds3-toggle" role="group" aria-label="자료 분류">
-          <button class="pds3-btn on" type="button" data-cat="product" aria-pressed="true" style="--tc:#3B8A4E"><i class="ti ti-books" aria-hidden="true" style="color:#3B8A4E"></i>참빛북클럽 운영 자료</button>
-          <button class="pds3-btn" type="button" data-cat="helper" aria-pressed="false" style="--tc:#2563EB"><i class="ti ti-school" aria-hidden="true" style="color:#2563EB"></i>학원 운영 도우미</button>
-          <button class="pds3-btn" type="button" data-cat="know" aria-pressed="false" style="--tc:#D8473E"><i class="ti ti-bulb" aria-hidden="true" style="color:#D8473E"></i>Bill Kim의 노하우</button>
+          <button class="pds3-btn on" type="button" data-cat="product" aria-pressed="true">참빛북클럽 운영 자료</button>
+          <button class="pds3-btn" type="button" data-cat="helper" aria-pressed="false">학원 운영 도우미</button>
+          <button class="pds3-btn" type="button" data-cat="know" aria-pressed="false">Bill Kim의 노하우</button>
         </div>
         <div class="pds-cat-list" data-cat="product">
-          <a href="https://cdn.bookclubs.co.kr/tr_a/Basic_guide.pdf" target="_blank" rel="noopener noreferrer" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-flag-2"></i></span><span class="list-title">참빛북클럽 첫 시작 커리큘럼 가이드</span><time class="list-date" datetime="2026-06-08">06.08</time><span class="list-arrow" aria-hidden="true">›</span></a>
-          <a href="https://cdn.bookclubs.co.kr/tr_a/2024_LMS.pdf" target="_blank" rel="noopener noreferrer" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-flag-2"></i></span><span class="list-title">북클럽 교사용 사용 가이드</span><time class="list-date" datetime="2026-05-20">05.20</time><span class="list-arrow" aria-hidden="true">›</span></a>
-          <a href="#" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-book-2"></i></span><span class="list-title">E-Library 이용 가이드</span><time class="list-date" datetime="2026-06-02">06.02</time><span class="list-arrow" aria-hidden="true">›</span></a>
-          <a href="#" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-book-2"></i></span><span class="list-title">Workbook 활용 가이드</span><time class="list-date" datetime="2026-05-09">05.09</time><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="https://cdn.bookclubs.co.kr/tr_a/Basic_guide.pdf" target="_blank" rel="noopener noreferrer" class="list-item"><span class="list-cat" style="background:#E7F3E8;color:#3B8A4E">시작하기</span><span class="list-title">참빛북클럽 첫 시작 커리큘럼 가이드</span><span class="list-new">NEW</span><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="https://cdn.bookclubs.co.kr/tr_a/2024_LMS.pdf" target="_blank" rel="noopener noreferrer" class="list-item"><span class="list-cat" style="background:#E7F3E8;color:#3B8A4E">시작하기</span><span class="list-title">북클럽 교사용 사용 가이드</span><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="#" class="list-item"><span class="list-cat" style="background:#E8EBF8;color:#5566C7">콘텐츠 활용</span><span class="list-title">E-Library 이용 가이드</span><span class="list-new">NEW</span><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="#" class="list-item"><span class="list-cat" style="background:#E8EBF8;color:#5566C7">콘텐츠 활용</span><span class="list-title">Workbook 활용 가이드</span><span class="list-arrow" aria-hidden="true">›</span></a>
         </div>
         <div class="pds-cat-list" data-cat="helper" hidden>
-          <a href="#" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-bell"></i></span><span class="list-title">휴무 공지 서식</span><time class="list-date" datetime="2026-06-05">06.05</time><span class="list-arrow" aria-hidden="true">›</span></a>
-          <a href="#" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-credit-card"></i></span><span class="list-title">수강료 안내 템플릿</span><time class="list-date" datetime="2026-06-03">06.03</time><span class="list-arrow" aria-hidden="true">›</span></a>
-          <a href="#" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-messages"></i></span><span class="list-title">학부모 상담 신청서</span><time class="list-date" datetime="2026-06-04">06.04</time><span class="list-arrow" aria-hidden="true">›</span></a>
-          <a href="#" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-speakerphone"></i></span><span class="list-title">신규 원생 모집 포스터</span><time class="list-date" datetime="2026-06-06">06.06</time><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="#" class="list-item"><span class="list-cat" style="background:#FCEAEA;color:#D8473E">공지·안내</span><span class="list-title">휴무 공지 서식</span><span class="list-new">NEW</span><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="#" class="list-item"><span class="list-cat" style="background:#E1F1EF;color:#2E857B">수강·결제</span><span class="list-title">수강료 안내 템플릿</span><span class="list-new">NEW</span><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="#" class="list-item"><span class="list-cat" style="background:#E3EDFB;color:#2563EB">상담·소통</span><span class="list-title">학부모 상담 신청서</span><span class="list-new">NEW</span><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="#" class="list-item"><span class="list-cat" style="background:#FBEFE3;color:#C2620E">모집·홍보</span><span class="list-title">신규 원생 모집 포스터</span><span class="list-new">NEW</span><span class="list-arrow" aria-hidden="true">›</span></a>
         </div>
         <div class="pds-cat-list" data-cat="know" hidden>
-          <a href="#" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-school"></i></span><span class="list-title">책 읽고 수업 진행하는 법</span><time class="list-date" datetime="2026-06-04">06.04</time><span class="list-arrow" aria-hidden="true">›</span></a>
-          <a href="#" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-user-heart"></i></span><span class="list-title">학부모 상담 가이드</span><time class="list-date" datetime="2026-05-20">05.20</time><span class="list-arrow" aria-hidden="true">›</span></a>
-          <a href="#" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-route"></i></span><span class="list-title">정규반 커리큘럼</span><time class="list-date" datetime="2026-05-10">05.10</time><span class="list-arrow" aria-hidden="true">›</span></a>
-          <a href="#" class="list-item"><span class="file-icon" aria-hidden="true"><i class="ti ti-school"></i></span><span class="list-title">학습 지도법</span><time class="list-date" datetime="2026-04-25">04.25</time><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="#" class="list-item"><span class="list-cat" style="background:#E9EBF2;color:#4E5A78">수업 진행</span><span class="list-title">책 읽고 수업 진행하는 법</span><span class="list-new">NEW</span><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="#" class="list-item"><span class="list-cat" style="background:#E3EDFB;color:#2563EB">학부모 상담</span><span class="list-title">학부모 상담 가이드</span><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="#" class="list-item"><span class="list-cat" style="background:#F3EEE3;color:#8A6D3B">커리큘럼</span><span class="list-title">정규반 커리큘럼</span><span class="list-arrow" aria-hidden="true">›</span></a>
+          <a href="#" class="list-item"><span class="list-cat" style="background:#E9EBF2;color:#4E5A78">수업 진행</span><span class="list-title">학습 지도법</span><span class="list-arrow" aria-hidden="true">›</span></a>
         </div>
         </div>
         <!-- 빈 화면 -->
